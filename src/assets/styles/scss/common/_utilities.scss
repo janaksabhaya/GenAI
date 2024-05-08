@@ -1,0 +1,75 @@
+@import "../common/variables";
+
+//  ============> BOX SHADOW'S <============
+.modal-shadow {
+	box-shadow: $themeModalBoxShadow;
+}
+
+//  ============> FONT-COLOR'S <============
+
+.text-color {
+	color: $themePrimaryColor;
+}
+.text-theme-color {
+	color: $themeLightColor;
+}
+.text-static-black {
+	color: $themeStaticBlack;
+}
+.text-white-primary {
+	color: $themeWhiteColor !important;
+}
+.text-parimary-black {
+	color: $themePrimaryBlack;
+}
+.text-secondry-black {
+	color: $themeSecondryBlack;
+}
+.text-secondry-light-color {
+	color: $themeSeconderyLightColor;
+}
+.text-secondry-default {
+	color: $themeSecondryDefault;
+}
+.text-theme-danger {
+	color: $themeTextDanger;
+}
+//  ============> BACKGROUD COLOR'S <============
+.bg-static-white {
+	background-color: $themeWhiteColor;
+}
+.bg-static-light {
+	background-color: $themeLightColor;
+}
+.bg-btn-theme {
+	background-color: $themeLightBlueColor;
+}
+.bg-theme-light-blue{
+	background-color: $themeLightBlueColor !important;
+}
+//  ============> FONT-SIZE'S <============
+
+.font-10 {
+	font-size: $font-10;
+}
+.font-12 {
+	font-size: $font-12;
+}
+.font-14 {
+	font-size: $font-14 !important;
+}
+.font-16 {
+	font-size: $font-16;
+}
+.font-18 {
+	font-size: $font-18;
+}
+.font-20 {
+	font-size: $font-20;
+}
+.font-24 {
+	font-size: $font-24;
+}
+.font-32 {
+	font-size: $font-32;
+}

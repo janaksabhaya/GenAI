@@ -1,0 +1,51 @@
+.login--section {
+	background-image: url($loginBG);
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	.login--card {
+		background-color: $themeWhiteColor;
+		padding: 15px 30px;
+		opacity: 0.85;
+		border: 1px solid $themeDefaultColor;
+		box-shadow: $themeBoxShadow;
+		max-width: 555px;
+		width: 100%;
+		border-radius: 4px;
+		h3 {
+			font-weight: 500;
+			line-height: 30px;
+		}
+		label {
+			font-weight: 700;
+			line-height: 35px;
+		}
+		input {
+			padding: 6px 12px;
+			border: 1px solid $themeDefaultColor;
+			border-radius: 2px;
+			outline: none;
+			height: 40px;
+			margin: 10px 0px;
+			font-weight: 400;
+			&::placeholder {
+				font-size: $font-14;
+				font-weight: 400;
+				color: $themeSecondryBlack;
+			}
+		}
+		button {
+			background-color: $themeLoginBtnColor;
+			border-bottom: 5px solid #c8c8c8 !important;
+			border-radius: 2px;
+			height: 60px;
+			outline: none;
+			border: none;
+			margin-top: 20px;
+			transition: all 0.3s ease-in-out;
+			&:hover {
+				background-color: $themeHoverColor;
+			}
+		}
+	}
+}

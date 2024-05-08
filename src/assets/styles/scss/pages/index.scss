@@ -1,0 +1,16 @@
+//  ============> COMMON <============
+
+@import "../common/variables";
+@import "../common/themeVariables";
+
+//  ============> LAYOUT'S <============
+
+@import "../layout/header";
+
+//  ============> PAGE'S <============
+
+@import "./login.scss";
+@import "./palettePlatform.scss";
+@import "./dashboard.scss";
+@import "./documents.scss";
+@import './auditlogs.scss';

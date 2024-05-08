@@ -1,0 +1,93 @@
+// ==========> {{ START:: Modal CSS }} <==========
+
+.modal--body,
+.modal--footer,
+.help--modal {
+	padding: 12px;
+}
+
+.modal--footer {
+	border-top: 1.5px solid $themeDefaultColor;
+}
+
+.help--modal {
+	h4 {
+		font-weight: 400;
+	}
+
+	button {
+		&:hover {
+			color: $themeWhiteColor;
+		}
+	}
+}
+.ReactModal__Content{
+    border: none !important;
+}
+
+// ==========> {{ END:: Modal CSS }} <==========
+
+// ==========> {{ START:: Button CSS }} <==========
+
+.globel--btn {
+	max-width: 120px;
+	width: 100%;
+
+	// background-color: $themeSeconderyLightColor;
+	&:hover {
+		background-color: $themeSeconderyLightColor;
+		color: $themeWhiteColor;
+	}
+}
+
+// ==========> {{ END:: Button CSS }} <==========
+
+// ==========> {{ START:: Chart CSS }} <==========
+
+.highcharts-credits,
+.highcharts-title {
+	display: none;
+}
+.chart--view-section {
+	padding: 12px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	.heading--box {
+		padding: 4px 8px;
+		background-color: #f7f8fc;
+		button {
+			svg {
+				font-size: $font-18;
+			}
+		}
+	}
+}
+
+// ==========> {{ END:: Chart CSS }} <==========
+
+// ==========> {{ START:: Theme table CSS }} <==========
+
+.theme--table-wrap {
+	table {
+		thead {
+			tr {
+				th {
+					padding: 8px 16px;
+					svg{
+						width: 18px;
+						height: 18px;
+					}
+				}
+			}
+		}
+		tbody {
+			tr {
+				td {
+					padding: 8px 16px;
+				}
+			}
+		}
+	}
+}
+
+// ==========> {{ END:: Theme table CSS }} <==========

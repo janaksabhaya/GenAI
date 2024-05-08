@@ -1,0 +1,41 @@
+.documents-page {
+    .nav {
+        a {
+            color: $themeStaticBlack
+        }
+        .nav-link.active {
+            background-color: $themeColor;
+            color: $themeWhiteColor;
+        }
+    }
+
+    .documents--tabs{
+        border-bottom: 0px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid $themeDefaultColor;
+        .nav-item{
+            border: 0px;
+            flex: none;
+            .nav-link{
+                border: 0px;
+                border-radius: 8px;
+            }
+        }
+    }
+
+    .theme--table-wrap {
+        .icon-dropdowns {
+            .dropdown {
+                .dropdown-toggle {
+                    outline: none;
+                    &:focus {
+                        border-color: none;
+                    }
+                    &::after {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
