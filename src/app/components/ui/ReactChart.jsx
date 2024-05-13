@@ -12,7 +12,6 @@ const ReactChart = ({ options }) => {
 				<div className="d-flex align-items-center gap-1">
 					<ReactButton size="sm" className="d-block" onClick={() => {}}>
 						<Icon icon="mdi:grid" className="d-block" />
-						{/* <Icon icon="bi:graph-up-arrow" className="d-block" /> */}
 					</ReactButton>
 					<ReactButton size="sm" className="d-block" onClick={() => {}}>
 						<Icon icon="humbleicons:external-link" className="d-block" />

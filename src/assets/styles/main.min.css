@@ -13255,17 +13255,47 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 }
 
 .dashboard-page-content .filters-dropdown {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   margin-bottom: 10px;
-  justify-content: flex-end;
 }
 .dashboard-page-content .filters-dropdown .select-dropdown {
   width: 200px;
 }
 .dashboard-page-content .filters-dropdown label {
   font-weight: 500;
+}
+.dashboard-page-content .theme--table-wrap .table thead tr th:nth-child(1), .dashboard-page-content .theme--table-wrap .table thead tr th:nth-child(2), .dashboard-page-content .theme--table-wrap .table thead tr th:nth-child(3), .dashboard-page-content .theme--table-wrap .table thead tr th:nth-child(4), .dashboard-page-content .theme--table-wrap .table thead tr th:nth-child(5), .dashboard-page-content .theme--table-wrap .table thead tr th:nth-child(6),
+.dashboard-page-content .theme--table-wrap .table thead tr td:nth-child(1),
+.dashboard-page-content .theme--table-wrap .table thead tr td:nth-child(2),
+.dashboard-page-content .theme--table-wrap .table thead tr td:nth-child(3),
+.dashboard-page-content .theme--table-wrap .table thead tr td:nth-child(4),
+.dashboard-page-content .theme--table-wrap .table thead tr td:nth-child(5),
+.dashboard-page-content .theme--table-wrap .table thead tr td:nth-child(6),
+.dashboard-page-content .theme--table-wrap .table tbody tr th:nth-child(1),
+.dashboard-page-content .theme--table-wrap .table tbody tr th:nth-child(2),
+.dashboard-page-content .theme--table-wrap .table tbody tr th:nth-child(3),
+.dashboard-page-content .theme--table-wrap .table tbody tr th:nth-child(4),
+.dashboard-page-content .theme--table-wrap .table tbody tr th:nth-child(5),
+.dashboard-page-content .theme--table-wrap .table tbody tr th:nth-child(6),
+.dashboard-page-content .theme--table-wrap .table tbody tr td:nth-child(1),
+.dashboard-page-content .theme--table-wrap .table tbody tr td:nth-child(2),
+.dashboard-page-content .theme--table-wrap .table tbody tr td:nth-child(3),
+.dashboard-page-content .theme--table-wrap .table tbody tr td:nth-child(4),
+.dashboard-page-content .theme--table-wrap .table tbody tr td:nth-child(5),
+.dashboard-page-content .theme--table-wrap .table tbody tr td:nth-child(6) {
+  min-width: 14%;
+  width: 14%;
+}
+.dashboard-page-content .add-new--item {
+  background-color: #4bc3ff;
+  color: #ffffff;
+}
+.dashboard-page-content .add-new--item svg {
+  width: 16px;
+  height: 16px;
+}
+.dashboard-page-content .add-new--item:active, .dashboard-page-content .add-new--item:focus, .dashboard-page-content .add-new--item:hover {
+  background-color: #4bc3ff;
+  color: #ffffff;
 }
 
 .documents-page .nav a {

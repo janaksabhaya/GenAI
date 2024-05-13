@@ -12,15 +12,15 @@ const Navbar = () => {
 				<div className="d-flex align-items-center gap-3">
 					{layoutConfig.menus.map((menu, parentIndex) => {
 						return (
-							<>
+							<React.Fragment key={parentIndex}>
 								{isEmpty(menu.childrens) ? (
-									<>
+									<React.Fragment key={parentIndex}>
 										<Link to={menu.path} key={parentIndex} className="d-block text-decoration-none text-white-primary font-10">
 											{menu.label}
 										</Link>
-									</>
+									</React.Fragment>
 								) : (
-									<>
+									<React.Fragment key={parentIndex}>
 										<ul className="list-inline mb-0 d-flex align-items-center gap-2">
 											<li className="d-flex align-items-center position-relative">
 												<span className="d-block font-10 text-white-primary">{menu.label}</span>
@@ -43,9 +43,9 @@ const Navbar = () => {
 												</ul>
 											</li>
 										</ul>
-									</>
+									</React.Fragment>
 								)}
-							</>
+							</React.Fragment>
 						);
 					})}
 				</div>

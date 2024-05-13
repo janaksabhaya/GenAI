@@ -1,17 +1,47 @@
 .dashboard-page-content {
-    .filters-dropdown {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 10px;
-        justify-content: flex-end;
+	.filters-dropdown {
+		margin-bottom: 10px;
+		.select-dropdown {
+			width: 200px;
+		}
+		label {
+			font-weight: 500;
+		}
+	}
+	.theme--table-wrap {
+		.table {
+			thead,
+			tbody {
+				tr {
+					th,
+					td {
+						&:nth-child(1),
+						&:nth-child(2),
+						&:nth-child(3),
+						&:nth-child(4),
+						&:nth-child(5),
+						&:nth-child(6) {
+							min-width: 14%;
+							width: 14%;
+						}
+					}
+				}
+			}
+		}
+	}
 
-        .select-dropdown {
-            width: 200px;
-        }
-
-        label {
-            font-weight: 500;
-        }
-    }
+	.add-new--item {
+		background-color: $themeLightBlueColor;
+		color: $themeWhiteColor;
+		svg {
+			width: 16px;
+			height: 16px;
+		}
+		&:active,
+		&:focus,
+		&:hover {
+			background-color: $themeLightBlueColor;
+            color: $themeWhiteColor;
+		}
+	}
 }

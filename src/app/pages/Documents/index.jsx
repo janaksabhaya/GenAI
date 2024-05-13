@@ -1,13 +1,11 @@
-import React, { useMemo, useState } from 'react'
-import ThemeTable from "@/components/ui/Tables/ThemeTable";
-import { Card, Col, Container, Row } from "react-bootstrap";
-import PageHeader from "@/components/common/PageHeader";
-import Nav from 'react-bootstrap/Nav';
-import useMainState from '@/hooks/useMainState';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import React, { useMemo } from 'react'
+import { Card, Container } from "react-bootstrap";
 import { Icon } from '@iconify/react';
+import ThemeTable from "@/components/ui/Tables/ThemeTable";
+import PageHeader from "@/components/common/PageHeader";
+import useMainState from '@/hooks/useMainState';
 import Dropdowns from '@/components/ui/Dropdowns';
+import Nav from 'react-bootstrap/Nav';
 import Swal from 'sweetalert2';
 
 export default function DocumentsPage() {

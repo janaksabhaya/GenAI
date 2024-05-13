@@ -119,8 +119,7 @@ export default function DocumentsStatus() {
 		<div>
 			<PageHeader title="Document Status" />
 			<Container fluid>
-				<Card className="">
-					
+				<Card>
 					<Card.Body as="div">
 						<ThemeTable columns={columns} data={data} />
 					</Card.Body>

@@ -1,7 +1,6 @@
 import React from "react";
 import PageHeader from "@/components/common/PageHeader";
 import { Card, Container } from "react-bootstrap";
-import useMainState from "@/hooks/useMainState";
 import ThemeTable from "@/components/ui/Tables/ThemeTable";
 
 const columns = [
