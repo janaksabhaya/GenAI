@@ -15,7 +15,7 @@ import ViewDocsModal from "./partials/ViewDocsModal";
 
 export default function DocumentsPage() {
   const [state, changeState] = useMainState({
-    top: 5,
+    top: 40,
     isLoading: true,
     viewModal: false,
     docType: "",
