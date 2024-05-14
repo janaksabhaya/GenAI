@@ -3,14 +3,15 @@ import { isDefined } from "@/services/helper";
 import { useTable, useSortBy, useResizeColumns } from "react-table";
 import { Table } from "react-bootstrap";
 import { Icon } from "@iconify/react";
+import ReactPaginate from "react-paginate";
 
-const ThemeTable = ({ columns, data }) => {
+const ThemeTable = ({ columns, data, activePage, totalItems, perPage, onPageChange  ,isLoading}) => {
 	const { getTableProps, getTableBodyProps, headerGroups, footerGroups, rows, prepareRow } = useTable(
 		{
 			columns,
 			data,
 		},
-		useSortBy,
+		// useSortBy,
 		useResizeColumns
 	);
 	return (
@@ -22,7 +23,7 @@ const ThemeTable = ({ columns, data }) => {
 							<tr key={index} {...headerGroup.getHeaderGroupProps()}>
 								{headerGroup.headers.map((column, i) => {
 									return (
-										<th key={i} {...column.getHeaderProps(column.getSortByToggleProps())} className="text-start text-capitalize bg-theme-light-blue font-14 text-white-primary">
+										<th key={i} className="text-start text-capitalize bg-theme-light-blue font-14 text-white-primary">
 											<div className="d-flex align-items-center justify-content-between">
 												{column.render("Header")}
 												<>{column.isSorted ? column.isSortedDesc ? <Icon icon="bi:sort-up" className="d-block" /> : <Icon icon="bi:sort-down" className="d-block" /> : ""}</>
@@ -35,7 +36,9 @@ const ThemeTable = ({ columns, data }) => {
 					})}
 				</thead>
 				<tbody {...getTableBodyProps()}>
-					{rows && rows.length > 0 ? (
+					{
+						isLoading ? <div>Loading...</div> :
+					rows && rows.length > 0 ? (
 						rows.map((row, i) => {
 							prepareRow(row);
 							return (
@@ -50,7 +53,8 @@ const ThemeTable = ({ columns, data }) => {
 						})
 					) : (
 						<div>Record not found</div>
-					)}
+					)
+				}
 				</tbody>
 				{isDefined(columns) && isDefined(columns[0].Footer) && (
 					<tfoot>
@@ -70,6 +74,19 @@ const ThemeTable = ({ columns, data }) => {
 					</tfoot>
 				)}
 			</Table>
+
+			{/* <ReactPaginate
+				forcePage={activePage - 1}
+				breakLabel="..."
+				nextLabel={<Icon icon="mingcute:right-fill" />}
+				marginPagesDisplayed={1}
+				pageRangeDisplayed={5}
+				onPageChange={(value) =>{ onPageChange(value.selected)}}
+				pageCount={Math.round(totalItems / perPage)}
+				previousLabel={<Icon icon="mingcute:left-fill" />}
+				renderOnZeroPageCount={null}
+				className="d-flex custom-paggination align-items-center justify-content-center paggination list-unstyled"
+			/> */}
 		</div>
 	);
 };

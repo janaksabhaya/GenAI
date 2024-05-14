@@ -2,7 +2,6 @@ import React from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 
 export default function Dropdowns({ data, active, children, onChange }) {
-    console.log('active', active)
     return (
         <div className="icon-dropdowns">
             <Dropdown data-bs-theme="light">
