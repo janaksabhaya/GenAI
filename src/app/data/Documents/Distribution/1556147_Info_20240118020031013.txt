@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+@!!!@0c34ab447f1c937aba1c08bdf4388e0cbcc2d22825758403b778f12a38bf2d98||5|7|1/18/2024 7:00:29 PM|2024-01-16|2024-01-16.pdf|1556147_Stmt_20240118020031013.pdf|1556147|WARBURG PINCUS CHINA-SOUTHEAST ASIA II - Distribution||1556147_Trans_20240118020031013.txt|b7ee53cb-d841-45f9-a006-8c6bdcc40aac

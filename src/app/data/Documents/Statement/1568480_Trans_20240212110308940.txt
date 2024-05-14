@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+82C00E9DD468DDCBEF31739BDA14FD0D557D6BD4C746779A85D93E038EACE6F5||Cevian Capital II L.P.|2024-01-31|USD|NetGainLoss|35,625.47||||||1568480|Cevian Capital|0|0

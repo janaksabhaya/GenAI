@@ -1,0 +1,2 @@
+Token|AccountID|Security|PeriodBeginningDT|PeriodEndingDT|Currency|NetOpeningCapital|NetClosingCapital|MTDPerformance|QTDPerformance|YTDPerformance|IRR|Commitment|ContributionsToDate|UnfundedCommitment|UnfundedCommitmentAdj|DistributionsSubjectToRecall|TotalDistributions|MessageLogId|SchemaName|Quantity|Price
+2C44114CBC8562EFFED93D245CEDF3360B17E72A985C17A864342F3A2E146625||Arkhouse Value Fund I LP.||2023-12-31|USD|0|771,678.88|||||500,000|500,000|0|0|0|0|1568560|Arkhouse Value Fund|0|0

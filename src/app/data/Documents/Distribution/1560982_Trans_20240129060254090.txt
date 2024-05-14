@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+6512BCB78D277FE91964BA037EC3D3F96C1433041A5111403DD48F2EE538CD8B||Golub Capital Partners International 11, L.P.|2024-01-29|USD|Distribution|28,062|0|0|0|0|0|1560982|Golub Capital - Distribution|0|0

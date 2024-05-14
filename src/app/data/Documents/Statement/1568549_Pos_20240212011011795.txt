@@ -1,0 +1,2 @@
+Token|AccountID|Security|PeriodBeginningDT|PeriodEndingDT|Currency|NetOpeningCapital|NetClosingCapital|MTDPerformance|QTDPerformance|YTDPerformance|IRR|Commitment|ContributionsToDate|UnfundedCommitment|UnfundedCommitmentAdj|DistributionsSubjectToRecall|TotalDistributions|MessageLogId|SchemaName|Quantity|Price
+25E6125781702934FD6F4ABD2931A5013B4A155ADBD54E52E9C48C03A8577F22||HSCM Bermuda Special Opportunities Fund Ltd.||2023-12-31|USD|6,492.41|100.19|||||250,000|250,000|0|0|0|0|1568549|HSCM Bermuda Special Opportunities Fund|0|0

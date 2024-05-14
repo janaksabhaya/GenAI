@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+FA2B85F18B7BF3540F2081A516ACF5B667ED51DC88702F315C08C16F038F050C||Strategic Partners Fund VII, L.P.|2023-12-27|USD|Distribution|27,512.86|0|0|0|0|0|1545328|Strategic Partners Fund V|0|0

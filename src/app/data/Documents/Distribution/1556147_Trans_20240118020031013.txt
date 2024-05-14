@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@0c34ab447f1c937aba1c08bdf4388e0cbcc2d22825758403b778f12a38bf2d98||Warburg Pincus Energy, L.P.|2024-01-16|USD|Distribution|55,050|0|0|0|0|0|1556147|WARBURG PINCUS CHINA-SOUTHEAST ASIA II - Distribution|0|0

@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+@!!!@7c0631b7d0d0d4a56fb57412131fa549f5c950b310e6fd8312be347105cc5d1e|551444|5|7|1/18/2024 5:26:41 AM|2024-01-19|Omano Ventures - Green Leaf Fund V, LP - 2024-01-19.pdf|1555967_Stmt_20240118122644055.pdf|1555967|Green Leaf Fund III Distribution||1555967_Trans_20240118122644055.txt|1be2e97c-813a-457a-afa5-2ae9ac06f7c9

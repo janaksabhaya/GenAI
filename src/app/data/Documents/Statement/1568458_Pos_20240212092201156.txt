@@ -1,0 +1,2 @@
+Token|AccountID|Security|PeriodBeginningDT|PeriodEndingDT|Currency|NetOpeningCapital|NetClosingCapital|MTDPerformance|QTDPerformance|YTDPerformance|IRR|Commitment|ContributionsToDate|UnfundedCommitment|UnfundedCommitmentAdj|DistributionsSubjectToRecall|TotalDistributions|MessageLogId|SchemaName|Quantity|Price
+3B916CC0E084192705D6A9884FA5900687BC45AA9162864346FFC52416C46005|400070|Ribbit Capital VI, LP||2023-12-31|USD|1,609,406|1,654,917|||||0|0|0|0|0|0|1568458|Ribbit Capital III LP - Capital Account Statement- SK|0|0

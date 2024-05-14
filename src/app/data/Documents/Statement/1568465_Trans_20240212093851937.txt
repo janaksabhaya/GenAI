@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@bffb9261cca9c0cf10b5b6408972b4fe0ed2f2497195a9f4e2824a920c1299e9||ACK Asset Partners II LP|2024-01-31|USD|NetGainLoss|-13,824.99||||||1568465|ACK ASSET PARTNERS II|0|0

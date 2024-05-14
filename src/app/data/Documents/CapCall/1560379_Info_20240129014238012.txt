@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+@!!!@8a89ce525f2551724b8a5b228d5c5ae3e15959c24109181ffbbd562fe2c4be70||4|7|1/29/2024 6:42:35 AM|2024-02-09|2024-02-09.pdf|1560379_Stmt_20240129014238012.pdf|1560379|Riverside Technology Capital Solutions - Capital Call||1560379_Trans_20240129014238012.txt|bb74b55d-66d8-48ea-897d-6fd8186cc76f

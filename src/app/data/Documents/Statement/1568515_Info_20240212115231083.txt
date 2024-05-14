@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+@!!!@f66ba7e0e384851ae3b926490428576c957b0736cded5cd1cf3afa607a2a3759|134732|1|7|2/12/2024 4:52:29 PM|2024-01-31|GS - Tuft - Family Fndt - Eminence Fund B - 2024-01-31.pdf|1568515_Stmt_20240212115231083.pdf|1568515|Eminence Fund|1568515_Pos_20240212115231083.txt|1568515_Trans_20240212115231083.txt|e06d53e7-50b5-453e-ae3c-45178c9e5f56

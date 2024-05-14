@@ -1,0 +1,4 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@52f2991dbb90f35bb8187aeeff5f8f2bc4363952851f253ef67e460e91646e02||AlbaCore Partners III Feeder Fund|2023-12-31|USD|InvestmentIncome|-23,788||||||1568553|AlbaCore Partners III|0|0
+@!!!@52f2991dbb90f35bb8187aeeff5f8f2bc4363952851f253ef67e460e91646e02||AlbaCore Partners III Feeder Fund|2023-12-31|USD|ManagementFee|47,592||||||1568553|AlbaCore Partners III|0|0
+@!!!@52f2991dbb90f35bb8187aeeff5f8f2bc4363952851f253ef67e460e91646e02||AlbaCore Partners III Feeder Fund|2023-12-31|USD|OtherExpense|-26,887||||||1568553|AlbaCore Partners III|0|0

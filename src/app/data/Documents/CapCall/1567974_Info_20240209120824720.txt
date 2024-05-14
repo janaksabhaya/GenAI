@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+@!!!@379170d4e0dac031de3d573af302d8c5d69922e6e1318dedb7ac1b46a02ac05b||4|7|2/9/2024 5:08:18 AM|2024-02-23|2024-02-23.pdf|1567974_Stmt_20240209120824720.pdf|1567974|Blackstone Total Alterative Cap Call||1567974_Trans_20240209120824720.txt|a3740488-1f82-4690-b29e-2a025dbf6354

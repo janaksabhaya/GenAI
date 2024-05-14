@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+C0F88F73F7250A36A19C4096821145378D9A6D15DDDCB1C871661C93C61989B0||5|7|1/2/2024 4:50:45 PM|2023-12-29|2023-12-29.pdf|1547130_Stmt_20240102115046921.pdf|1547130|Juniper Capital II - Distribution||1547130_Trans_20240102115046921.txt|9c9f034f-1a2d-464a-bf33-2d260756bd32

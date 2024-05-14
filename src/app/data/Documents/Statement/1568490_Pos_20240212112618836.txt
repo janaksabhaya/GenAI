@@ -1,0 +1,2 @@
+Token|AccountID|Security|PeriodBeginningDT|PeriodEndingDT|Currency|NetOpeningCapital|NetClosingCapital|MTDPerformance|QTDPerformance|YTDPerformance|IRR|Commitment|ContributionsToDate|UnfundedCommitment|UnfundedCommitmentAdj|DistributionsSubjectToRecall|TotalDistributions|MessageLogId|SchemaName|Quantity|Price
+B70585893D0AD7A8E23BCBC1250EAFD59EF7FB41B88D1836AB5B55CD8C8F93F8||EcoR1 Capital Fund Qualified, L.P.||2024-01-31|USD|517,552|525,632|||||0|0|0|0|0|0|1568490|EcoR1 Capital Fund Qualified LP|0|0

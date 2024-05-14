@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+C0F88F73F7250A36A19C4096821145378D9A6D15DDDCB1C871661C93C61989B0||Juniper Capital II, L.P.|2023-12-29|USD|Distribution|10,788.18|0|0|0|0|0|1547130|Juniper Capital II - Distribution|0|0

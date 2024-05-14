@@ -1,0 +1,4 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+7B2412C6DDDB4496AC0425579A4A7E2799B26695B2002155389B8D8C8F6FDFA6||Sculptor Domestic Partners II, LP|2023-12-31|USD|UnrealizedGainLoss|64.26||||||1568474|Sculptor - OZ Domestic Partners|0|0
+7B2412C6DDDB4496AC0425579A4A7E2799B26695B2002155389B8D8C8F6FDFA6||Sculptor Domestic Partners II, LP|2023-12-31|USD|ManagementFee|4.31||||||1568474|Sculptor - OZ Domestic Partners|0|0
+7B2412C6DDDB4496AC0425579A4A7E2799B26695B2002155389B8D8C8F6FDFA6||Sculptor Domestic Partners II, LP|2023-12-31|USD|OtherAdjustments|-9.91||||||1568474|Sculptor - OZ Domestic Partners|0|0

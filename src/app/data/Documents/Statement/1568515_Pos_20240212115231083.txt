@@ -1,0 +1,2 @@
+Token|AccountID|Security|PeriodBeginningDT|PeriodEndingDT|Currency|NetOpeningCapital|NetClosingCapital|MTDPerformance|QTDPerformance|YTDPerformance|IRR|Commitment|ContributionsToDate|UnfundedCommitment|UnfundedCommitmentAdj|DistributionsSubjectToRecall|TotalDistributions|MessageLogId|SchemaName|Quantity|Price
+@!!!@f66ba7e0e384851ae3b926490428576c957b0736cded5cd1cf3afa607a2a3759|134732|Eminence Fund, Ltd.||2024-01-31|USD|3,582,956|3,748,819|0.0463||||0|0|0|0|0|0|1568515|Eminence Fund|0|0

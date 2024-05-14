@@ -1,0 +1,2 @@
+Token|AccountID|Security|PeriodBeginningDT|PeriodEndingDT|Currency|NetOpeningCapital|NetClosingCapital|MTDPerformance|QTDPerformance|YTDPerformance|IRR|Commitment|ContributionsToDate|UnfundedCommitment|UnfundedCommitmentAdj|DistributionsSubjectToRecall|TotalDistributions|MessageLogId|SchemaName|Quantity|Price
+@!!!@c09560bc707aa39376fcb4b1e5cc619a19e792482aea66ef13684beabf35db15||Two Seas Global (Domestic) Fund LP||2023-12-31|USD|208,658.8|226,312.49|||||0|0|0|0|0|0|1568556|Two Seas LNP|0|0

@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@b481a93c646d5d4dd27a50a65cb0ff95a4d8120077e655596f7458b0d5cdb716||SignalFire Affiliates Breakout Fund III, L.P.|2024-02-22|USD|CapitalCall|3,900|0|0|0|0|0|1567720|Moderne Ventures - Cap Call (ADURO)|0|0

@@ -1,20 +1,26 @@
 .dashboard-page-content {
 	.filters-dropdown {
 		margin-bottom: 10px;
+
 		.select-dropdown {
 			width: 200px;
 		}
+
 		label {
 			font-weight: 500;
 		}
 	}
+
 	.theme--table-wrap {
 		.table {
+
 			thead,
 			tbody {
 				tr {
+
 					th,
 					td {
+
 						&:nth-child(1),
 						&:nth-child(2),
 						&:nth-child(3),
@@ -25,6 +31,26 @@
 							width: 14%;
 						}
 					}
+
+					th {
+						white-space: nowrap;
+					}
+				}
+			}
+		}
+
+		.icon-dropdowns {
+			.dropdown {
+				.dropdown-toggle {
+					outline: none;
+
+					&:focus {
+						border-color: none;
+					}
+
+					&::after {
+						display: none;
+					}
 				}
 			}
 		}
@@ -33,15 +59,17 @@
 	.add-new--item {
 		background-color: $themeLightBlueColor;
 		color: $themeWhiteColor;
+
 		svg {
 			width: 16px;
 			height: 16px;
 		}
+
 		&:active,
 		&:focus,
 		&:hover {
 			background-color: $themeLightBlueColor;
-            color: $themeWhiteColor;
+			color: $themeWhiteColor;
 		}
 	}
 }

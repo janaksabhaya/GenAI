@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@258de0624ca9c31d69ab9e0e5c97bffc91d7b7d56ac25e02d84dddd845068ce4||TrueBridge-Kauffman Fellows Endowment Fund III, L.P.|2023-12-28|USD|Distribution|80,412.18|2,000,000|160,000|1,840,000|0|0|1546522|Truebridge Dist|0|0

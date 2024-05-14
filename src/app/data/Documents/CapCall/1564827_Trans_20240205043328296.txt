@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+5729207A7BFAAD81E3F92AB253FCD6290FE54DA052B6515C96F0864C1FABB39E||Cosmic - Aleph 2, L.P.|2024-02-08|USD|CapitalCall|48,000|0|0|0|0|0|1564827|Costanoa Ventures IV L.P. - Capital Call (ARKPES)|0|0

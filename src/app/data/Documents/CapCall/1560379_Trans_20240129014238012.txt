@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@8a89ce525f2551724b8a5b228d5c5ae3e15959c24109181ffbbd562fe2c4be70||RIVERSIDE TECHNOLOGY CAPITAL SOLUTIONS II SELECT, L.P.|2024-02-09|USD|CapitalCall|4,770|0|0|0|0|0|1560379|Riverside Technology Capital Solutions - Capital Call|0|0

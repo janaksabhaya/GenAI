@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+6512BCB78D277FE91964BA037EC3D3F96C1433041A5111403DD48F2EE538CD8B||5|7|1/29/2024 11:02:48 PM|2024-01-29|2024-01-29.pdf|1560982_Stmt_20240129060254090.pdf|1560982|Golub Capital - Distribution||1560982_Trans_20240129060254090.txt|9195169d-df5a-42f5-8ccf-5ca6fff7e0fb

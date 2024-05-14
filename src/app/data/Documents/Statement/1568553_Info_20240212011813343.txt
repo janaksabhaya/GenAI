@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+@!!!@52f2991dbb90f35bb8187aeeff5f8f2bc4363952851f253ef67e460e91646e02||1|7|2/12/2024 6:17:48 PM|2023-12-31|2023-12-31.pdf|1568553_Stmt_20240212011813343.pdf|1568553|AlbaCore Partners III|1568553_Pos_20240212011813343.txt|1568553_Trans_20240212011813343.txt|2f43ea58-f283-48ac-ab1e-98df897677aa

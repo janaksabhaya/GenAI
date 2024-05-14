@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo} from "react";
 import ThemeTable from "@/components/ui/Tables/ThemeTable";
 import PageHeader from "@/components/common/PageHeader";
 import ReactSelect from "@/components/ui/ReactSelect";
@@ -6,130 +6,12 @@ import ReactChart from "@/components/ui/ReactChart";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import ReactButton from "@/components/ui/ReactButton";
 import { Icon } from "@iconify/react";
+import { api } from "@/services";
+import { apiConfig } from "@/configs";
+import useMainState from "@/hooks/useMainState";
+import moment from "moment";
+import Dropdowns from "@/components/ui/Dropdowns";
 
-const columns = [
-	{
-		accessor: "FileName",
-		Header: "File name",
-	},
-	{
-		accessor: "FileType",
-		Header: "File Type",
-	},
-	{
-		accessor: "ProcessStatus",
-		Header: "Process Status",
-	},
-	{
-		accessor: "FundName",
-		Header: "Fund name",
-	},
-	{
-		accessor: "AccountType",
-		Header: "Account Type",
-	},
-	{
-		accessor: "ReceivedDate",
-		Header: "Received date",
-	},
-	{
-		accessor: "EffectiveDate",
-		Header: "Effective date",
-	},
-];
-
-const data = [
-	{
-		FileName: "file1.txt",
-		FileType: "text",
-		FundName: "Fund Alpha",
-		AccountType: "Type A",
-		ReceivedDate: "2024-05-06",
-		EffectiveDate: "2024-05-10",
-		ProcessStatus: "In-progress",
-	},
-	{
-		FileName: "file2.docx",
-		FileType: "document",
-		FundName: "Fund Beta",
-		AccountType: "Type B",
-		ReceivedDate: "2024-05-07",
-		EffectiveDate: "2024-05-11",
-		ProcessStatus: "Processed",
-	},
-	{
-		FileName: "file3.xlsx",
-		FileType: "spreadsheet",
-		FundName: "Fund Gamma",
-		AccountType: "Type C",
-		ReceivedDate: "2024-05-08",
-		EffectiveDate: "2024-05-12",
-		ProcessStatus: "In-progress",
-	},
-	{
-		FileName: "file4.jpg",
-		FileType: "image",
-		FundName: "Fund Delta",
-		AccountType: "Type D",
-		ReceivedDate: "2024-05-09",
-		EffectiveDate: "2024-05-13",
-		ProcessStatus: "Pending",
-	},
-	{
-		FileName: "file5.pdf",
-		FileType: "pdf",
-		FundName: "Fund Epsilon",
-		AccountType: "Type E",
-		ReceivedDate: "2024-05-10",
-		EffectiveDate: "2024-05-14",
-		ProcessStatus: "Processed",
-	},
-	{
-		FileName: "file6.txt",
-		FileType: "text",
-		FundName: "Fund Zeta",
-		AccountType: "Type Z",
-		ReceivedDate: "2024-05-11",
-		EffectiveDate: "2024-05-15",
-		ProcessStatus: "Pending",
-	},
-	{
-		FileName: "file7.docx",
-		FileType: "document",
-		FundName: "Fund Eta",
-		AccountType: "Type H",
-		ReceivedDate: "2024-05-12",
-		EffectiveDate: "2024-05-16",
-		ProcessStatus: "Processed",
-	},
-	{
-		FileName: "file8.xlsx",
-		FileType: "spreadsheet",
-		FundName: "Fund Theta",
-		AccountType: "Type T",
-		ReceivedDate: "2024-05-13",
-		EffectiveDate: "2024-05-17",
-		ProcessStatus: "Pending",
-	},
-	{
-		FileName: "file9.jpg",
-		FileType: "image",
-		FundName: "Fund Iota",
-		AccountType: "Type I",
-		ReceivedDate: "2024-05-14",
-		EffectiveDate: "2024-05-18",
-		ProcessStatus: "Processed",
-	},
-	{
-		FileName: "file10.pdf",
-		FileType: "pdf",
-		FundName: "Fund Kappa",
-		AccountType: "Type K",
-		ReceivedDate: "2024-05-15",
-		EffectiveDate: "2024-05-19",
-		ProcessStatus: "Pending",
-	},
-];
 
 const options = {
 	chart: {
@@ -296,6 +178,81 @@ const options = {
 };
 
 export default function DashboardPage() {
+
+	const [state,changeState] = useMainState(
+		{
+			top: 40,
+			isLoading:true,
+			columns:[
+				{
+					accessor: "Doc_UID",
+					Header: "Document ID",
+				},
+				{
+					accessor: "Filename",
+					Header: "File name",
+				},
+				{
+					accessor: "Type",
+					Header: "File Type",
+				},
+				{
+					accessor: "FileURL",
+					Header: "File URL",
+				},
+				{
+					accessor: "EntityName",
+					Header: "Entity Name",
+				},
+				
+				{
+					accessor: "Fund",
+					Header: "Fund name",
+				},
+				{
+					accessor: "ReceivedDate",
+					Header: "Date receive - time stamp",
+				},
+				{
+					accessor: "StatusID",
+					Header: "Current Status",
+				},
+				{
+					accessor: "Completion - time stamp",
+					Header: "Completion - time stamp",
+				},
+			],
+			data: [],
+		}
+	)
+	const data = useMemo(() => {
+        return state.data.map((row) => {
+            const metadata = JSON.parse(row.Metadata); 
+            return {
+                Doc_UID:row.Doc_UID,
+                Filename:row.Filename,
+                Type: row.Type,
+                Fund: metadata?.Fund,
+                AccountType:metadata?.Investor,
+                StatusID:metadata?.StatusID,
+                ReceivedDate:moment(metadata?.Timestamp).format('DD-MM-yyyy'),
+            };
+        });
+    }, [state.data]);
+
+	const getDocumentData = () =>{
+		api.get(`${apiConfig.document}?$top=${state.top}`)
+		.then((response) => {
+			changeState({data:response.value})
+			changeState({isLoading:false})
+		})
+		.catch((err) => {})
+	}
+	
+	useEffect(()=>{
+		getDocumentData();
+	},[])
+	
 	return (
 		<div className="dashboard-page-content">
 			<PageHeader title="Dashboard" />
@@ -312,7 +269,7 @@ export default function DashboardPage() {
 										<label className="font-14 text-nowrap">Document Filter :- </label>
 										<ReactSelect
 											className="select-dropdown"
-											value="All"
+											value={state.filter}
 											options={[
 												{
 													label: "All",
@@ -355,14 +312,18 @@ export default function DashboardPage() {
 													value: "Retraining on feedbacks",
 												},
 											]}
-											onChange={() => {}}
+											onChange={(e) => {changeState({filter:e.value})}}
 										/>
 									</div>
 									<ReactButton size="sm" className="d-flex align-items-center gap-2 border-0 font-14 add-new--item" onClick={() => {}}>
 										<Icon icon="tabler:plus" className="d-block" /> add new document
 									</ReactButton>
 								</div>
-								<ThemeTable columns={columns} data={data} />
+								<ThemeTable 
+									columns={state.columns} 
+									data={data} 
+									isLoading={state.isLoading}
+								/>
 							</Col>
 						</Row>
 					</Card.Body>

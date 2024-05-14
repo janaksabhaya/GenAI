@@ -1,0 +1,5 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+3B916CC0E084192705D6A9884FA5900687BC45AA9162864346FFC52416C46005|400070|Ribbit Capital VI, LP|2023-12-31|USD|RealizedGainLoss|1,221||||||1568458|Ribbit Capital III LP - Capital Account Statement- SK|0|0
+3B916CC0E084192705D6A9884FA5900687BC45AA9162864346FFC52416C46005|400070|Ribbit Capital VI, LP|2023-12-31|USD|UnrealizedGainLoss|45,652||||||1568458|Ribbit Capital III LP - Capital Account Statement- SK|0|0
+3B916CC0E084192705D6A9884FA5900687BC45AA9162864346FFC52416C46005|400070|Ribbit Capital VI, LP|2023-12-31|USD|InvestmentIncome|2,013||||||1568458|Ribbit Capital III LP - Capital Account Statement- SK|0|0
+3B916CC0E084192705D6A9884FA5900687BC45AA9162864346FFC52416C46005|400070|Ribbit Capital VI, LP|2023-12-31|USD|ManagementFee|3,375||||||1568458|Ribbit Capital III LP - Capital Account Statement- SK|0|0

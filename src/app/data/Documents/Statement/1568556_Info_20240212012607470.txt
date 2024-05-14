@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+@!!!@c09560bc707aa39376fcb4b1e5cc619a19e792482aea66ef13684beabf35db15||1|7|2/12/2024 6:26:05 PM|2023-12-31|2023-12-31.pdf|1568556_Stmt_20240212012607470.pdf|1568556|Two Seas LNP|1568556_Pos_20240212012607470.txt|1568556_Trans_20240212012607470.txt|dd3d8b57-427c-429a-8756-1a4a9037197e

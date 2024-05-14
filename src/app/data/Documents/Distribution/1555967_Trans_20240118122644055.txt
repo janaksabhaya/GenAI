@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@7c0631b7d0d0d4a56fb57412131fa549f5c950b310e6fd8312be347105cc5d1e|551444|Green Leaf Fund V, LP|2024-01-19|USD|Distribution|12,693.49|0|0|0|0|0|1555967|Green Leaf Fund III Distribution|0|0

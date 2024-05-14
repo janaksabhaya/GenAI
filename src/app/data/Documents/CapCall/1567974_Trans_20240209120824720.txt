@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@379170d4e0dac031de3d573af302d8c5d69922e6e1318dedb7ac1b46a02ac05b||Blackstone Total Alternatives Solution VIII L.P.|2024-02-23|USD|CapitalCall|192,407.82|8,000,000|6,558,935.64|0|0|0|1567974|Blackstone Total Alterative Cap Call|0|0

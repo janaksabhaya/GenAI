@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+5CAD67A7BFE48BFDC07A45C1AF6D6A205E69F6070942D6771C58D432242DDC9B|493183|Lakehouse Venture Partners III, LP|2024-02-16|USD|CapitalCall|125,000|0|0|0|0|0|1564457|Lakehouse Venture Partners II-Capital Call|0|0

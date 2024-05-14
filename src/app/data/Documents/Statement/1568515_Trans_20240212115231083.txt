@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@f66ba7e0e384851ae3b926490428576c957b0736cded5cd1cf3afa607a2a3759|134732|Eminence Fund, Ltd.|2024-01-31|USD|NetGainLoss|165,863||||||1568515|Eminence Fund|0|0

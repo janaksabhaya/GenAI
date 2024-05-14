@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+@!!!@7e60d0df2801769ee16790b7a3556a8c82f1b3b2cb031ea2a923177e3da3e8fd|183035|5|7|2/9/2024 4:12:41 PM|2024-02-08|Stutt Investments - Trident VI- 2024-02-08.pdf|1568277_Stmt_20240209111246157.pdf|1568277|Trident VI Affiliated Fund L.P - Distribution||1568277_Trans_20240209111246157.txt|5aa1008d-4de2-468b-a1cf-38c9d55720ae

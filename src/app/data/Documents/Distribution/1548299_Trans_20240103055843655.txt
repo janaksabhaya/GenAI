@@ -1,0 +1,3 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+FCE7763DAF73FEDFEC9A6D819C43A4B57EAE3AD75F50E148A100454F81F349E0||KKR REAL ESTATE PARTNERS EUROPE II SBS L.P.|2023-12-18|USD|Distribution|2,353|0|0|0|0|0|1548299|KKR Distribution 5 columns|0|0
+FCE7763DAF73FEDFEC9A6D819C43A4B57EAE3AD75F50E148A100454F81F349E0||KKR REAL ESTATE PARTNERS EUROPE II SBS L.P.|2023-12-18|USD|CapitalCall|2,353|0|0|0|0|0|1548299|KKR Distribution 5 columns|0|0

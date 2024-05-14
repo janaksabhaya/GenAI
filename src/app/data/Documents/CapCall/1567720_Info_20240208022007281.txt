@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+@!!!@b481a93c646d5d4dd27a50a65cb0ff95a4d8120077e655596f7458b0d5cdb716||4|7|2/8/2024 7:20:06 PM|2024-02-22|2024-02-22.pdf|1567720_Stmt_20240208022007281.pdf|1567720|Moderne Ventures - Cap Call (ADURO)||1567720_Trans_20240208022007281.txt|16d6b3b9-aef2-473c-b7ee-7423a0e877f1

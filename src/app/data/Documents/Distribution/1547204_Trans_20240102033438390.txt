@@ -1,0 +1,6 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@9fc0ccb58428c15171b48b4ec7edf3ead3e9fe3bfb1b3ada86d2eb7ed7a278c2||VENTURE INVESTMENT ASSOCIATES VII, L.P.|2023-12-28|USD|Distribution|19,772|0|0|0|0|0|1547204|Venture Investment Associates VII (VIA 7) - Distributions|0|0
+@!!!@51cb33929bce85cd09fc439d1c5a1fc80160c5fb5a778e66bfe1237847384b6e||VENTURE INVESTMENT ASSOCIATES VII, L.P.|2023-12-28|USD|Distribution|24,715|0|0|0|0|0|1547204|Venture Investment Associates VII (VIA 7) - Distributions|0|0
+23B55A5A98FDF401AFA5E8B317FEA84ECB30109FDAECECAE21D0CFB55C6C45E0||VENTURE INVESTMENT ASSOCIATES VII, L.P.|2023-12-28|USD|Distribution|59,317|0|0|0|0|0|1547204|Venture Investment Associates VII (VIA 7) - Distributions|0|0
+@!!!@9ec911239d240cee73459fa6712402990ef1d1e23a88cf090bcbe11a3566fe86||VENTURE INVESTMENT ASSOCIATES VII, L.P.|2023-12-28|USD|Distribution|24,715|0|0|0|0|0|1547204|Venture Investment Associates VII (VIA 7) - Distributions|0|0
+4922A07AE0E5EB8015E15DC38B5686649AC9046D3412B6B4DC340D4954AE9D14||VENTURE INVESTMENT ASSOCIATES VII, L.P.|2023-12-28|USD|Distribution|24,715|0|0|0|0|0|1547204|Venture Investment Associates VII (VIA 7) - Distributions|0|0

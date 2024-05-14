@@ -1,9 +1,26 @@
 .audit-logs--table {
+    .icon-dropdowns {
+        .dropdown {
+            .dropdown-toggle {
+                outline: none;
+
+                &:focus {
+                    border-color: none;
+                }
+
+                &::after {
+                    display: none;
+                }
+            }
+        }
+    }
+
     .theme--table-wrap {
         table {
             thead {
                 tr {
                     th {
+                        white-space: nowrap;
 
                         &:nth-child(1),
                         &:nth-child(2) {

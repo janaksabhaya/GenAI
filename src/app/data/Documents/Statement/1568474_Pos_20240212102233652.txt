@@ -1,0 +1,2 @@
+Token|AccountID|Security|PeriodBeginningDT|PeriodEndingDT|Currency|NetOpeningCapital|NetClosingCapital|MTDPerformance|QTDPerformance|YTDPerformance|IRR|Commitment|ContributionsToDate|UnfundedCommitment|UnfundedCommitmentAdj|DistributionsSubjectToRecall|TotalDistributions|MessageLogId|SchemaName|Quantity|Price
+7B2412C6DDDB4496AC0425579A4A7E2799B26695B2002155389B8D8C8F6FDFA6||Sculptor Domestic Partners II, LP||2023-12-31|USD|6,260.97|6,311.01|||||0|0|0|0|0|0|1568474|Sculptor - OZ Domestic Partners|0|0

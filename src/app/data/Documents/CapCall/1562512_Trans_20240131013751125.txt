@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+A37DA427C420789857A59226979DAD05055512BF33D4537E64528CB288C162B7||True Ventures V-A, L.P.|2024-02-13|USD|CapitalCall|25,000|0|0|0|0|0|1562512|TRUE VENTURES V-A L P - CAPITAL CALL|0|0

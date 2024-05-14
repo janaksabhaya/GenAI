@@ -3,23 +3,43 @@
         a {
             color: $themeStaticBlack
         }
+
         .nav-link.active {
             background-color: $themeColor;
             color: $themeWhiteColor;
         }
     }
 
-    .documents--tabs{
+    .documents--tabs {
         border-bottom: 0px;
         padding-bottom: 24px;
         border-bottom: 1px solid $themeDefaultColor;
-        .nav-item{
+
+        .nav-item {
             border: 0px;
             flex: none;
-            .nav-link{
+
+            .nav-link {
                 border: 0px;
                 border-radius: 8px;
             }
+        }
+    }
+
+    .download--btn {
+        background-color: $themeLightBlueColor;
+        color: $themeWhiteColor;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        &:active,
+        &:focus,
+        &:hover {
+            background-color: $themeLightBlueColor;
+            color: $themeWhiteColor;
         }
     }
 
@@ -28,14 +48,36 @@
             .dropdown {
                 .dropdown-toggle {
                     outline: none;
+
                     &:focus {
                         border-color: none;
                     }
+
                     &::after {
                         display: none;
                     }
                 }
             }
         }
+
+        .table {
+
+            thead,
+            tbody {
+                tr {
+
+                    th {
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.docs-modal {
+    .row {
+        overflow-x: auto;
+        height: 500px;
     }
 }

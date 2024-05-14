@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+4108AC29493EC826B236A9602426BD9622BC4783DEECD00FBB92D5C9613C19DE||KING RIVER INVESTMENTS TRUST 2|2024-01-31|USD|CapitalCall|53,009.35|0|0|0|0|0|1554933|King River cap Call|0|0

@@ -1,0 +1,45 @@
+.custom-paggination {
+    margin-top: 10px;
+
+    li {
+        color: #606c7a;
+        font-weight: 600;
+        font-size: 14px;
+        height: 45px;
+        width: 45px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        text-align: center;
+        line-height: 45px;
+        border-right: 1px solid transparent;
+
+        &:last-child {
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        &:hover {
+            background: #f3f3f3;
+        }
+
+        a {
+            color: #606c7a;
+            display: block;
+            height: 100%;
+            width: 100%;
+
+            svg {
+                margin-bottom: 4px;
+            }
+        }
+
+        &.disabled {
+            opacity: .5;
+            pointer-events: none;
+        }
+
+        &.selected {
+            background-color: #4bc3ff !important;
+            border: 1px solid #4bc3ff !important;
+            color: #fff;
+        }
+    }
+}

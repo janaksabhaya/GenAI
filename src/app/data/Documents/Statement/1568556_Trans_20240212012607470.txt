@@ -1,0 +1,4 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@c09560bc707aa39376fcb4b1e5cc619a19e792482aea66ef13684beabf35db15||Two Seas Global (Domestic) Fund LP|2023-12-31|USD|RealizedGainLoss|22,360.98||||||1568556|Two Seas LNP|0|0
+@!!!@c09560bc707aa39376fcb4b1e5cc619a19e792482aea66ef13684beabf35db15||Two Seas Global (Domestic) Fund LP|2023-12-31|USD|ManagementFee|291.67||||||1568556|Two Seas LNP|0|0
+@!!!@c09560bc707aa39376fcb4b1e5cc619a19e792482aea66ef13684beabf35db15||Two Seas Global (Domestic) Fund LP|2023-12-31|USD|CarriedInterest|-4,415.62||||||1568556|Two Seas LNP|0|0

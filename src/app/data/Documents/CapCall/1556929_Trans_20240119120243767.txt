@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@25136264ab20b1ecc3ab15363d974fc1bcb8eeb4434be2d49ddb5bbf1450e374||Bonfire Ventures II, LP|2024-02-02|USD|CapitalCall|20,000|0|0|0|0|0|1556929|Moderne Ventures - Cap Call (ADURO)|0|0

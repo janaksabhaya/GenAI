@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+5CAD67A7BFE48BFDC07A45C1AF6D6A205E69F6070942D6771C58D432242DDC9B|493183|4|7|2/3/2024 1:14:16 AM|2024-02-16|Ian Sandler-Lakehouse Ventures Partners III LP- 2024-02-16.pdf|1564457_Stmt_20240202081417311.pdf|1564457|Lakehouse Venture Partners II-Capital Call||1564457_Trans_20240202081417311.txt|60a46ba2-5373-4442-91ba-c358851b99f5

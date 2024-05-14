@@ -1,0 +1,4 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+@!!!@68127e007d2c015eeb6437b1830acfc66a037e628b9821e9a308f8e4bcfe79ae||Peloton Equity II, L.P.|2024-01-26|USD|CapitalCall|9,622|0|0|0|0|0|1552625|Peloton Equity II LP - CAP CALL|0|0
+@!!!@2d15e5726d6d5ab68e85a77e0a62f715fc40317b8df358d59b384ac29aafcaee||Peloton Equity II, L.P.|2024-01-26|USD|CapitalCall|9,622|0|0|0|0|0|1552625|Peloton Equity II LP - CAP CALL|0|0
+716B1BDAFB14631FEA386917FFEDB0BBB751F47962FC02399802EB7C766B967A||Peloton Equity II, L.P.|2024-01-26|USD|CapitalCall|6,415|0|0|0|0|0|1552625|Peloton Equity II LP - CAP CALL|0|0

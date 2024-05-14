@@ -3,9 +3,11 @@ import { apiConfig, appConfig } from "../configs";
 import { helper } from ".";
 
 const instance = axios.create({
-	baseURL: apiConfig.baseURL,
+	baseURL: apiConfig.publicURL,
 	headers: {
 		"Content-Type": "application/json",
+		"Ocp-Apim-Subscription-Key": "f8fe54dbfc564363860ddd98e16c39dc",
+		"Integrator-Key": "x-universal-session=qCa1i4XsdFpvTThUMeQ2qFeSWDXUQbSWKEpxdAphJRt+w9QeigL6cVJ73pwk20R7nX42RRX7i3FF5bPOyNmwKkMR/LbWXx6Jg0C/Lm8q98OJj2cleY9R7EzOddMM081HXcktcQKTqMwzuMLh/a9/G0+8zgbs1BKCsCIqD0zrmfVRCd6EFXPWhsdG6v7GzpE8995BABHLgU2Kqfzubx3zKYCsQn87agVF4uQhN0pXVqsd+dGY0Z1maRtg4a80x1glo9uvLipRPVcoD0N9DUoAh+nTg4VPRLZ8BoVCca1CxY15dfD3Ni/6tIp0C7VdkCUT"
 	},
 });
 
@@ -30,7 +32,7 @@ instance.interceptors.request.use(
 // handle errors
 instance.interceptors.response.use(
 	(response) => {
-		return response.data.success ? response.data.data : response.data.error;
+		return response.data;
 	},
 	(error) => {
 		// in the case, server is stoped

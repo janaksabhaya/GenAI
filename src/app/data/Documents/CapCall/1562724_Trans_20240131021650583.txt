@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+CDD3862E2F5297511EC8E03400B9C0BDC47B556820FFC8DBA978C11733E0BEB4||Red Sea Ventures II, L.P.|2024-02-15|USD|CapitalCall|33,750|0|0|0|0|0|1562724|Red Sea Ventures II LP - CAP CALL|0|0

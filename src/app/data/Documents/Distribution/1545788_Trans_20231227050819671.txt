@@ -1,0 +1,2 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+F564AE4F928B9E914226EBEAB349595E0C8D4E38E94AB5233D9893BD49E7975A||Lemuel Two LLC Class A|2024-01-02|USD|Distribution|3,280|0|0|0|0|0|1545788|Free Gulliver Distribution|0|0

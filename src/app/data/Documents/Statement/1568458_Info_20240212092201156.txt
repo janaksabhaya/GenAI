@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+3B916CC0E084192705D6A9884FA5900687BC45AA9162864346FFC52416C46005|400070|1|7|2/12/2024 2:21:56 PM|2023-12-31|SK - Ribbit Capital VI LP - 2023-12-31.pdf|1568458_Stmt_20240212092201156.pdf|1568458|Ribbit Capital III LP - Capital Account Statement- SK|1568458_Pos_20240212092201156.txt|1568458_Trans_20240212092201156.txt|5336f0db-23c5-4cd9-8db4-a49b6cd1d63c

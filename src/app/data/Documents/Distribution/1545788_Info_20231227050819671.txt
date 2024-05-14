@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+F564AE4F928B9E914226EBEAB349595E0C8D4E38E94AB5233D9893BD49E7975A||5|7|12/27/2023 10:08:18 PM|2024-01-02|2024-01-02.pdf|1545788_Stmt_20231227050819671.pdf|1545788|Free Gulliver Distribution||1545788_Trans_20231227050819671.txt|aedc12fb-2d7a-4cd8-8d5a-64182441b15b

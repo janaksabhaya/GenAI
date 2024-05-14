@@ -7,6 +7,7 @@ const apiConfig = {
 
 	// auth apis
 	login: "login",
+	document: "document/DOCUMENTS",
 };
 
 export default apiConfig;

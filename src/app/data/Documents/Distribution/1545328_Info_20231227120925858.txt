@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+FA2B85F18B7BF3540F2081A516ACF5B667ED51DC88702F315C08C16F038F050C||5|7|12/27/2023 5:09:24 AM|2023-12-27|2023-12-27.pdf|1545328_Stmt_20231227120925858.pdf|1545328|Strategic Partners Fund V||1545328_Trans_20231227120925858.txt|de66cd0b-6d8f-4083-b1c0-805d14800f61

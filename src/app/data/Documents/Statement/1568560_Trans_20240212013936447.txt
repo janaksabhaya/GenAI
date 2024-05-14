@@ -1,0 +1,4 @@
+Token|AccountID|Security|TradeDate|Currency|TransactionCode|Amount|CommittedCapital|RemainingCommittedCapital|ContributionsToDate|DistributionsToDate|ReturnOfCapitalToDate|MessageLogId|SchemaName|Quantity|Price
+2C44114CBC8562EFFED93D245CEDF3360B17E72A985C17A864342F3A2E146625||Arkhouse Value Fund I LP.|2023-12-31|USD|Contribution|500,000||||||1568560|Arkhouse Value Fund|0|0
+2C44114CBC8562EFFED93D245CEDF3360B17E72A985C17A864342F3A2E146625||Arkhouse Value Fund I LP.|2023-12-31|USD|NetGainLoss|301,865.42||||||1568560|Arkhouse Value Fund|0|0
+2C44114CBC8562EFFED93D245CEDF3360B17E72A985C17A864342F3A2E146625||Arkhouse Value Fund I LP.|2023-12-31|USD|OtherIncomeLoss|-30,186.54||||||1568560|Arkhouse Value Fund|0|0

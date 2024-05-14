@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+@!!!@258de0624ca9c31d69ab9e0e5c97bffc91d7b7d56ac25e02d84dddd845068ce4||5|7|12/29/2023 12:05:48 PM|2023-12-28|2023-12-28.pdf|1546522_Stmt_20231229070552011.pdf|1546522|Truebridge Dist||1546522_Trans_20231229070552011.txt|ba43ed91-c28b-48af-bb58-e74506f3dcfd

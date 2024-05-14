@@ -1,0 +1,2 @@
+Token|AccountId|StatementTypeId|StatementSourceId|ReceivedDT|EffectiveDT|OriginalFileName|ServerFileName|MessageLogId|SchemaName|PosFileName|TransFileName|Doc_UID
+@!!!@bffb9261cca9c0cf10b5b6408972b4fe0ed2f2497195a9f4e2824a920c1299e9||1|7|2/12/2024 2:38:46 PM|2024-01-31|2024-01-31.pdf|1568465_Stmt_20240212093851937.pdf|1568465|ACK ASSET PARTNERS II|1568465_Pos_20240212093851937.txt|1568465_Trans_20240212093851937.txt|65c0fb65-9680-414d-926c-adfa5dd98771
