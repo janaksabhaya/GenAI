@@ -12,7 +12,7 @@ const modalStyle = {
     },
 };
 
-const ViewDocsModal = ({ isOpen, onClose, files }) => {
+const ViewDocsModal = ({ isOpen, onClose, files, docType }) => {
     const [jsonData, setJsonData] = useState({})
 
     let docs = {
@@ -96,12 +96,12 @@ const ViewDocsModal = ({ isOpen, onClose, files }) => {
     // let randomIndex = Math.floor(Math.random() * docs[docType].pdf.length);
     useEffect(() => {
         if (files) {
-            import(`../../../data/Documents/Statement/${files.json}`)
+            import(`../../../data/Documents/${docType}/${files.json}`)
                 .then((res) => {
                     setJsonData(res.default)
                 });
         }
-    }, [files])
+    }, [files, docType])
 
     return (
         <ReactDynamicModal
@@ -118,12 +118,15 @@ const ViewDocsModal = ({ isOpen, onClose, files }) => {
             <div className='docs-modal'>
                 <Row >
                     <Col md="6">
-                        {files && <object data={require(`../../../data/Documents/Statement/${files.pdf}`)} type="application/pdf" width="100%" height="100%">
+                        {files && <object data={require(`../../../data/Documents/${docType}/${files.pdf}`)} type="application/pdf" width="100%" height="100%">
                         </object>}</Col>
                     <Col md="6">
-                        <pre>{JSON.stringify(jsonData, null, 2)}</pre>
+                        {jsonData && typeof jsonData === 'object' ? (
+                            <pre>{JSON.stringify(jsonData, null, 2)}</pre>
+                        ) : (
+                            <pre>{jsonData}</pre>
+                        )}
                     </Col>
-
                 </Row>
 
 

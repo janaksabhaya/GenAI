@@ -165,8 +165,8 @@ export default function DocumentsPage() {
     },
   };
 
-  const exportJsonData = (files) => {
-    import(`../../data/Documents/Statement/${files.json}`).then((res) => {
+  const exportJsonData = (files, type) => {
+    import(`../../data/Documents/${type}/${files.json}`).then((res) => {
       const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
         JSON.stringify(res.default)
       )}`;
@@ -224,10 +224,14 @@ export default function DocumentsPage() {
                   changeState({
                     viewModal: true,
                     files: rows.row.original.files,
+                    docType: rows.row.original.Type,
                   });
                 }
                 if (value === "view_extract_data") {
-                  exportJsonData(rows.row.original.files);
+                  exportJsonData(
+                    rows.row.original.files,
+                    rows.row.original.Type
+                  );
                 }
               }}
               data={[
@@ -295,7 +299,9 @@ export default function DocumentsPage() {
         changeState({ data: response.value });
         changeState({ isLoading: false });
       })
-      .catch((err) => {});
+      .catch((err) => {
+        changeState({ isLoading: false });
+      });
   };
 
   useEffect(() => {
@@ -372,6 +378,7 @@ export default function DocumentsPage() {
             changeState({ viewModal: false });
           }}
           files={state.files}
+          docType={state.docType}
         />
       )}
     </div>
