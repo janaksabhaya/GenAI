@@ -12,13 +12,16 @@ import { api } from "@/services";
 import { apiConfig } from "@/configs";
 import moment from "moment";
 import ViewDocsModal from "./partials/ViewDocsModal";
+import AddDocumentModal from "./partials/AddDocumentModal";
 
 export default function DocumentsPage() {
   const [state, changeState] = useMainState({
     top: 40,
     isLoading: true,
+    aa: {},
     viewModal: false,
-    docType: "",
+    addModal: false,
+    Filename: "",
     activeTab: "captured-documents",
     columns: [
       {
@@ -38,7 +41,7 @@ export default function DocumentsPage() {
         Header: "File URL",
       },
       {
-        accessor: "EntityName",
+        accessor: "entity_name",
         Header: "Entity Name",
       },
       {
@@ -46,11 +49,11 @@ export default function DocumentsPage() {
         Header: "Fund name",
       },
       {
-        accessor: "Number of pages",
+        accessor: "num_pages",
         Header: "Number of pages",
       },
       {
-        accessor: "Document Type",
+        accessor: "Document_type",
         Header: "Document Type",
       },
       {
@@ -166,13 +169,13 @@ export default function DocumentsPage() {
   };
 
   const exportJsonData = (files, type) => {
-    import(`../../data/Documents/${type}/${files.json}`).then((res) => {
+    api.post(`http://40.87.56.22:8000/json?file_name=${files}`).then((res) => {
       const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
-        JSON.stringify(res.default)
+        JSON.stringify(res)
       )}`;
       const link = document.createElement("a");
       link.href = jsonString;
-      link.download = files.json;
+      link.download = `${files}.json`;
 
       link.click();
     });
@@ -180,25 +183,30 @@ export default function DocumentsPage() {
 
   const data = useMemo(() => {
     return state.data.map((row) => {
-      let randomIndex = null;
-      if (["CapCall", "Distribution", "Statement"].includes(row.Type)) {
-        randomIndex = Math.floor(Math.random() * docs[row.Type].pdf.length);
-      }
+      // let randomIndex = null;
+      // if (["CapCall", "Distribution", "Statement"].includes(row.Type)) {
+      //   randomIndex = Math.floor(Math.random() * docs[row.Type].pdf.length);
+      // }
 
-      const metadata = JSON.parse(row.Metadata);
+      const metadata = row?.Metadata && JSON.parse(row?.Metadata);
       return {
         Doc_UID: row.Doc_UID,
-        Filename: row.Filename,
-        Type: row.Type,
-        Fund: metadata?.Fund,
+        Filename: row.Filename || row.File_Name,
+        Type: row.Type || row.File_Type,
+        Fund: metadata?.Fund || row.Fund_Name,
+        entity_name: row.Entity_Name,
+        num_pages: row.Num_Pages,
+        Document_type: row.Document_Type,
         AccountType: metadata?.Investor,
-        ReceivedDate: moment(metadata?.Timestamp).format("DD-MM-yyyy"),
-        ...(randomIndex != null && {
-          files: {
-            pdf: `${docs[row.Type].pdf[randomIndex]}.pdf`,
-            json: `${docs[row.Type].json[randomIndex]}.json`,
-          },
-        }),
+        ReceivedDate: metadata?.Timestamp
+          ? moment(metadata?.Timestamp).format("DD-MM-yyyy")
+          : "",
+        // ...(randomIndex != null && {
+        //   files: {
+        //     pdf: `${docs[row.Type].pdf[randomIndex]}.pdf`,
+        //     json: `${docs[row.Type].json[randomIndex]}.json`,
+        //   },
+        // }),
       };
     });
   }, [state.data]);
@@ -223,14 +231,15 @@ export default function DocumentsPage() {
                 if (value === "view_doc") {
                   changeState({
                     viewModal: true,
-                    files: rows.row.original.files,
-                    docType: rows.row.original.Type,
+                    // files: rows.row.original.files,
+                    // docType: rows.row.original.Type,
+                    Filename: rows.row.original.Filename,
                   });
                 }
                 if (value === "view_extract_data") {
                   exportJsonData(
-                    rows.row.original.files,
-                    rows.row.original.Type
+                    rows.row.original.Filename
+                    // rows.row.original.Type
                   );
                 }
               }}
@@ -354,6 +363,16 @@ export default function DocumentsPage() {
             <div className="d-flex align-items-center justify-content-end mt-3">
               <ReactButton
                 size="sm"
+                className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
+                onClick={() => {
+                  changeState({ addModal: true });
+                }}
+              >
+                <Icon icon="ic:baseline-plus" className="d-block" /> Add
+                Document
+              </ReactButton>
+              <ReactButton
+                size="sm"
                 className="d-flex align-items-center gap-2 border-0 font-14 download--btn"
                 onClick={() => {}}
               >
@@ -377,8 +396,22 @@ export default function DocumentsPage() {
           onClose={() => {
             changeState({ viewModal: false });
           }}
-          files={state.files}
-          docType={state.docType}
+          // files={state.files}
+          // docType={state.docType}
+          Filename={state.Filename}
+        />
+      )}
+      {state.addModal && (
+        <AddDocumentModal
+          isOpen={state.addModal}
+          changeState={changeState}
+          onClose={(newDocDetail) => {
+            changeState({
+              addModal: false,
+              data: [...newDocDetail, ...state.data],
+            });
+          }}
+          statea={state}
         />
       )}
     </div>

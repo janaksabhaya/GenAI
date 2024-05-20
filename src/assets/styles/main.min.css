@@ -13100,6 +13100,9 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   background-color: #337ab7;
   color: #ffffff;
 }
+.globel--btn:disabled {
+  background-color: #4bc3ff;
+}
 
 .highcharts-credits,
 .highcharts-title {

@@ -21,8 +21,9 @@
 		}
 	}
 }
-.ReactModal__Content{
-    border: none !important;
+
+.ReactModal__Content {
+	border: none !important;
 }
 
 // ==========> {{ END:: Modal CSS }} <==========
@@ -38,6 +39,10 @@
 		background-color: $themeSeconderyLightColor;
 		color: $themeWhiteColor;
 	}
+
+	&:disabled {
+		background-color: $themeLightBlueColor;
+	}
 }
 
 // ==========> {{ END:: Button CSS }} <==========
@@ -48,13 +53,16 @@
 .highcharts-title {
 	display: none;
 }
+
 .chart--view-section {
 	padding: 12px;
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	border-radius: 8px;
+
 	.heading--box {
 		padding: 4px 8px;
 		background-color: #f7f8fc;
+
 		button {
 			svg {
 				font-size: $font-18;
@@ -73,13 +81,15 @@
 			tr {
 				th {
 					padding: 8px 16px;
-					svg{
+
+					svg {
 						width: 18px;
 						height: 18px;
 					}
 				}
 			}
 		}
+
 		tbody {
 			tr {
 				td {

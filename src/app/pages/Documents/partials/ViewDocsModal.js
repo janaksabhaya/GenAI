@@ -1,5 +1,6 @@
 import ReactButton from '@/components/ui/ReactButton'
 import ReactDynamicModal from '@/components/ui/ReactDynamicModal'
+import { api, helper } from '@/services';
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'reactstrap';
 
@@ -12,8 +13,10 @@ const modalStyle = {
     },
 };
 
-const ViewDocsModal = ({ isOpen, onClose, files, docType }) => {
+const ViewDocsModal = ({ isOpen, onClose, Filename }) => {
     const [jsonData, setJsonData] = useState({})
+    const [pdfUrl, setPdfUrl] = useState()
+    const [isLoading, setIsLoading] = useState(false)
 
     let docs = {
         'CapCall': {
@@ -93,15 +96,38 @@ const ViewDocsModal = ({ isOpen, onClose, files, docType }) => {
             ]
         }
     }
+
     // let randomIndex = Math.floor(Math.random() * docs[docType].pdf.length);
+
+    console.log(Filename, "Filename")
     useEffect(() => {
-        if (files) {
-            import(`../../../data/Documents/${docType}/${files.json}`)
+        if (Filename) {
+
+            setIsLoading(true)
+            api.post(`http://40.87.56.22:8000/json?file_name=${Filename}`)
                 .then((res) => {
-                    setJsonData(res.default)
-                });
+                    if (res) {
+                        setIsLoading(false)
+                        setJsonData(res)
+                    }
+                })
+                .catch(err => { setIsLoading(false) })
+
+            // api.post(`http://40.87.56.22:8000/doc_details?file_name=${Filename}`)
+            //     .then((res) => {
+            //         setPdfUrl(res)
+            //     })
+            //     .catch(err => { })
+            api.get(`http://40.87.56.22:8001/files/${Filename}`)
+                .then((res) => {
+                    setPdfUrl(res?.file_url)
+                })
+                .catch(err => { })
         }
-    }, [files, docType])
+
+    }, [Filename])
+
+
 
     return (
         <ReactDynamicModal
@@ -116,20 +142,26 @@ const ViewDocsModal = ({ isOpen, onClose, files, docType }) => {
             }
         >
             <div className='docs-modal'>
-                <Row >
+                <Row>
                     <Col md="6">
-                        {files && <object data={require(`../../../data/Documents/${docType}/${files.pdf}`)} type="application/pdf" width="100%" height="100%">
-                        </object>}</Col>
+                        {
+                            pdfUrl ?
+                                <object data={pdfUrl} type="application/pdf" width="100%" height="100%">
+                                </object>
+                                : <div> File not Found </div>
+                        }
+                    </Col>
                     <Col md="6">
-                        {jsonData && typeof jsonData === 'object' ? (
-                            <pre>{JSON.stringify(jsonData, null, 2)}</pre>
-                        ) : (
-                            <pre>{jsonData}</pre>
-                        )}
+                        {
+                            !isLoading ? (typeof jsonData === 'object' ? (
+                                <pre>
+                                    {JSON.stringify(jsonData, null, 2)}
+                                </pre>
+                            ) : (
+                                <pre>{jsonData}</pre>
+                            )) : 'loading...'}
                     </Col>
                 </Row>
-
-
             </div>
         </ReactDynamicModal>
     )
