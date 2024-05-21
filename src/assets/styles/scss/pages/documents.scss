@@ -77,7 +77,7 @@
 
 .docs-modal {
     .row {
-        overflow-x: auto;
-        height: 500px;
+        overflow: hidden;
+        height: calc(100vh - 78px);
     }
 }

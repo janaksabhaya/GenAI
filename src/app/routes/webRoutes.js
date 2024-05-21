@@ -7,6 +7,7 @@ const DocumentsStatus = lazy(() => import("./../pages/DocumentsStatus"));
 const DashboardPage = lazy(() => import("./../pages/Dashboard"));
 const DocumentsPage = lazy(() => import("./../pages/Documents"));
 const AuditLogs = lazy(() => import("../pages/AuditLogs"));
+const DocumentJson = lazy(() => import("../pages/Documents/documentJson"));
 
 
 export const webRoutes = {
@@ -30,6 +31,10 @@ export const webRoutes = {
 		{
 			path: pageRoutes.audit_logs,
 			element: AuditLogs,
+		},
+		{
+			path: pageRoutes.documents_json,
+			element: DocumentJson,
 		},
 	],
 

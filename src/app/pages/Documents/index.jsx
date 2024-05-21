@@ -9,17 +9,18 @@ import Nav from "react-bootstrap/Nav";
 import Swal from "sweetalert2";
 import ReactButton from "@/components/ui/ReactButton";
 import { api } from "@/services";
-import { apiConfig } from "@/configs";
+import { apiConfig, pageRoutes } from "@/configs";
 import moment from "moment";
 import ViewDocsModal from "./partials/ViewDocsModal";
 import AddDocumentModal from "./partials/AddDocumentModal";
+import { useNavigate } from "react-router-dom";
 
 export default function DocumentsPage() {
   const [state, changeState] = useMainState({
     top: 40,
-    isLoading: true,
-    aa: {},
+    isLoading: false,
     viewModal: false,
+    statusUpdated: false,
     addModal: false,
     Filename: "",
     activeTab: "captured-documents",
@@ -57,7 +58,7 @@ export default function DocumentsPage() {
         Header: "Document Type",
       },
       {
-        accessor: "Current Status",
+        accessor: "Current_Status",
         Header: "Current Status",
       },
       {
@@ -65,7 +66,7 @@ export default function DocumentsPage() {
         Header: "Date receive - time stamp",
       },
       {
-        accessor: "Completion - time stamp",
+        accessor: "Completion_Time",
         Header: "Completion - time stamp",
       },
       {
@@ -85,6 +86,7 @@ export default function DocumentsPage() {
     selectedAction: "",
   });
 
+  const navigate = useNavigate();
   const changeTab = (changedTab) => {
     changeState({ activeTab: changedTab });
   };
@@ -190,7 +192,7 @@ export default function DocumentsPage() {
 
       const metadata = row?.Metadata && JSON.parse(row?.Metadata);
       return {
-        Doc_UID: row.Doc_UID,
+        Doc_UID: row?.Doc_UID,
         Filename: row.Filename || row.File_Name,
         Type: row.Type || row.File_Type,
         Fund: metadata?.Fund || row.Fund_Name,
@@ -198,9 +200,15 @@ export default function DocumentsPage() {
         num_pages: row.Num_Pages,
         Document_type: row.Document_Type,
         AccountType: metadata?.Investor,
-        ReceivedDate: metadata?.Timestamp
-          ? moment(metadata?.Timestamp).format("DD-MM-yyyy")
-          : "",
+        Current_Status: row.Current_Status,
+        ReceivedDate:
+          (metadata?.Timestamp &&
+            moment(metadata?.Timestamp).format("DD-MM-yyyy")) ||
+          (row.ReceivedDate &&
+            moment(row.ReceivedDate).format("DD-MM-yyyy HH:mm")),
+        Completion_Time:
+          row.Completion_Time &&
+          moment(row.Completion_Time).format("DD-MM-yyyy HH:mm"),
         // ...(randomIndex != null && {
         //   files: {
         //     pdf: `${docs[row.Type].pdf[randomIndex]}.pdf`,
@@ -210,6 +218,17 @@ export default function DocumentsPage() {
       };
     });
   }, [state.data]);
+
+  const getPdfUrl = (Filename) => {
+    api
+      .get(`http://40.87.56.22:8001/files/${Filename}`)
+      .then((res) => {
+        sessionStorage.setItem("pdfUrl", res?.file_url);
+      })
+      .catch((err) => {});
+    const pdfUrl = sessionStorage.getItem("pdfUrl");
+    window.open(pdfUrl, "_blank");
+  };
 
   const columns = useMemo(() => {
     let _columns = [...state.columns];
@@ -229,20 +248,36 @@ export default function DocumentsPage() {
                   selectedAction: value,
                 });
                 if (value === "view_doc") {
+                  if (rows.row.original.Current_Status == "pending") {
+                    const updatedData = state.data.map((item) => {
+                      return item.Doc_UID == rows.row.original.Doc_UID
+                        ? {
+                            ...item,
+                            Current_Status: "complete",
+                            Completion_Time: new Date(),
+                          }
+                        : item;
+                    });
+                    changeState({
+                      data: [...updatedData],
+                      // viewModal: true,
+                      filename: rows.row.original.Filename,
+                    });
+                  }
                   changeState({
-                    viewModal: true,
-                    // files: rows.row.original.files,
-                    // docType: rows.row.original.Type,
                     Filename: rows.row.original.Filename,
                   });
+                  localStorage.setItem("fileName", rows.row.original.Filename);
+                  getPdfUrl(rows.row.original.Filename);
+                  window.open(pageRoutes.documents_json, "_blank");
                 }
                 if (value === "view_extract_data") {
-                  exportJsonData(
-                    rows.row.original.Filename
-                    // rows.row.original.Type
-                  );
+                  exportJsonData(rows.row.original.Filename);
                 }
               }}
+              // onChange={(value) =>
+              //   handleDropdownChange(value, rows.row.original)
+              // }
               data={[
                 {
                   label: "View Doc",
@@ -299,7 +334,12 @@ export default function DocumentsPage() {
 
       return column;
     });
-  }, [state.activeTab, state.selectedAction, state.selectedGenAIScore]);
+  }, [
+    state.activeTab,
+    state.selectedAction,
+    state.selectedGenAIScore,
+    state.data,
+  ]);
 
   const getDocumentData = () => {
     api
@@ -314,7 +354,7 @@ export default function DocumentsPage() {
   };
 
   useEffect(() => {
-    getDocumentData();
+    // getDocumentData();
   }, [state.activePage]);
 
   const onUserFeedback = (value) => {
@@ -393,8 +433,11 @@ export default function DocumentsPage() {
       {state.viewModal && (
         <ViewDocsModal
           isOpen={state.viewModal}
+          setState={changeState}
           onClose={() => {
-            changeState({ viewModal: false });
+            changeState({
+              viewModal: false,
+            });
           }}
           // files={state.files}
           // docType={state.docType}
@@ -411,7 +454,6 @@ export default function DocumentsPage() {
               data: [...newDocDetail, ...state.data],
             });
           }}
-          statea={state}
         />
       )}
     </div>

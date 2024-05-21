@@ -4,7 +4,8 @@ const pageRoutes = {
 	palette_platform: "/palette-platform",
 	documents_status: "/documents-status",
 	documents: "/documents",
-	audit_logs:'/audit-logs'
+	documents_json: "/documents/json",
+	audit_logs: '/audit-logs'
 };
 
 export default pageRoutes;

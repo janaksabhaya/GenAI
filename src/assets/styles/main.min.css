@@ -13400,8 +13400,8 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 }
 
 .docs-modal .row {
-  overflow-x: auto;
-  height: 500px;
+  overflow: hidden;
+  height: calc(100vh - 78px);
 }
 
 .audit-logs--table .icon-dropdowns .dropdown .dropdown-toggle {
