@@ -60,14 +60,18 @@
             }
         }
 
-        .table {
+        .table-responsive {
+            height: 500px;
 
-            thead,
-            tbody {
-                tr {
+            .table {
 
-                    th {
-                        white-space: nowrap;
+                thead,
+                tbody {
+                    tr {
+
+                        th {
+                            white-space: nowrap;
+                        }
                     }
                 }
             }

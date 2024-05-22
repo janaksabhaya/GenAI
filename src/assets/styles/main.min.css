@@ -13394,8 +13394,11 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 .documents-page .theme--table-wrap .icon-dropdowns .dropdown .dropdown-toggle::after {
   display: none;
 }
-.documents-page .theme--table-wrap .table thead tr th,
-.documents-page .theme--table-wrap .table tbody tr th {
+.documents-page .theme--table-wrap .table-responsive {
+  height: 500px;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th,
+.documents-page .theme--table-wrap .table-responsive .table tbody tr th {
   white-space: nowrap;
 }
 

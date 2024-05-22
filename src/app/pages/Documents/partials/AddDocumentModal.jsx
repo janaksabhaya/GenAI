@@ -27,6 +27,10 @@ const AddDocumentModal = ({ isOpen, onClose, changeState }) => {
       const formData = new FormData();
       formData.append("file", item);
 
+      api
+        .post(`http://40.87.56.22:8000/json?file_name=${item?.name}`)
+        .then((res) => {})
+        .catch((err) => {});
       return api
         .post("http://40.87.56.22:8001/uploadfile/", formData)
         .then(() => {

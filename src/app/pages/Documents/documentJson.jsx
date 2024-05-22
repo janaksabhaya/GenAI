@@ -15,10 +15,11 @@ const DocumentJson = () => {
     jsonLoading: false,
     editLoading: false,
     jsonUpdateData: null,
+    jsonData: null,
   });
-
-  useEffect(() => {
+  const getJsondata = () => {
     if (file_name) {
+      sessionStorage.removeItem("pdfUrl");
       changeState({ jsonLoading: true });
       api
         .post(`http://40.87.56.22:8000/json?file_name=${file_name}`)
@@ -26,12 +27,16 @@ const DocumentJson = () => {
           if (res) {
             changeState({ jsonLoading: false });
             changeState({ jsonUpdateData: res });
+            changeState({ jsonData: res });
           }
         })
         .catch((err) => {
           changeState({ jsonLoading: false });
         });
     }
+  };
+  useEffect(() => {
+    getJsondata();
   }, [file_name]);
 
   const onJsonChange = (key, parent, type, data) => {
@@ -54,6 +59,7 @@ const DocumentJson = () => {
       )
       .then((res) => {
         changeState({ isEdit: false });
+        getJsondata();
       });
   };
 
@@ -86,7 +92,10 @@ const DocumentJson = () => {
             <ReactButton
               size="sm"
               className="globel--btn text-white-primary bg-btn-theme border-0"
-              onClick={() => changeState({ isEdit: false })}
+              onClick={() => {
+                changeState({ isEdit: false });
+                changeState({ jsonUpdateData: state.jsonData });
+              }}
             >
               cancel
             </ReactButton>

@@ -184,12 +184,11 @@ export default function DocumentsPage() {
   };
 
   const data = useMemo(() => {
-    return state.data.map((row) => {
+    return state.data.map((row, i) => {
       // let randomIndex = null;
       // if (["CapCall", "Distribution", "Statement"].includes(row.Type)) {
       //   randomIndex = Math.floor(Math.random() * docs[row.Type].pdf.length);
       // }
-
       const metadata = row?.Metadata && JSON.parse(row?.Metadata);
       return {
         Doc_UID: row?.Doc_UID,
@@ -224,10 +223,10 @@ export default function DocumentsPage() {
       .get(`http://40.87.56.22:8001/files/${Filename}`)
       .then((res) => {
         sessionStorage.setItem("pdfUrl", res?.file_url);
+        window.open(sessionStorage.getItem("pdfUrl"), "_blank");
       })
       .catch((err) => {});
     const pdfUrl = sessionStorage.getItem("pdfUrl");
-    window.open(pdfUrl, "_blank");
   };
 
   const columns = useMemo(() => {
