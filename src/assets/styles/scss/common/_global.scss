@@ -43,3 +43,24 @@
         }
     }
 }
+
+.theme--datepicker {
+    padding: 4px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    border-radius: 4px;
+    background: #fff;
+    width: 100%;
+    color: #202020;
+
+    &::placeholder {
+        color: #202020;
+        font-size: 14px;
+    }
+
+}
+
+.react-datepicker-popper {
+    z-index: 9;
+}

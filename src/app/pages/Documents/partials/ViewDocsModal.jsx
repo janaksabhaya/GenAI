@@ -9,8 +9,6 @@ import { Col, Form, Row } from "reactstrap";
 
 import { Icon } from "@iconify/react";
 
-import { JSONEditor } from "react-json-editor-viewer";
-
 const modalStyle = {
   content: {
     width: "100%",
@@ -212,21 +210,6 @@ const ViewDocsModal = ({ isOpen, onClose, Filename, data, setState }) => {
                   cancel
                 </ReactButton>
               </div>
-            )}
-            {state.isEdit ? (
-              <JSONEditor
-                data={state.jsonUpdateData}
-                collapsible
-                onChange={onJsonChange}
-              />
-            ) : !state.jsonLoading ? (
-              typeof jsonData === "object" ? (
-                <pre>{JSON.stringify(jsonData, null, 2)}</pre>
-              ) : (
-                <pre>{jsonData}</pre>
-              )
-            ) : (
-              "loading..."
             )}
           </Col>
         </Row>

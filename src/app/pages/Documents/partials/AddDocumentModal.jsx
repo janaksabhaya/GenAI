@@ -48,14 +48,14 @@ const AddDocumentModal = ({ isOpen, onClose, changeState }) => {
             ...res.doc_details,
             Current_Status: status,
             ReceivedDate: new Date(),
-            Doc_UID: i + 1,
+            Doc_UID: Math.random().toString(36).substring(2),
           };
 
           return updatedData;
-        }) // Assuming the response structure has the data directly in res.data
+        })
         .catch((err) => {
           console.error("Error fetching document details:", err);
-          return null; // Return null in case of error to handle it later
+          return null;
         });
     });
 

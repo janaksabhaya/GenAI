@@ -5,10 +5,9 @@ import { api, helper } from "@/services";
 import { Icon } from "@iconify/react";
 import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
-import { JSONEditor } from "react-json-editor-viewer";
-
 import Form from "@rjsf/core";
 import validator from "@rjsf/validator-ajv8";
+import { Card, CardBody } from "reactstrap";
 
 const DocumentJson = () => {
   const file_name = localStorage.getItem("fileName");
@@ -65,30 +64,60 @@ const DocumentJson = () => {
       })
       .catch((err) => {});
   };
-  const log = (type) => console.log(type);
 
-  const jsonToSchema = (data, title) => {
+  const jsonToSchema = (data, parentKey = "") => {
     if (typeof data === "object" && !Array.isArray(data)) {
       const properties = {};
       for (const key in data) {
-        properties[key] = jsonToSchema(
-          data[key],
-          key === "Underlying Fund" ? key : undefined
-        );
+        properties[key] = jsonToSchema(data[key], key);
       }
       return {
-        title: title,
+        type: "object",
+        title: parentKey,
         properties,
       };
+    } else if (Array.isArray(data)) {
+      if (data.length > 0) {
+        const firstItem = data[0];
+        const itemType = typeof firstItem;
+
+        if (itemType === "object" && !Array.isArray(firstItem)) {
+          // Generate a blank template for the object
+          const blankTemplate = {};
+          for (const key in firstItem) {
+            blankTemplate[key] = "";
+          }
+          return {
+            type: "array",
+            title: parentKey,
+            items: jsonToSchema(firstItem, ""), // Schema of the object inside the array
+            default: blankTemplate, // Template for adding new items
+          };
+        } else {
+          console.log(itemType, " is not");
+          return {
+            type: "array",
+            title: parentKey,
+            items: {
+              type: itemType,
+            },
+            default: data,
+          };
+        }
+      } else {
+        return {
+          type: "array",
+          title: parentKey,
+        };
+      }
     } else {
       return {
         type: typeof data,
-        title: title,
-        default: data.toString(),
+        title: parentKey,
+        default: data,
       };
     }
   };
-
   const data = jsonToSchema(state.jsonData);
   const schema = { ...data };
 
@@ -105,6 +134,7 @@ const DocumentJson = () => {
                 changeState({ isEdit: true });
                 localStorage.setItem("flagCheck", "Hi  ...");
               }}
+              disabled={!state.jsonData}
             >
               <Icon icon="mdi:pencil" className="mb-1 fs-6" />
             </ReactButton>
@@ -118,37 +148,31 @@ const DocumentJson = () => {
             >
               save
             </ReactButton> */}
-            <ReactButton
-              size="sm"
-              className="globel--btn text-white-primary bg-btn-theme border-0"
-              onClick={() => {
-                changeState({ isEdit: false });
-                changeState({ jsonUpdateData: state.jsonData });
-              }}
-            >
-              cancel
-            </ReactButton>
           </div>
         )}
 
         {state.isEdit ? (
-          // <JSONEditor
-          //   data={state.jsonUpdateData}
-          //   collapsible
-          //   onChange={onJsonChange}
-          // />
-          <div className="document--form">
-            <Form schema={schema} validator={validator} onSubmit={saveJson} />{" "}
-            {/* <ReactButton
-              size="sm"
-              className="globel--btn text-white-primary bg-btn-theme border-0"
-              onClick={() => {
-                changeState({ isEdit: false });
-              }}
-            >
-              cancel
-            </ReactButton> */}
-          </div>
+          <Card>
+            <CardBody>
+              <div className="document--form position-relative">
+                <Form
+                  schema={schema}
+                  validator={validator}
+                  onSubmit={saveJson}
+                />{" "}
+                <ReactButton
+                  size="sm"
+                  className="globel--btn text-white-primary bg-btn-theme border-0 cancel-button"
+                  onClick={() => {
+                    changeState({ isEdit: false });
+                    changeState({ jsonUpdateData: state.jsonData });
+                  }}
+                >
+                  cancel
+                </ReactButton>
+              </div>
+            </CardBody>
+          </Card>
         ) : !state.jsonLoading ? (
           typeof state.jsonData === "object" ? (
             <pre>{JSON.stringify(state.jsonData, null, 2)}</pre>

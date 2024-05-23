@@ -90,7 +90,9 @@ const ThemeTable = ({
             })
           ) : (
             <tr>
-              <td colSpan={columns.length}>Record not found</td>
+              <td colSpan={columns.length} className="text-center">
+                Record not found
+              </td>
             </tr>
           )}
         </tbody>

@@ -12983,6 +12983,25 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   color: #fff;
 }
 
+.theme--datepicker {
+  padding: 4px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 4px;
+  background: #fff;
+  width: 100%;
+  color: #202020;
+}
+.theme--datepicker::placeholder {
+  color: #202020;
+  font-size: 14px;
+}
+
+.react-datepicker-popper {
+  z-index: 9;
+}
+
 .modal-shadow {
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -13410,17 +13429,38 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(1) {
   width: 50px;
 }
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(2) {
+  width: 180px;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(3) {
+  width: 80px;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(4) {
+  width: 100px;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(5) {
+  width: 220px;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(6) {
+  width: 100px;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(7) {
+  width: 200px;
+}
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(8) {
   width: 70px;
 }
-.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(10) {
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(9) {
   width: 70px;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(10) {
+  width: 120px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(11) {
   width: 80px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:last-child {
-  text-align: right !important;
+  width: 80px;
 }
 .documents-page .theme--table-wrap .table-responsive .table tbody tr td {
   text-transform: uppercase !important;
@@ -13451,7 +13491,8 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   display: flex;
   flex-wrap: wrap;
 }
-.document--form .rjsf .field-object fieldset .field-object {
+.document--form .rjsf .field-object fieldset .field-object,
+.document--form .rjsf .field-object fieldset .field-array {
   width: 100%;
   display: block;
 }
@@ -13464,9 +13505,98 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 .document--form .rjsf .field-object fieldset .field-string label,
 .document--form .rjsf .field-object fieldset .field-number label {
   margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 500;
 }
-.document--form .rjsf .field-object div {
+.document--form .rjsf .field-object fieldset .field-string input,
+.document--form .rjsf .field-object fieldset .field-number input {
+  font-size: 14px;
+}
+.document--form .rjsf .field-object fieldset legend {
+  font-weight: 600;
+  font-size: 20px;
+  padding: 0 8px;
+  margin-bottom: 0px;
+}
+.document--form .rjsf .field-object fieldset .field-array .field-array-of-object {
+  display: flex;
+}
+.document--form .rjsf .field-object fieldset .field-array .btn-add {
+  background-color: #4bc3ff;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+  border: 0;
+  margin-left: 8px;
+  margin-top: 8px;
+  padding: 4px 8px;
+  text-transform: capitalize !important;
+}
+.document--form .rjsf .field-object fieldset .field-array .btn-add::after {
+  content: "+";
+}
+.document--form .rjsf .field-object fieldset .field-array .array-item-move-up,
+.document--form .rjsf .field-object fieldset .field-array .array-item-move-down {
+  display: none;
+}
+.document--form .rjsf .field-object fieldset .field-array .array-item-toolbox {
   display: inline;
+}
+.document--form .rjsf .field-object fieldset .field-array .array-item-toolbox .btn-group {
+  display: inline !important;
+}
+.document--form .rjsf .field-object fieldset .field-array .array-item {
+  display: flex;
+}
+.document--form .rjsf .field-object fieldset .field-array .array-item .field-string,
+.document--form .rjsf .field-object fieldset .field-array .array-item .field-number {
+  width: 100%;
+  padding: 0 8px;
+  margin-bottom: 8px;
+}
+.document--form .rjsf .field-object fieldset .field-array .array-item .field-string label,
+.document--form .rjsf .field-object fieldset .field-array .array-item .field-number label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.document--form .rjsf .field-object fieldset .field-array .array-item .field-string input,
+.document--form .rjsf .field-object fieldset .field-array .array-item .field-number input {
+  font-size: 14px;
+}
+.document--form .rjsf .field-object fieldset .field-array .array-item-remove {
+  background-color: #4bc3ff;
+  border-radius: 5px;
+  color: #fff;
+  width: 30px;
+  max-width: 30px;
+  font-size: 14px;
+  border: 0;
+  margin-left: 8px;
+  margin-top: 8px;
+  padding: 4px 8px;
+  text-transform: capitalize !important;
+}
+.document--form .rjsf .field-object fieldset .field-array .array-item-remove::after {
+  content: "-";
+}
+.document--form .rjsf button[type=submit] {
+  background-color: #4bc3ff;
+  border-radius: 5px;
+  color: #fff;
+  max-width: 120px;
+  width: 100%;
+  font-size: 14px;
+  border: 0;
+  margin-left: 8px;
+  margin-top: 8px;
+  padding: 4px 8px;
+  text-transform: capitalize !important;
+}
+.document--form .cancel-button {
+  position: absolute;
+  bottom: 0;
+  left: 135px;
 }
 
 .audit-logs--table .icon-dropdowns .dropdown .dropdown-toggle {

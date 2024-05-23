@@ -13,8 +13,8 @@ import { apiConfig, pageRoutes } from "@/configs";
 import moment from "moment";
 import ViewDocsModal from "./partials/ViewDocsModal";
 import AddDocumentModal from "./partials/AddDocumentModal";
-import { useNavigate } from "react-router-dom";
 import { UncontrolledTooltip } from "reactstrap";
+import ThemeDatePicker from "@/components/ui/DatePickerUi";
 
 export default function DocumentsPage() {
   const [state, changeState] = useMainState({
@@ -23,6 +23,7 @@ export default function DocumentsPage() {
     viewModal: false,
     statusUpdated: false,
     addModal: false,
+    DateRangePicker: [null, null],
     Filename: "",
     activeTab: "captured-documents",
     columns: [
@@ -30,13 +31,17 @@ export default function DocumentsPage() {
         accessor: "Doc_UID",
         Header: "Doc ID",
         Cell: (rows, i) => {
-          console.log(i);
           return (
             <>
-              <div id={`Doc_uid`} className="">
+              <div id={`Doc_uid-${rows.row.id}`} className="">
                 {rows.row.original.Doc_UID}
-                <UncontrolledTooltip placement="top" target={`Doc_uid`}>
-                  {rows.row.original.Doc_UID}
+                <UncontrolledTooltip
+                  placement="top"
+                  target={`Doc_uid-${rows.row.id}`}
+                >
+                  <div className="text-uppercase">
+                    {rows.row.original.Doc_UID}
+                  </div>
                 </UncontrolledTooltip>
               </div>
             </>
@@ -49,35 +54,20 @@ export default function DocumentsPage() {
         Cell: (rows, i) => {
           return (
             <>
-              <div id={`accountName`} className="">
+              <div id={`accountName-${rows.row.id}`} className="">
                 {rows.row.original.Account_Name}
-                <UncontrolledTooltip placement="top" target={`accountName`}>
-                  {rows.row.original.Account_Name}
+                <UncontrolledTooltip
+                  placement="top"
+                  target={`accountName-${rows.row.id}`}
+                >
+                  <div className="text-uppercase">
+                    {rows.row.original.Account_Name}
+                  </div>
                 </UncontrolledTooltip>
               </div>
             </>
           );
         },
-      },
-      {
-        accessor: "Filename",
-        Header: "File name",
-        Cell: (rows, i) => {
-          return (
-            <>
-              <div id={`FileName`} className="">
-                {rows.row.original.Filename}
-                <UncontrolledTooltip placement="top" target={`FileName`}>
-                  {rows.row.original.Filename}
-                </UncontrolledTooltip>
-              </div>
-            </>
-          );
-        },
-      },
-      {
-        accessor: "Type",
-        Header: "File Type",
       },
       {
         accessor: "Firm_ID",
@@ -89,16 +79,70 @@ export default function DocumentsPage() {
         Cell: (rows) => {
           return (
             <>
-              <div id="Firm_name" className="">
+              <div id={`Firm_name-${rows.row.id}`} className="">
                 {rows.row.original.Firm_name}
-                <UncontrolledTooltip placement="top" target="Firm_name">
-                  {rows.row.original.Firm_name}
+                <UncontrolledTooltip
+                  placement="top"
+                  target={`Firm_name-${rows.row.id}`}
+                >
+                  <div className="text-uppercase">
+                    {rows.row.original.Firm_name}
+                  </div>
                 </UncontrolledTooltip>
               </div>
             </>
           );
         },
       },
+      {
+        accessor: "Fund",
+        Header: "Fund name",
+        Cell: (rows) => {
+          return (
+            <>
+              <div id={`Fund-${rows.row.id}`} className="">
+                {rows.row.original.Fund}
+                <UncontrolledTooltip
+                  placement="top"
+                  target={`Fund-${rows.row.id}`}
+                >
+                  <div className="text-uppercase">{rows.row.original.Fund}</div>
+                </UncontrolledTooltip>
+              </div>
+            </>
+          );
+        },
+      },
+      {
+        accessor: "Document_type",
+        Header: "Doc Type",
+      },
+      {
+        accessor: "Filename",
+        Header: "File name",
+        Cell: (rows, i) => {
+          return (
+            <>
+              <div id={`FileName-${rows.row.id}`} className="">
+                {rows.row.original.Filename}
+                <UncontrolledTooltip
+                  placement="top"
+                  target={`FileName-${rows.row.id}`}
+                >
+                  <div className="text-uppercase">
+                    {rows.row.original.Filename}
+                  </div>
+                </UncontrolledTooltip>
+              </div>
+            </>
+          );
+        },
+      },
+      {
+        accessor: "Type",
+        Header: "File Type",
+      },
+
       // {
       //   accessor: "FileURL",
       //   Header: "File URL",
@@ -107,49 +151,10 @@ export default function DocumentsPage() {
       //   accessor: "entity_name",
       //   Header: "Entity Name",
       // },
-      {
-        accessor: "Fund",
-        Header: "Fund name",
-        Cell: (rows, i) => {
-          return (
-            <>
-              <div id={`Fund`} className="">
-                {rows.row.original.Fund}
-                <UncontrolledTooltip placement="top" target={`Fund`}>
-                  {rows.row.original.Fund}
-                </UncontrolledTooltip>
-              </div>
-            </>
-          );
-        },
-      },
+
       {
         accessor: "num_pages",
         Header: "# Pages",
-      },
-      {
-        accessor: "Document_type",
-        Header: "Doc Type",
-      },
-      {
-        accessor: "Current_Status",
-        Header: "Status",
-        Cell: (rows) => {
-          const status = rows.row.original.Current_Status;
-          return (
-            <>
-              <div
-                className={`dot-status  ${
-                  status == "pending"
-                    ? "pending-dot"
-                    : status == "error"
-                    ? "error-dot"
-                    : "complete-dot"
-                }`}
-              ></div>
-            </>
-          );
-        },
       },
       {
         accessor: "Date",
@@ -163,6 +168,31 @@ export default function DocumentsPage() {
           );
         },
       },
+      {
+        accessor: "read_Status",
+        Header: "read status",
+      },
+      // {
+      //   accessor: "Current_Status",
+      //   Header: "Status",
+      //   Cell: (rows) => {
+      //     const status = rows.row.original.Current_Status;
+      //     return (
+      //       <>
+      //         <div
+      //           className={`dot-status  ${
+      //             status == "pending"
+      //               ? "pending-dot"
+      //               : status == "error"
+      //               ? "error-dot"
+      //               : "complete-dot"
+      //           }`}
+      //         ></div>
+      //       </>
+      //     );
+      //   },
+      // },
+
       // {
       //   accessor: "Conversion Confidence score",
       //   Header: "Conversion Confidence score",
@@ -306,22 +336,22 @@ export default function DocumentsPage() {
       const metadata = row?.Metadata && JSON.parse(row?.Metadata);
       return {
         Doc_UID: row?.Doc_UID,
-        Filename: row.Filename || row.File_Name,
-        Type: row.File_Type,
-        Fund: metadata?.Fund || row.Fund_Name,
+        Filename: row?.Filename || row?.File_Name,
+        Type: row?.File_Type,
+        Fund: metadata?.Fund || row?.Fund_Name,
         // entity_name: row.Entity_Name,
-        num_pages: row.Num_Pages,
-        Document_type: row.Type || row.Document_Type,
+        num_pages: row?.Num_Pages,
+        Document_type: row?.Type || row?.Document_Type,
         AccountType: metadata?.Investor,
-        Current_Status: row.Current_Status,
+        Current_Status: row?.Current_Status,
         ReceivedDate:
           (metadata?.Timestamp &&
             moment(metadata?.Timestamp).format("DD-MM-yyyy")) ||
-          (row.ReceivedDate &&
-            moment(row.ReceivedDate).format("DD-MM-yyyy HH:mm")),
+          (row?.ReceivedDate &&
+            moment(row?.ReceivedDate).format("DD-MM-yyyy HH:mm")),
         Completion_Time:
-          row.Completion_Time &&
-          moment(row.Completion_Time).format("DD-MM-yyyy HH:mm"),
+          row?.Completion_Time &&
+          moment(row?.Completion_Time).format("DD-MM-yyyy HH:mm"),
         // ...(randomIndex != null && {
         //   files: {
         //     pdf: `${docs[row.Type].pdf[randomIndex]}.pdf`,
@@ -360,18 +390,25 @@ export default function DocumentsPage() {
                   selectedAction: value,
                 });
                 if (value === "view_doc") {
-                  const updatedData = state.data.map((item) => {
-                    return item.Doc_UID == rows.row.original.Doc_UID
-                      ? {
-                          ...item,
-                          Current_Status:
-                            rows.row.original.Current_Status == "error"
-                              ? "complete"
-                              : rows.row.original.Current_Status,
-                          Completion_Time: new Date(),
-                        }
-                      : item;
-                  });
+                  if (state.statusUpdated == false) {
+                    const updatedData = state.data.map((item) => {
+                      return item.Doc_UID == rows.row.original.Doc_UID
+                        ? {
+                            ...item,
+                            Current_Status:
+                              rows.row.original.Current_Status == "error"
+                                ? "complete"
+                                : rows.row.original.Current_Status,
+                            Completion_Time: new Date(),
+                          }
+                        : item;
+                    });
+                    changeState({
+                      data: [...updatedData],
+                      filename: rows.row.original.Filename,
+                      statusUpdated: true,
+                    });
+                  }
                   changeState({
                     data: [...updatedData],
                     filename: rows.row.original.Filename,
@@ -494,7 +531,7 @@ export default function DocumentsPage() {
       <Container fluid>
         <Card className="">
           <Card.Body as="div">
-            <Nav
+            {/* <Nav
               fill
               variant="tabs"
               className="documents--tabs gap-2"
@@ -516,8 +553,21 @@ export default function DocumentsPage() {
                   Ignored
                 </Nav.Link>
               </Nav.Item>
-            </Nav>
-
+            </Nav> */}
+            <div className="text-end">
+              <ThemeDatePicker
+                name="date range"
+                className=""
+                placeholder="select date"
+                startDate={state.DateRangePicker[0]}
+                endDate={state.DateRangePicker[1]}
+                onChange={(e) => {
+                  changeState({ DateRangePicker: e.target.value });
+                }}
+                dateFormat="dd-MM-yyyy"
+                selectsRange
+              />
+            </div>
             <div className="mt-3">
               <ThemeTable
                 columns={columns}
@@ -535,8 +585,14 @@ export default function DocumentsPage() {
               changeState({ addModal: true });
             }}
           >
-            <Icon icon="ic:baseline-plus" className="d-block" /> Add Document
+            <Icon icon="ic:baseline-plus" className="d-block" /> check for new
+            documents
           </ReactButton>
+          {/* <DateRangePicker
+            ranges={[state.DateRangePicker]}
+            onChange={(e) => changeState({ DateRangePicker: e })}
+          /> */}
+
           {/* <ReactButton
                 size="sm"
                 className="d-flex align-items-center gap-2 border-0 font-14 download--btn"
