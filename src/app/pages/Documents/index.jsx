@@ -13,7 +13,6 @@ import { apiConfig, pageRoutes } from "@/configs";
 import moment from "moment";
 import ViewDocsModal from "./partials/ViewDocsModal";
 import AddDocumentModal from "./partials/AddDocumentModal";
-import { useNavigate } from "react-router-dom";
 import { UncontrolledTooltip } from "reactstrap";
 
 export default function DocumentsPage() {
