@@ -1,11 +1,14 @@
 import PageHeader from "@/components/common/PageHeader";
 import ReactButton from "@/components/ui/ReactButton";
 import useMainState from "@/hooks/useMainState";
-import { api } from "@/services";
+import { api, helper } from "@/services";
 import { Icon } from "@iconify/react";
 import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { JSONEditor } from "react-json-editor-viewer";
+
+import Form from "@rjsf/core";
+import validator from "@rjsf/validator-ajv8";
 
 const DocumentJson = () => {
   const file_name = localStorage.getItem("fileName");
@@ -14,7 +17,6 @@ const DocumentJson = () => {
     isEdit: false,
     jsonLoading: false,
     editLoading: false,
-    jsonUpdateData: null,
     jsonData: null,
   });
   const getJsondata = () => {
@@ -26,8 +28,7 @@ const DocumentJson = () => {
         .then((res) => {
           if (res) {
             changeState({ jsonLoading: false });
-            changeState({ jsonUpdateData: res });
-            changeState({ jsonData: res });
+            changeState({ jsonData: res.json_output });
           }
         })
         .catch((err) => {
@@ -39,13 +40,13 @@ const DocumentJson = () => {
     getJsondata();
   }, [file_name]);
 
-  const onJsonChange = (key, parent, type, data) => {
-    const newJson = data;
+  // const onJsonChange = (key, parent, type, data) => {
+  //   const newJson = data;
 
-    changeState({ jsonUpdateData: newJson });
-  };
+  //   changeState({ jsonData: newJson });
+  // };
 
-  const saveJson = () => {
+  const saveJson = (data) => {
     api
       .post(
         `http://40.87.56.22:8001/updatejson?filename=${file_name.replace(
@@ -54,14 +55,42 @@ const DocumentJson = () => {
         )}`,
         {
           filename: file_name.replace(".pdf", ".json"),
-          json_data: state.jsonUpdateData.json_output,
+          json_data: data.formData,
         }
       )
       .then((res) => {
+        helper.toaster.success("json data updated successfully");
         changeState({ isEdit: false });
         getJsondata();
-      });
+      })
+      .catch((err) => {});
   };
+  const log = (type) => console.log(type);
+
+  const jsonToSchema = (data, title) => {
+    if (typeof data === "object" && !Array.isArray(data)) {
+      const properties = {};
+      for (const key in data) {
+        properties[key] = jsonToSchema(
+          data[key],
+          key === "Underlying Fund" ? key : undefined
+        );
+      }
+      return {
+        title: title,
+        properties,
+      };
+    } else {
+      return {
+        type: typeof data,
+        title: title,
+        default: data.toString(),
+      };
+    }
+  };
+
+  const data = jsonToSchema(state.jsonData);
+  const schema = { ...data };
 
   return (
     <div className="documents-page">
@@ -82,13 +111,13 @@ const DocumentJson = () => {
           </div>
         ) : (
           <div className="d-flex align-items-center justify-content-end gap-2">
-            <ReactButton
+            {/* <ReactButton
               size="sm"
               className="globel--btn text-white-primary bg-btn-theme border-0"
               onClick={saveJson}
             >
               save
-            </ReactButton>
+            </ReactButton> */}
             <ReactButton
               size="sm"
               className="globel--btn text-white-primary bg-btn-theme border-0"
@@ -101,17 +130,30 @@ const DocumentJson = () => {
             </ReactButton>
           </div>
         )}
+
         {state.isEdit ? (
-          <JSONEditor
-            data={state.jsonUpdateData}
-            collapsible
-            onChange={onJsonChange}
-          />
+          // <JSONEditor
+          //   data={state.jsonUpdateData}
+          //   collapsible
+          //   onChange={onJsonChange}
+          // />
+          <div className="document--form">
+            <Form schema={schema} validator={validator} onSubmit={saveJson} />{" "}
+            {/* <ReactButton
+              size="sm"
+              className="globel--btn text-white-primary bg-btn-theme border-0"
+              onClick={() => {
+                changeState({ isEdit: false });
+              }}
+            >
+              cancel
+            </ReactButton> */}
+          </div>
         ) : !state.jsonLoading ? (
-          typeof state.jsonUpdateData === "object" ? (
-            <pre>{JSON.stringify(state.jsonUpdateData, null, 2)}</pre>
+          typeof state.jsonData === "object" ? (
+            <pre>{JSON.stringify(state.jsonData, null, 2)}</pre>
           ) : (
-            <pre>{state.jsonUpdateData}</pre>
+            <pre>{state.jsonData}</pre>
           )
         ) : (
           "loading..."

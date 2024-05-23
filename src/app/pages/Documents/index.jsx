@@ -14,6 +14,7 @@ import moment from "moment";
 import ViewDocsModal from "./partials/ViewDocsModal";
 import AddDocumentModal from "./partials/AddDocumentModal";
 import { useNavigate } from "react-router-dom";
+import { UncontrolledTooltip } from "reactstrap";
 
 export default function DocumentsPage() {
   const [state, changeState] = useMainState({
@@ -27,66 +28,158 @@ export default function DocumentsPage() {
     columns: [
       {
         accessor: "Doc_UID",
-        Header: "Document ID",
+        Header: "Doc ID",
+        Cell: (rows, i) => {
+          console.log(i);
+          return (
+            <>
+              <div id={`Doc_uid`} className="">
+                {rows.row.original.Doc_UID}
+                <UncontrolledTooltip placement="top" target={`Doc_uid`}>
+                  {rows.row.original.Doc_UID}
+                </UncontrolledTooltip>
+              </div>
+            </>
+          );
+        },
+      },
+      {
+        accessor: "Account_Name",
+        Header: "Account name",
+        Cell: (rows, i) => {
+          return (
+            <>
+              <div id={`accountName`} className="">
+                {rows.row.original.Account_Name}
+                <UncontrolledTooltip placement="top" target={`accountName`}>
+                  {rows.row.original.Account_Name}
+                </UncontrolledTooltip>
+              </div>
+            </>
+          );
+        },
       },
       {
         accessor: "Filename",
         Header: "File name",
+        Cell: (rows, i) => {
+          return (
+            <>
+              <div id={`FileName`} className="">
+                {rows.row.original.Filename}
+                <UncontrolledTooltip placement="top" target={`FileName`}>
+                  {rows.row.original.Filename}
+                </UncontrolledTooltip>
+              </div>
+            </>
+          );
+        },
       },
       {
         accessor: "Type",
         Header: "File Type",
       },
       {
-        accessor: "FileURL",
-        Header: "File URL",
+        accessor: "Firm_ID",
+        Header: "Firm ID",
       },
       {
-        accessor: "entity_name",
-        Header: "Entity Name",
+        accessor: "Firm_name",
+        Header: "Firm name",
+        Cell: (rows) => {
+          return (
+            <>
+              <div id="Firm_name" className="">
+                {rows.row.original.Firm_name}
+                <UncontrolledTooltip placement="top" target="Firm_name">
+                  {rows.row.original.Firm_name}
+                </UncontrolledTooltip>
+              </div>
+            </>
+          );
+        },
       },
+      // {
+      //   accessor: "FileURL",
+      //   Header: "File URL",
+      // },
+      // {
+      //   accessor: "entity_name",
+      //   Header: "Entity Name",
+      // },
       {
         accessor: "Fund",
         Header: "Fund name",
+        Cell: (rows, i) => {
+          return (
+            <>
+              <div id={`Fund`} className="">
+                {rows.row.original.Fund}
+                <UncontrolledTooltip placement="top" target={`Fund`}>
+                  {rows.row.original.Fund}
+                </UncontrolledTooltip>
+              </div>
+            </>
+          );
+        },
       },
       {
         accessor: "num_pages",
-        Header: "Number of pages",
+        Header: "# Pages",
       },
       {
         accessor: "Document_type",
-        Header: "Document Type",
+        Header: "Doc Type",
       },
       {
         accessor: "Current_Status",
-        Header: "Current Status",
+        Header: "Status",
+        Cell: (rows) => {
+          const status = rows.row.original.Current_Status;
+          return (
+            <>
+              <div
+                className={`dot-status  ${
+                  status == "pending"
+                    ? "pending-dot"
+                    : status == "error"
+                    ? "error-dot"
+                    : "complete-dot"
+                }`}
+              ></div>
+            </>
+          );
+        },
       },
       {
-        accessor: "ReceivedDate",
-        Header: "Date receive - time stamp",
+        accessor: "Date",
+        Header: "Date Time",
+        Cell: (rows) => {
+          return (
+            <>
+              <div>{rows.row.original.ReceivedDate}</div>
+              <div>{rows.row.original.Completion_Time}</div>
+            </>
+          );
+        },
       },
-      {
-        accessor: "Completion_Time",
-        Header: "Completion - time stamp",
-      },
-      {
-        accessor: "Conversion Confidence score",
-        Header: "Conversion Confidence score",
-      },
+      // {
+      //   accessor: "Conversion Confidence score",
+      //   Header: "Conversion Confidence score",
+      // },
       {
         accessor: "action",
         Header: "Action",
       },
-      {
-        accessor: "genai_score",
-        Header: "GenAI Score",
-      },
+      // {
+      //   accessor: "genai_score",
+      //   Header: "GenAI Score",
+      // },
     ],
     data: [],
     selectedAction: "",
   });
 
-  const navigate = useNavigate();
   const changeTab = (changedTab) => {
     changeState({ activeTab: changedTab });
   };
@@ -183,6 +276,27 @@ export default function DocumentsPage() {
     });
   };
 
+  const downloadPdf = (Filename) => {
+    api
+      .get(`http://40.87.56.22:8001/files/${Filename}`)
+      .then((res) => {
+        const fileUrl = res?.file_url;
+        fetch(fileUrl)
+          .then((response) => response.blob())
+          .then((blob) => {
+            const url = window.URL.createObjectURL(new Blob([blob]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", Filename);
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+          })
+          .catch((err) => console.error("Error downloading the file:", err));
+      })
+      .catch((err) => {});
+  };
+
   const data = useMemo(() => {
     return state.data.map((row, i) => {
       // let randomIndex = null;
@@ -193,11 +307,11 @@ export default function DocumentsPage() {
       return {
         Doc_UID: row?.Doc_UID,
         Filename: row.Filename || row.File_Name,
-        Type: row.Type || row.File_Type,
+        Type: row.File_Type,
         Fund: metadata?.Fund || row.Fund_Name,
-        entity_name: row.Entity_Name,
+        // entity_name: row.Entity_Name,
         num_pages: row.Num_Pages,
-        Document_type: row.Document_Type,
+        Document_type: row.Type || row.Document_Type,
         AccountType: metadata?.Investor,
         Current_Status: row.Current_Status,
         ReceivedDate:
@@ -226,7 +340,6 @@ export default function DocumentsPage() {
         window.open(sessionStorage.getItem("pdfUrl"), "_blank");
       })
       .catch((err) => {});
-    const pdfUrl = sessionStorage.getItem("pdfUrl");
   };
 
   const columns = useMemo(() => {
@@ -247,24 +360,21 @@ export default function DocumentsPage() {
                   selectedAction: value,
                 });
                 if (value === "view_doc") {
-                  if (rows.row.original.Current_Status == "pending") {
-                    const updatedData = state.data.map((item) => {
-                      return item.Doc_UID == rows.row.original.Doc_UID
-                        ? {
-                            ...item,
-                            Current_Status: "complete",
-                            Completion_Time: new Date(),
-                          }
-                        : item;
-                    });
-                    changeState({
-                      data: [...updatedData],
-                      // viewModal: true,
-                      filename: rows.row.original.Filename,
-                    });
-                  }
+                  const updatedData = state.data.map((item) => {
+                    return item.Doc_UID == rows.row.original.Doc_UID
+                      ? {
+                          ...item,
+                          Current_Status:
+                            rows.row.original.Current_Status == "error"
+                              ? "complete"
+                              : rows.row.original.Current_Status,
+                          Completion_Time: new Date(),
+                        }
+                      : item;
+                  });
                   changeState({
-                    Filename: rows.row.original.Filename,
+                    data: [...updatedData],
+                    filename: rows.row.original.Filename,
                   });
                   localStorage.setItem("fileName", rows.row.original.Filename);
                   getPdfUrl(rows.row.original.Filename);
@@ -273,26 +383,34 @@ export default function DocumentsPage() {
                 if (value === "view_extract_data") {
                   exportJsonData(rows.row.original.Filename);
                 }
+                if (value === "download") {
+                  downloadPdf(rows.row.original.Filename);
+                }
               }}
-              // onChange={(value) =>
-              //   handleDropdownChange(value, rows.row.original)
-              // }
               data={[
                 {
-                  label: "View Doc",
+                  label: "View doc",
                   value: "view_doc",
                 },
+                // {
+                //   label: "View Jason - export",
+                //   value: "view_extract_data",
+                // },
                 {
-                  label: "View Jason - export",
-                  value: "view_extract_data",
+                  label: "Download document",
+                  value: "download",
                 },
                 {
-                  label: "View and ingest",
-                  value: "view_ingest",
+                  label: "Document re Read",
+                  value: "Document_re_Read",
                 },
                 {
-                  label: "Document re-read",
-                  value: "document_re-read",
+                  label: "Audit log",
+                  value: "Audit_log",
+                },
+                {
+                  label: "Accept / Reject Duplicate",
+                  value: "Accept_Reject_Duplicate",
                 },
               ]}
             >
@@ -387,7 +505,7 @@ export default function DocumentsPage() {
                   eventKey="captured-documents"
                   className="font-14 text-capitalize"
                 >
-                  Captured for ingestion documents
+                  Captured
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item onClick={() => changeTab("ignored-documents")}>
@@ -395,30 +513,11 @@ export default function DocumentsPage() {
                   eventKey="ignored-documents"
                   className="font-14 text-capitalize"
                 >
-                  Ignored for ingestion documents
+                  Ignored
                 </Nav.Link>
               </Nav.Item>
             </Nav>
-            <div className="d-flex align-items-center justify-content-end mt-3">
-              <ReactButton
-                size="sm"
-                className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
-                onClick={() => {
-                  changeState({ addModal: true });
-                }}
-              >
-                <Icon icon="ic:baseline-plus" className="d-block" /> Add
-                Document
-              </ReactButton>
-              <ReactButton
-                size="sm"
-                className="d-flex align-items-center gap-2 border-0 font-14 download--btn"
-                onClick={() => {}}
-              >
-                <Icon icon="material-symbols:download" className="d-block" />{" "}
-                download
-              </ReactButton>
-            </div>
+
             <div className="mt-3">
               <ThemeTable
                 columns={columns}
@@ -428,6 +527,25 @@ export default function DocumentsPage() {
             </div>
           </Card.Body>
         </Card>
+        <div className="my-3">
+          <ReactButton
+            size="sm"
+            className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
+            onClick={() => {
+              changeState({ addModal: true });
+            }}
+          >
+            <Icon icon="ic:baseline-plus" className="d-block" /> Add Document
+          </ReactButton>
+          {/* <ReactButton
+                size="sm"
+                className="d-flex align-items-center gap-2 border-0 font-14 download--btn"
+                onClick={() => {}}
+              >
+                <Icon icon="material-symbols:download" className="d-block" />{" "}
+                download
+              </ReactButton> */}
+        </div>
       </Container>
       {state.viewModal && (
         <ViewDocsModal

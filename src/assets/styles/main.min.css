@@ -13397,14 +13397,76 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 .documents-page .theme--table-wrap .table-responsive {
   height: 500px;
 }
-.documents-page .theme--table-wrap .table-responsive .table thead tr th,
-.documents-page .theme--table-wrap .table-responsive .table tbody tr th {
+.documents-page .theme--table-wrap .table-responsive .table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th {
+  text-transform: uppercase !important;
+  padding: 8px;
   white-space: nowrap;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(1) {
+  width: 50px;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(8) {
+  width: 70px;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(10) {
+  width: 70px;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(11) {
+  width: 80px;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:last-child {
+  text-align: right !important;
+}
+.documents-page .theme--table-wrap .table-responsive .table tbody tr td {
+  text-transform: uppercase !important;
+  padding: 8px;
+}
+.documents-page .theme--table-wrap .table-responsive .dot-status {
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  border: 2px solid #000;
+}
+.documents-page .theme--table-wrap .table-responsive .dot-status.error-dot {
+  background: radial-gradient(white, red 9px);
+}
+.documents-page .theme--table-wrap .table-responsive .dot-status.complete-dot {
+  background: radial-gradient(white, green 9px);
+}
+.documents-page .theme--table-wrap .table-responsive .dot-status.pending-dot {
+  background: radial-gradient(white, orange 9px);
 }
 
 .docs-modal .row {
   overflow: hidden;
   height: calc(100vh - 78px);
+}
+
+.document--form .rjsf .field-object fieldset {
+  display: flex;
+  flex-wrap: wrap;
+}
+.document--form .rjsf .field-object fieldset .field-object {
+  width: 100%;
+  display: block;
+}
+.document--form .rjsf .field-object fieldset .field-string,
+.document--form .rjsf .field-object fieldset .field-number {
+  width: 25%;
+  padding: 0 8px;
+  margin-bottom: 8px;
+}
+.document--form .rjsf .field-object fieldset .field-string label,
+.document--form .rjsf .field-object fieldset .field-number label {
+  margin-bottom: 5px;
+}
+.document--form .rjsf .field-object div {
+  display: inline;
 }
 
 .audit-logs--table .icon-dropdowns .dropdown .dropdown-toggle {

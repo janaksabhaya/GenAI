@@ -24,13 +24,18 @@ const AddDocumentModal = ({ isOpen, onClose, changeState }) => {
   const AddDocument = () => {
     const uploadPromises = formState.file.map((item, i) => {
       setIsLoading(true);
+      let status = "pending";
       const formData = new FormData();
       formData.append("file", item);
 
       api
         .post(`http://40.87.56.22:8000/json?file_name=${item?.name}`)
-        .then((res) => {})
-        .catch((err) => {});
+        .then((res) => {
+          status = "complete";
+        })
+        .catch((err) => {
+          status = "error";
+        });
       return api
         .post("http://40.87.56.22:8001/uploadfile/", formData)
         .then(() => {
@@ -41,7 +46,7 @@ const AddDocumentModal = ({ isOpen, onClose, changeState }) => {
         .then((res) => {
           const updatedData = {
             ...res.doc_details,
-            Current_Status: "pending",
+            Current_Status: status,
             ReceivedDate: new Date(),
             Doc_UID: i + 1,
           };
@@ -124,7 +129,7 @@ const AddDocumentModal = ({ isOpen, onClose, changeState }) => {
                   className="globel--btn text-white-primary bg-btn-theme border-0"
                   onClick={() => changeState({ addModal: false })}
                 >
-                  Cancle
+                  Cancel
                 </ReactButton>
               </div>
             </Form>

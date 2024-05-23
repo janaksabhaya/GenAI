@@ -64,16 +64,71 @@
             height: 500px;
 
             .table {
+                thead {
+                    position: sticky;
+                    top: 0;
+                    z-index: 1;
 
-                thead,
-                tbody {
                     tr {
 
                         th {
+                            text-transform: uppercase !important;
+                            padding: 8px;
+
+                            &:nth-child(1) {
+                                width: 50px;
+                            }
+
+                            &:nth-child(8) {
+                                width: 70px;
+                            }
+
+                            &:nth-child(10) {
+                                width: 70px;
+                            }
+
+                            &:nth-child(11) {
+                                width: 80px;
+                            }
+
+                            &:last-child {
+                                text-align: right !important;
+                            }
+
                             white-space: nowrap;
                         }
                     }
                 }
+
+                tbody {
+                    tr {
+                        td {
+                            text-transform: uppercase !important;
+
+                            padding: 8px;
+                        }
+                    }
+                }
+            }
+
+            .dot-status {
+                height: 20px;
+                width: 20px;
+                border-radius: 20px;
+                border: 2px solid #000;
+
+                &.error-dot {
+                    background: radial-gradient(white, red 9px);
+                }
+
+                &.complete-dot {
+                    background: radial-gradient(white, green 9px);
+                }
+
+                &.pending-dot {
+                    background: radial-gradient(white, orange 9px);
+                }
+
             }
         }
     }
@@ -83,5 +138,40 @@
     .row {
         overflow: hidden;
         height: calc(100vh - 78px);
+    }
+}
+
+.document--form {
+    .rjsf {
+
+        .field-object {
+
+            // width: 50%;
+            fieldset {
+                display: flex;
+                flex-wrap: wrap;
+
+                .field-object {
+                    width: 100%;
+                    display: block;
+                }
+
+                .field-string,
+                .field-number {
+                    width: 25%;
+                    padding: 0 8px;
+                    margin-bottom: 8px;
+
+                    label {
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+
+            div {
+                display: inline;
+            }
+        }
+
     }
 }
