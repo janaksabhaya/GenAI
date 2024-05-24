@@ -95,7 +95,6 @@ const DocumentJson = () => {
             default: blankTemplate, // Template for adding new items
           };
         } else {
-          console.log(itemType, " is not");
           return {
             type: "array",
             title: parentKey,

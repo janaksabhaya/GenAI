@@ -16,6 +16,7 @@ import { UncontrolledTooltip } from "reactstrap";
 import ThemeDatePicker from "@/components/ui/DatePickerUi";
 import ViewJsonModal from "./partials/ViewJsonModal";
 import ViewPdfModal from "./partials/ViewPdfModal";
+import ReactSelect from "@/components/ui/ReactSelect";
 
 export default function DocumentsPage() {
   const [state, changeState] = useMainState({
@@ -24,15 +25,20 @@ export default function DocumentsPage() {
     viewModal: false,
     statusUpdated: false,
     addModal: false,
+    fundId: "",
+    fundName: "",
+    accountName: "",
+    firmName: "",
     DateRangePicker: [null, null],
     viewJsonModal: false,
+    resetReactSelect: false,
     viewPdfModal: false,
     Filename: "",
     singleData: {},
     activeTab: "existing_configurations",
     columns: [
       {
-        accessor: "Filename",
+        accessor: "file_name",
         Header: "File name",
         Cell: (rows, i) => {
           return (
@@ -53,7 +59,7 @@ export default function DocumentsPage() {
         },
       },
       {
-        accessor: "Document_type",
+        accessor: "doc_type",
         Header: "Doc Type",
       },
       {
@@ -61,23 +67,23 @@ export default function DocumentsPage() {
         Header: "# Pages",
       },
       {
-        accessor: "Firm_ID",
+        accessor: "firm_id",
         Header: "Firm ID",
       },
       {
-        accessor: "Firm_name",
+        accessor: "firm_name",
         Header: "Firm name",
         Cell: (rows) => {
           return (
             <>
               <div id={`Firm_name-${rows.row.id}`} className="">
-                {rows.row.original.Firm_name}
+                {rows.row.original.firm_name}
                 <UncontrolledTooltip
                   placement="top"
                   target={`Firm_name-${rows.row.id}`}
                 >
                   <div className="text-uppercase">
-                    {rows.row.original.Firm_name}
+                    {rows.row.original.firm_name}
                   </div>
                 </UncontrolledTooltip>
               </div>
@@ -86,38 +92,19 @@ export default function DocumentsPage() {
         },
       },
       {
-        accessor: "Fund",
+        accessor: "fund_name",
         Header: "Fund",
         Cell: (rows) => {
           return (
             <>
               <div id={`Fund-${rows.row.id}`} className="">
-                {rows.row.original.Fund}
+                {rows.row.original.fund_name}
                 <UncontrolledTooltip
                   placement="top"
                   target={`Fund-${rows.row.id}`}
                 >
-                  <div className="text-uppercase">{rows.row.original.Fund}</div>
-                </UncontrolledTooltip>
-              </div>
-            </>
-          );
-        },
-      },
-      {
-        accessor: "Account_Name",
-        Header: "Account name",
-        Cell: (rows, i) => {
-          return (
-            <>
-              <div id={`accountName-${rows.row.id}`} className="">
-                {rows.row.original.Account_Name}
-                <UncontrolledTooltip
-                  placement="top"
-                  target={`accountName-${rows.row.id}`}
-                >
                   <div className="text-uppercase">
-                    {rows.row.original.Account_Name}
+                    {rows.row.original.fund_name}
                   </div>
                 </UncontrolledTooltip>
               </div>
@@ -126,13 +113,34 @@ export default function DocumentsPage() {
         },
       },
       {
-        accessor: "Date",
+        accessor: "account_name",
+        Header: "Account name",
+        Cell: (rows, i) => {
+          return (
+            <>
+              <div id={`accountName-${rows.row.id}`} className="">
+                {rows.row.original.account_name}
+                <UncontrolledTooltip
+                  placement="top"
+                  target={`accountName-${rows.row.id}`}
+                >
+                  <div className="text-uppercase">
+                    {rows.row.original.account_name}
+                  </div>
+                </UncontrolledTooltip>
+              </div>
+            </>
+          );
+        },
+      },
+      {
+        accessor: "date_time",
         Header: "Date Time",
         Cell: (rows) => {
           return (
             <>
-              <div>{rows.row.original.ReceivedDate}</div>
-              <div>{rows.row.original.Completion_Time}</div>
+              <div>{rows.row.original.date_time}</div>
+              {/* <div>{rows.row.original.Completion_Time}</div> */}
             </>
           );
         },
@@ -142,10 +150,10 @@ export default function DocumentsPage() {
         Header: "read status",
       },
       {
-        accessor: "Current_Status",
+        accessor: "status",
         Header: "Status",
         Cell: (rows) => {
-          const status = rows.row.original.Current_Status;
+          const status = rows.row.original.status;
           return (
             <>
               <div id={`status-${rows.row.id}`} className="status-width">
@@ -172,25 +180,29 @@ export default function DocumentsPage() {
         },
       },
       {
+        accessor: "confidence",
+        Header: "confidence",
+      },
+      {
         accessor: "action",
         Header: "Action",
       },
     ],
     // columns: [
     //   {
-    //     accessor: "Doc_UID",
+    //     accessor: "doc_id",
     //     Header: "Doc ID",
     //     Cell: (rows, i) => {
     //       return (
     //         <>
-    //           <div id={`Doc_uid-${rows.row.id}`} className="">
-    //             {rows.row.original.Doc_UID}
+    //           <div id={`doc_id-${rows.row.id}`} className="">
+    //             {rows.row.original.doc_id}
     //             <UncontrolledTooltip
     //               placement="top"
-    //               target={`Doc_uid-${rows.row.id}`}
+    //               target={`doc_id-${rows.row.id}`}
     //             >
     //               <div className="text-uppercase">
-    //                 {rows.row.original.Doc_UID}
+    //                 {rows.row.original.doc_id}
     //               </div>
     //             </UncontrolledTooltip>
     //           </div>
@@ -479,35 +491,37 @@ export default function DocumentsPage() {
 
   const data = useMemo(() => {
     return state.data.map((row, i) => {
-      // let randomIndex = null;
-      // if (["CapCall", "Distribution", "Statement"].includes(row.Type)) {
-      //   randomIndex = Math.floor(Math.random() * docs[row.Type].pdf.length);
-      // }
       const metadata = row?.Metadata && JSON.parse(row?.Metadata);
       return {
-        Doc_UID: row?.Doc_UID,
-        Filename: row?.Filename || row?.File_Name,
-        Type: row?.File_Type,
-        Fund: metadata?.Fund || row?.Fund_Name,
-        // entity_name: row.Entity_Name,
-        num_pages: row?.Num_Pages,
-        Document_type: row?.Type || row?.Document_Type,
-        AccountType: metadata?.Investor,
-        Current_Status: row?.Current_Status,
-        ReceivedDate:
-          (metadata?.Timestamp &&
-            moment(metadata?.Timestamp).format("DD-MM-yyyy")) ||
-          (row?.ReceivedDate &&
-            moment(row?.ReceivedDate).format("DD-MM-yyyy HH:mm")),
-        Completion_Time:
-          row?.Completion_Time &&
-          moment(row?.Completion_Time).format("DD-MM-yyyy HH:mm"),
-        // ...(randomIndex != null && {
-        //   files: {
-        //     pdf: `${docs[row.Type].pdf[randomIndex]}.pdf`,
-        //     json: `${docs[row.Type].json[randomIndex]}.json`,
-        //   },
-        // }),
+        doc_id: row?.doc_id,
+        // Filename: row?.Filename || row?.File_Name,
+        // Type: row?.File_Type,
+        // Fund: metadata?.Fund || row?.Fund_Name,
+        // // entity_name: row.Entity_Name,
+        // num_pages: row?.Num_Pages,
+        // Document_type: row?.Type || row?.Document_Type,
+        // AccountType: metadata?.Investor,
+        // Current_Status: row?.Current_Status,
+        // ReceivedDate:
+        //   (metadata?.Timestamp &&
+        //     moment(metadata?.Timestamp).format("DD-MM-yyyy")) ||
+        //   (row?.ReceivedDate &&
+        //     moment(row?.ReceivedDate).format("DD-MM-yyyy HH:mm")),
+        // Completion_Time:
+        //   row?.Completion_Time &&
+        //   moment(row?.Completion_Time).format("DD-MM-yyyy HH:mm"),
+
+        account_name: row?.account_name,
+        confidence: row?.confidence,
+        date_time: row?.date_time,
+        doc_type: row?.doc_type,
+        file_name: row?.file_name,
+        file_type: row?.file_type,
+        firm_id: row?.firm_id,
+        firm_name: row?.firm_name,
+        fund_name: row?.fund_name,
+        num_pages: row?.num_pages,
+        status: row?.status,
       };
     });
   }, [state.data]);
@@ -542,20 +556,20 @@ export default function DocumentsPage() {
                 if (value === "view_doc") {
                   if (state.statusUpdated == false) {
                     const updatedData = state.data.map((item) => {
-                      return item.Doc_UID == rows.row.original.Doc_UID
+                      return item.doc_id == rows.row.original.doc_id
                         ? {
                             ...item,
-                            Current_Status:
-                              rows.row.original.Current_Status == "error"
+                            status:
+                              rows.row.original.status == "error"
                                 ? "complete"
-                                : rows.row.original.Current_Status,
-                            Completion_Time: new Date(),
+                                : rows.row.original.status,
+                            // Completion_Time: new Date(),
                           }
                         : item;
                     });
                     changeState({
                       data: [...updatedData],
-                      filename: rows.row.original.Filename,
+                      filename: rows.row.original.file_name,
                       singleData: rows.row.original,
                       viewJsonModal: true,
                       viewPdfModal: true,
@@ -563,21 +577,21 @@ export default function DocumentsPage() {
                     });
                   }
                   changeState({
-                    filename: rows.row.original.Filename,
+                    filename: rows.row.original.file_name,
                     singleData: rows.row.original,
                     viewJsonModal: true,
                     viewPdfModal: true,
                   });
 
-                  localStorage.setItem("fileName", rows.row.original.Filename);
-                  getPdfUrl(rows.row.original.Filename);
+                  // localStorage.setItem("fileName", rows.row.original.file_name);
+                  getPdfUrl(rows.row.original.file_name);
                   // window.open(pageRoutes.documents_json, "_blank");
                 }
                 if (value === "view_extract_data") {
-                  exportJsonData(rows.row.original.Filename);
+                  exportJsonData(rows.row.original.file_name);
                 }
                 if (value === "download") {
-                  downloadPdf(rows.row.original.Filename);
+                  downloadPdf(rows.row.original.file_name);
                 }
               }}
               data={[
@@ -652,10 +666,27 @@ export default function DocumentsPage() {
   ]);
 
   const getDocumentData = () => {
+    // api
+    //   .get(`${apiConfig.document}?$top=${state.top}`)
+    //   .then((response) => {
+    //     changeState({ data: response.value });
+    //     changeState({ isLoading: false });
+    //   })
+    //   .catch((err) => {
+    //     changeState({ isLoading: false });
+    //   });
+
+    changeState({ isLoading: true });
+    const payload = {
+      fund_id: state.fundId,
+      fund_name: state.fundName,
+      account_name: state.accountName,
+      firm_name: state.firmName,
+    };
     api
-      .get(`${apiConfig.document}?$top=${state.top}`)
-      .then((response) => {
-        changeState({ data: response.value });
+      .post("http://40.87.56.22:8000/documents/filter", payload)
+      .then((res) => {
+        changeState({ data: res });
         changeState({ isLoading: false });
       })
       .catch((err) => {
@@ -663,9 +694,10 @@ export default function DocumentsPage() {
       });
   };
 
+  console.log(state.data);
   useEffect(() => {
-    // getDocumentData();
-  }, [state.activePage]);
+    getDocumentData();
+  }, [state.resetReactSelect]);
 
   const onUserFeedback = (value) => {
     Swal.fire({
@@ -710,6 +742,98 @@ export default function DocumentsPage() {
                 </Nav.Link>
               </Nav.Item>
             </Nav>
+            <div className="d-flex  mt-3 document-filter card">
+              <div className="card-body">
+                <div className="row align-items-end">
+                  <div className="col-8 row gap-x-2">
+                    <div className="col-3 ">
+                      <label htmlFor="" className="mb-1">
+                        Fund Id
+                      </label>
+                      <ReactSelect
+                        key={
+                          state.resetReactSelect ? "rerender" : "no-rerender"
+                        }
+                        options={[{ label: "Fund Id", value: "Fund Id" }]}
+                        placeholder="Select Fund Id"
+                        value={state.fundId}
+                        onChange={(e) => changeState({ fundId: e.value })}
+                      />
+                    </div>
+                    <div className="col-3 ">
+                      <label htmlFor="" className="mb-1">
+                        Fund Name
+                      </label>
+                      <ReactSelect
+                        key={
+                          state.resetReactSelect ? "rerender" : "no-rerender"
+                        }
+                        options={[{ label: "Fund Name", value: "Fund Name" }]}
+                        placeholder="Select Fund Name"
+                        value={state.fundName}
+                        onChange={(e) => changeState({ fundName: e.value })}
+                      />
+                    </div>
+
+                    <div className="col-3">
+                      <label htmlFor="" className="mb-1">
+                        Acoount Name
+                      </label>
+                      <ReactSelect
+                        key={
+                          state.resetReactSelect ? "rerender" : "no-rerender"
+                        }
+                        options={[
+                          { label: "Acoount Name", value: "Acoount Name" },
+                        ]}
+                        placeholder="Select Acoount Name"
+                        value={state.accountName}
+                        onChange={(e) => changeState({ accountName: e.value })}
+                      />
+                    </div>
+                    <div className="col-3">
+                      <label htmlFor="" className="mb-1">
+                        Firm Name
+                      </label>
+                      <ReactSelect
+                        key={
+                          state.resetReactSelect ? "rerender" : "no-rerender"
+                        }
+                        options={[{ label: "Firm Name", value: "Firm Name" }]}
+                        placeholder="Select Firm Name"
+                        value={state.firmName}
+                        onChange={(e) => changeState({ firmName: e.value })}
+                      />
+                    </div>
+                  </div>
+                  <div className="d-flex align-items-center mt-2 col-4">
+                    <ReactButton
+                      size="sm"
+                      className="border-0 font-14 download--btn me-2"
+                      onClick={getDocumentData}
+                    >
+                      Filter
+                    </ReactButton>
+                    <ReactButton
+                      className=" border-0 font-14 download--btn me-2"
+                      size="sm"
+                      onClick={() => {
+                        changeState({
+                          fundId: "",
+                          fundName: "",
+                          accountName: "",
+                          firstName: "",
+                          resetReactSelect: !state.resetReactSelect,
+                        });
+                      }}
+                    >
+                      Reset
+                    </ReactButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="text-end mt-3">
               <ThemeDatePicker
                 name="date range"

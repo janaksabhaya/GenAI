@@ -140,7 +140,6 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     { name: "STATUS", value: singleData?.Current_Status },
   ];
 
-  console.log(singleRecord);
   return (
     <ReactDynamicModal
       title="View Json"
