@@ -44,13 +44,13 @@ export default function DocumentsPage() {
           return (
             <>
               <div id={`FileName-${rows.row.id}`} className="">
-                {rows.row.original.Filename}
+                {rows.row.original.file_name}
                 <UncontrolledTooltip
                   placement="top"
                   target={`FileName-${rows.row.id}`}
                 >
                   <div className="text-uppercase">
-                    {rows.row.original.Filename}
+                    {rows.row.original.file_name}
                   </div>
                 </UncontrolledTooltip>
               </div>
