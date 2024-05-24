@@ -11,10 +11,11 @@ import ReactButton from "@/components/ui/ReactButton";
 import { api } from "@/services";
 import { apiConfig, pageRoutes } from "@/configs";
 import moment from "moment";
-import ViewDocsModal from "./partials/ViewDocsModal";
 import AddDocumentModal from "./partials/AddDocumentModal";
 import { UncontrolledTooltip } from "reactstrap";
 import ThemeDatePicker from "@/components/ui/DatePickerUi";
+import ViewJsonModal from "./partials/ViewJsonModal";
+import ViewPdfModal from "./partials/ViewPdfModal";
 
 export default function DocumentsPage() {
   const [state, changeState] = useMainState({
@@ -24,7 +25,10 @@ export default function DocumentsPage() {
     statusUpdated: false,
     addModal: false,
     DateRangePicker: [null, null],
+    viewJsonModal: false,
+    viewPdfModal: false,
     Filename: "",
+    singleData: {},
     activeTab: "existing_configurations",
     columns: [
       {
@@ -144,15 +148,25 @@ export default function DocumentsPage() {
           const status = rows.row.original.Current_Status;
           return (
             <>
-              <div
-                className={`dot-status  ${
-                  status == "pending"
-                    ? "pending-dot"
-                    : status == "error"
-                    ? "error-dot"
-                    : "complete-dot"
-                }`}
-              ></div>
+              <div id={`status-${rows.row.id}`} className="status-width">
+                <div
+                  className={`dot-status  ${
+                    status == "Received" || status == "Duplicate"
+                      ? "pending-dot"
+                      : status == "Extraction failed" ||
+                        status == "Linking failed" ||
+                        status == "Failed ingested"
+                      ? "error-dot"
+                      : "complete-dot"
+                  }`}
+                ></div>
+                <UncontrolledTooltip
+                  placement="top"
+                  target={`status-${rows.row.id}`}
+                >
+                  <div className="text-uppercase">{status}</div>
+                </UncontrolledTooltip>
+              </div>
             </>
           );
         },
@@ -502,8 +516,8 @@ export default function DocumentsPage() {
     api
       .get(`http://40.87.56.22:8001/files/${Filename}`)
       .then((res) => {
-        sessionStorage.setItem("pdfUrl", res?.file_url);
-        window.open(sessionStorage.getItem("pdfUrl"), "_blank");
+        // sessionStorage.setItem("pdfUrl", res?.file_url);
+        // window.open(sessionStorage.getItem("pdfUrl"), "_blank");
       })
       .catch((err) => {});
   };
@@ -526,32 +540,38 @@ export default function DocumentsPage() {
                   selectedAction: value,
                 });
                 if (value === "view_doc") {
-                  // if (state.statusUpdated == false) {
-                  const updatedData = state.data.map((item) => {
-                    return item.Doc_UID == rows.row.original.Doc_UID
-                      ? {
-                          ...item,
-                          Current_Status:
-                            rows.row.original.Current_Status == "error"
-                              ? "complete"
-                              : rows.row.original.Current_Status,
-                          Completion_Time: new Date(),
-                        }
-                      : item;
-                  });
-                  // changeState({
-                  //   data: [...updatedData],
-                  //   filename: rows.row.original.Filename,
-                  //   statusUpdated: true,
-                  // });
-                  // }
+                  if (state.statusUpdated == false) {
+                    const updatedData = state.data.map((item) => {
+                      return item.Doc_UID == rows.row.original.Doc_UID
+                        ? {
+                            ...item,
+                            Current_Status:
+                              rows.row.original.Current_Status == "error"
+                                ? "complete"
+                                : rows.row.original.Current_Status,
+                            Completion_Time: new Date(),
+                          }
+                        : item;
+                    });
+                    changeState({
+                      data: [...updatedData],
+                      filename: rows.row.original.Filename,
+                      singleData: rows.row.original,
+                      viewJsonModal: true,
+                      viewPdfModal: true,
+                      statusUpdated: true,
+                    });
+                  }
                   changeState({
-                    data: [...updatedData],
                     filename: rows.row.original.Filename,
+                    singleData: rows.row.original,
+                    viewJsonModal: true,
+                    viewPdfModal: true,
                   });
+
                   localStorage.setItem("fileName", rows.row.original.Filename);
                   getPdfUrl(rows.row.original.Filename);
-                  window.open(pageRoutes.documents_json, "_blank");
+                  // window.open(pageRoutes.documents_json, "_blank");
                 }
                 if (value === "view_extract_data") {
                   exportJsonData(rows.row.original.Filename);
@@ -741,7 +761,7 @@ export default function DocumentsPage() {
                 download
               </ReactButton> */}
       </Container>
-      {state.viewModal && (
+      {/* {state.viewModal && (
         <ViewDocsModal
           isOpen={state.viewModal}
           setState={changeState}
@@ -754,7 +774,7 @@ export default function DocumentsPage() {
           // docType={state.docType}
           Filename={state.Filename}
         />
-      )}
+      )} */}
       {state.addModal && (
         <AddDocumentModal
           isOpen={state.addModal}
@@ -767,6 +787,30 @@ export default function DocumentsPage() {
               });
             }
           }}
+        />
+      )}
+      {state.viewJsonModal && (
+        <ViewJsonModal
+          isOpen={state.viewJsonModal}
+          setState={changeState}
+          onClose={() => {
+            changeState({
+              viewJsonModal: false,
+            });
+          }}
+          singleData={state.singleData}
+        />
+      )}
+      {state.viewPdfModal && (
+        <ViewPdfModal
+          isOpen={state.viewPdfModal}
+          setState={changeState}
+          onClose={() => {
+            changeState({
+              viewPdfModal: false,
+            });
+          }}
+          singleData={state.singleData}
         />
       )}
     </div>

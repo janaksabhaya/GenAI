@@ -13454,7 +13454,7 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   width: 70px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(10) {
-  width: 120px;
+  width: 60px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(11) {
   width: 80px;
@@ -13469,25 +13469,28 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   text-transform: uppercase !important;
   padding: 8px;
 }
-.documents-page .theme--table-wrap .table-responsive .dot-status {
+.documents-page .theme--table-wrap .table-responsive .status-width {
+  width: fit-content;
+}
+.documents-page .theme--table-wrap .table-responsive .status-width .dot-status {
   height: 20px;
   width: 20px;
   border-radius: 20px;
   border: 2px solid #000;
 }
-.documents-page .theme--table-wrap .table-responsive .dot-status.error-dot {
+.documents-page .theme--table-wrap .table-responsive .status-width .dot-status.error-dot {
   background: radial-gradient(white, red 9px);
 }
-.documents-page .theme--table-wrap .table-responsive .dot-status.complete-dot {
+.documents-page .theme--table-wrap .table-responsive .status-width .dot-status.complete-dot {
   background: radial-gradient(white, green 9px);
 }
-.documents-page .theme--table-wrap .table-responsive .dot-status.pending-dot {
+.documents-page .theme--table-wrap .table-responsive .status-width .dot-status.pending-dot {
   background: radial-gradient(white, #ffbf00 9px);
 }
 
 .docs-modal .row {
   overflow: hidden;
-  height: calc(100vh - 78px);
+  height: calc(100vh - 74px);
 }
 
 .document--form .rjsf .field-object fieldset {
@@ -13517,8 +13520,9 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 }
 .document--form .rjsf .field-object fieldset legend {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 16px;
   padding: 0 8px;
+  margin-top: 5px;
   margin-bottom: 0px;
 }
 .document--form .rjsf .field-object fieldset .field-array .field-array-of-object {
@@ -13528,6 +13532,7 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   background-color: #4bc3ff;
   border-radius: 5px;
   color: #fff;
+  margin-bottom: 8px;
   font-size: 14px;
   border: 0;
   margin-left: 8px;
@@ -13548,26 +13553,32 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 .document--form .rjsf .field-object fieldset .field-array .array-item-toolbox .btn-group {
   display: inline !important;
 }
-.document--form .rjsf .field-object fieldset .field-array .array-item {
-  display: flex;
+.document--form .rjsf .field-object fieldset .array-item-list {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 12px;
 }
-.document--form .rjsf .field-object fieldset .field-array .array-item .field-string,
-.document--form .rjsf .field-object fieldset .field-array .array-item .field-number {
+.document--form .rjsf .field-object fieldset .array-item {
+  display: flex;
+  align-items: end;
+}
+.document--form .rjsf .field-object fieldset .array-item .field-string,
+.document--form .rjsf .field-object fieldset .array-item .field-number {
   width: 100%;
   padding: 0 8px;
   margin-bottom: 8px;
 }
-.document--form .rjsf .field-object fieldset .field-array .array-item .field-string label,
-.document--form .rjsf .field-object fieldset .field-array .array-item .field-number label {
+.document--form .rjsf .field-object fieldset .array-item .field-string label,
+.document--form .rjsf .field-object fieldset .array-item .field-number label {
   margin-bottom: 5px;
   font-size: 14px;
   font-weight: 500;
 }
-.document--form .rjsf .field-object fieldset .field-array .array-item .field-string input,
-.document--form .rjsf .field-object fieldset .field-array .array-item .field-number input {
+.document--form .rjsf .field-object fieldset .array-item .field-string input,
+.document--form .rjsf .field-object fieldset .array-item .field-number input {
   font-size: 14px;
 }
-.document--form .rjsf .field-object fieldset .field-array .array-item-remove {
+.document--form .rjsf .field-object fieldset .array-item-remove {
   background-color: #4bc3ff;
   border-radius: 5px;
   color: #fff;
@@ -13579,11 +13590,12 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   margin-top: 8px;
   padding: 4px 8px;
   text-transform: capitalize !important;
+  margin-bottom: 8px;
 }
-.document--form .rjsf .field-object fieldset .field-array .array-item-remove::after {
+.document--form .rjsf .field-object fieldset .array-item-remove::after {
   content: "-";
 }
-.document--form .rjsf button[type=submit] {
+.document--form button[type=submit] {
   background-color: #4bc3ff;
   border-radius: 5px;
   color: #fff;
@@ -13596,10 +13608,59 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   padding: 4px 8px;
   text-transform: capitalize !important;
 }
-.document--form .cancel-button {
+
+.cancel-button {
   position: absolute;
   bottom: 0;
   left: 135px;
+}
+
+.docs--json-modal {
+  height: calc(100vh - 74px);
+  overflow: auto;
+}
+.docs--json-modal .json-modal-table tbody tr th {
+  font-size: 14px;
+  font-weight: 700;
+}
+.docs--json-modal .json-to-table table tr:nth-child(even) {
+  background: transparent;
+}
+.docs--json-modal .json-to-table table tr td {
+  padding: 8px;
+  border: 1px solid #dee2e6;
+}
+.docs--json-modal .json-to-table table tr td div {
+  margin-bottom: 7px;
+  margin-top: 2px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.docs--json-modal .json-to-table table tr td strong {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+.docs--json-modal .json-to-table table tr td table {
+  margin: 6px;
+}
+.docs--json-modal .json-to-table table tr td table tbody {
+  /* SCSS */
+}
+.docs--json-modal .json-to-table table tr td table tbody tr:nth-child(1):has(> td:nth-child(2)):not(:has(> td:nth-child(3))) > td:first-child {
+  font-weight: bold;
+  color: #000;
+  text-transform: capitalize;
+}
+.docs--json-modal .json-to-table table tr td table tbody tr:nth-child(1):has(> td:nth-child(2)):not(:has(> td:nth-child(3))) > td:first-child strong {
+  font-weight: bold;
+}
+.docs--json-modal .json-to-table table tr td table tbody tr:nth-child(1):has(> td:nth-child(3)) > td {
+  font-weight: bold;
+  color: #000;
+  text-transform: capitalize;
+}
+.docs--json-modal .json-to-table table tr td table tbody tr:nth-child(1):has(> td:nth-child(3)) > td strong {
+  font-weight: bold;
 }
 
 .audit-logs--table .icon-dropdowns .dropdown .dropdown-toggle {
