@@ -67,11 +67,12 @@ const AddDocumentModal = ({ isOpen, onClose, changeState }) => {
     Promise.all(uploadPromises)
       .then((results) => {
         if (results) {
-          onClose(results);
+          onClose(results.filter());
         }
         setIsLoading(false);
       })
       .catch((err) => {
+        setIsLoading(false);
         console.error("Error during file uploads or fetching details:", err);
       });
   };

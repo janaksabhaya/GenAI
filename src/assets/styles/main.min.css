@@ -13002,6 +13002,45 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   z-index: 9;
 }
 
+.ani-status {
+  position: relative;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin: 10px;
+}
+.ani-status.success, .ani-status.success:before {
+  background: #72ff7d;
+}
+.ani-status.failed, .ani-status.failed:before {
+  background: #ff4242;
+}
+.ani-status.pending, .ani-status.pending:before {
+  background: #ffbf00;
+}
+.ani-status:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite ease-in;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
 .modal-shadow {
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.2);
 }

@@ -17,6 +17,7 @@ import ThemeDatePicker from "@/components/ui/DatePickerUi";
 import ViewJsonModal from "./partials/ViewJsonModal";
 import ViewPdfModal from "./partials/ViewPdfModal";
 import ReactSelect from "@/components/ui/ReactSelect";
+import CheckDocumentsModal from "./CheckDocuments";
 
 export default function DocumentsPage() {
   const [state, changeState] = useMainState({
@@ -33,6 +34,7 @@ export default function DocumentsPage() {
     viewJsonModal: false,
     resetReactSelect: false,
     viewPdfModal: false,
+    checkDocumentsModal: false,
     Filename: "",
     singleData: {},
     activeTab: "existing_configurations",
@@ -822,7 +824,7 @@ export default function DocumentsPage() {
                           fundId: "",
                           fundName: "",
                           accountName: "",
-                          firstName: "",
+                          firmName: "",
                           resetReactSelect: !state.resetReactSelect,
                         });
                       }}
@@ -858,7 +860,18 @@ export default function DocumentsPage() {
           </Card.Body>
         </Card>
         {state.activeTab == "new_configurations" && (
-          <div className="my-3">
+          <div className="my-3 d-flex align-items-center gap-2">
+            <ReactButton
+              size="sm"
+              className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
+              onClick={() => {
+                changeState({ checkDocumentsModal: true });
+              }}
+            >
+              <Icon icon="ic:baseline-plus" className="d-block" /> check for new
+              documents
+            </ReactButton>
+
             <ReactButton
               size="sm"
               className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
@@ -866,8 +879,7 @@ export default function DocumentsPage() {
                 changeState({ addModal: true });
               }}
             >
-              <Icon icon="ic:baseline-plus" className="d-block" /> check for new
-              documents
+              <Icon icon="ic:baseline-plus" className="d-block" /> Add documents
             </ReactButton>
           </div>
         )}
@@ -904,6 +916,7 @@ export default function DocumentsPage() {
           isOpen={state.addModal}
           changeState={changeState}
           onClose={(newDocDetail) => {
+            debugger;
             if (newDocDetail) {
               changeState({
                 addModal: false,
@@ -937,6 +950,15 @@ export default function DocumentsPage() {
           singleData={state.singleData}
         />
       )}
+
+      <CheckDocumentsModal
+        isOpen={state.checkDocumentsModal}
+        onClose={() => {
+          changeState({
+            checkDocumentsModal: false,
+          });
+        }}
+      />
     </div>
   );
 }

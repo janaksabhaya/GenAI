@@ -37,7 +37,7 @@ instance.interceptors.response.use(
 	(error) => {
 		// in the case, server is stoped
 		if (error.code == "ERR_NETWORK") {
-			helper.toaster.error("Something went wrong, Please try after sometimes.");
+			// helper.toaster.error("Something went wrong, Please try after sometimes.");
 		}
 
 		return Promise.reject(error);
