@@ -13427,10 +13427,10 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   white-space: nowrap;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(1) {
-  width: 50px;
+  width: 100px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(2) {
-  width: 180px;
+  width: 50px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(3) {
   width: 80px;
@@ -13442,13 +13442,13 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   width: 220px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(6) {
-  width: 100px;
+  width: 200px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(7) {
   width: 200px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(8) {
-  width: 70px;
+  width: 120px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(9) {
   width: 70px;
@@ -13457,6 +13457,9 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   width: 120px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(11) {
+  width: 80px;
+}
+.documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(12) {
   width: 80px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:last-child {
@@ -13479,7 +13482,7 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   background: radial-gradient(white, green 9px);
 }
 .documents-page .theme--table-wrap .table-responsive .dot-status.pending-dot {
-  background: radial-gradient(white, orange 9px);
+  background: radial-gradient(white, #ffbf00 9px);
 }
 
 .docs-modal .row {

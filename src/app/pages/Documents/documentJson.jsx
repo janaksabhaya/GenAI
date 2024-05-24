@@ -31,6 +31,7 @@ const DocumentJson = () => {
           }
         })
         .catch((err) => {
+          helper.toaster.error("Something went wrong. Please try again!");
           changeState({ jsonLoading: false });
         });
     }

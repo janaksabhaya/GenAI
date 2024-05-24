@@ -76,11 +76,11 @@
                             padding: 8px;
 
                             &:nth-child(1) {
-                                width: 50px;
+                                width: 100px;
                             }
 
                             &:nth-child(2) {
-                                width: 180px;
+                                width: 50px;
                             }
 
                             &:nth-child(3) {
@@ -96,7 +96,7 @@
                             }
 
                             &:nth-child(6) {
-                                width: 100px;
+                                width: 200px;
                             }
 
                             &:nth-child(7) {
@@ -104,7 +104,7 @@
                             }
 
                             &:nth-child(8) {
-                                width: 70px;
+                                width: 120px;
                             }
 
                             &:nth-child(9) {
@@ -116,6 +116,10 @@
                             }
 
                             &:nth-child(11) {
+                                width: 80px;
+                            }
+
+                            &:nth-child(12) {
                                 width: 80px;
                             }
 
@@ -154,7 +158,7 @@
                 }
 
                 &.pending-dot {
-                    background: radial-gradient(white, orange 9px);
+                    background: radial-gradient(white, #ffbf00 9px);
                 }
 
             }

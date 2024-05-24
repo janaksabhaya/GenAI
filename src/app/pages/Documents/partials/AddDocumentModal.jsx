@@ -2,7 +2,7 @@ import ReactButton from "@/components/ui/ReactButton";
 import ReactDynamicModal from "@/components/ui/ReactDynamicModal";
 import Textinput from "@/components/ui/TextInput";
 import Validators from "@/components/validations/Validator";
-import { api } from "@/services";
+import { api, helper } from "@/services";
 import React, { useState } from "react";
 import { Form, Table } from "reactstrap";
 import loading from "../../../../assets/images/loading.gif";
@@ -44,16 +44,21 @@ const AddDocumentModal = ({ isOpen, onClose, changeState }) => {
           );
         })
         .then((res) => {
-          const updatedData = {
-            ...res.doc_details,
-            Current_Status: status,
-            ReceivedDate: new Date(),
-            Doc_UID: Math.random().toString(36).substring(2),
-          };
+          if (res.doc_details) {
+            const updatedData = {
+              ...res.doc_details,
+              Current_Status: status,
+              ReceivedDate: new Date(),
+              Doc_UID: Math.random().toString(36).substring(2),
+            };
 
-          return updatedData;
+            return updatedData;
+          } else {
+            return null;
+          }
         })
         .catch((err) => {
+          helper.toaster.error("Something went wrong. Please try again!");
           console.error("Error fetching document details:", err);
           return null;
         });
@@ -61,7 +66,9 @@ const AddDocumentModal = ({ isOpen, onClose, changeState }) => {
 
     Promise.all(uploadPromises)
       .then((results) => {
-        onClose(results);
+        if (results) {
+          onClose(results);
+        }
         setIsLoading(false);
       })
       .catch((err) => {

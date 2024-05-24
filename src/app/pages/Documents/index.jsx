@@ -25,22 +25,22 @@ export default function DocumentsPage() {
     addModal: false,
     DateRangePicker: [null, null],
     Filename: "",
-    activeTab: "captured-documents",
+    activeTab: "existing_configurations",
     columns: [
       {
-        accessor: "Doc_UID",
-        Header: "Doc ID",
+        accessor: "Filename",
+        Header: "File name",
         Cell: (rows, i) => {
           return (
             <>
-              <div id={`Doc_uid-${rows.row.id}`} className="">
-                {rows.row.original.Doc_UID}
+              <div id={`FileName-${rows.row.id}`} className="">
+                {rows.row.original.Filename}
                 <UncontrolledTooltip
                   placement="top"
-                  target={`Doc_uid-${rows.row.id}`}
+                  target={`FileName-${rows.row.id}`}
                 >
                   <div className="text-uppercase">
-                    {rows.row.original.Doc_UID}
+                    {rows.row.original.Filename}
                   </div>
                 </UncontrolledTooltip>
               </div>
@@ -49,25 +49,12 @@ export default function DocumentsPage() {
         },
       },
       {
-        accessor: "Account_Name",
-        Header: "Account name",
-        Cell: (rows, i) => {
-          return (
-            <>
-              <div id={`accountName-${rows.row.id}`} className="">
-                {rows.row.original.Account_Name}
-                <UncontrolledTooltip
-                  placement="top"
-                  target={`accountName-${rows.row.id}`}
-                >
-                  <div className="text-uppercase">
-                    {rows.row.original.Account_Name}
-                  </div>
-                </UncontrolledTooltip>
-              </div>
-            </>
-          );
-        },
+        accessor: "Document_type",
+        Header: "Doc Type",
+      },
+      {
+        accessor: "num_pages",
+        Header: "# Pages",
       },
       {
         accessor: "Firm_ID",
@@ -96,7 +83,7 @@ export default function DocumentsPage() {
       },
       {
         accessor: "Fund",
-        Header: "Fund name",
+        Header: "Fund",
         Cell: (rows) => {
           return (
             <>
@@ -114,47 +101,25 @@ export default function DocumentsPage() {
         },
       },
       {
-        accessor: "Document_type",
-        Header: "Doc Type",
-      },
-      {
-        accessor: "Filename",
-        Header: "File name",
+        accessor: "Account_Name",
+        Header: "Account name",
         Cell: (rows, i) => {
           return (
             <>
-              <div id={`FileName-${rows.row.id}`} className="">
-                {rows.row.original.Filename}
+              <div id={`accountName-${rows.row.id}`} className="">
+                {rows.row.original.Account_Name}
                 <UncontrolledTooltip
                   placement="top"
-                  target={`FileName-${rows.row.id}`}
+                  target={`accountName-${rows.row.id}`}
                 >
                   <div className="text-uppercase">
-                    {rows.row.original.Filename}
+                    {rows.row.original.Account_Name}
                   </div>
                 </UncontrolledTooltip>
               </div>
             </>
           );
         },
-      },
-      {
-        accessor: "Type",
-        Header: "File Type",
-      },
-
-      // {
-      //   accessor: "FileURL",
-      //   Header: "File URL",
-      // },
-      // {
-      //   accessor: "entity_name",
-      //   Header: "Entity Name",
-      // },
-
-      {
-        accessor: "num_pages",
-        Header: "# Pages",
       },
       {
         accessor: "Date",
@@ -172,40 +137,211 @@ export default function DocumentsPage() {
         accessor: "read_Status",
         Header: "read status",
       },
-      // {
-      //   accessor: "Current_Status",
-      //   Header: "Status",
-      //   Cell: (rows) => {
-      //     const status = rows.row.original.Current_Status;
-      //     return (
-      //       <>
-      //         <div
-      //           className={`dot-status  ${
-      //             status == "pending"
-      //               ? "pending-dot"
-      //               : status == "error"
-      //               ? "error-dot"
-      //               : "complete-dot"
-      //           }`}
-      //         ></div>
-      //       </>
-      //     );
-      //   },
-      // },
-
-      // {
-      //   accessor: "Conversion Confidence score",
-      //   Header: "Conversion Confidence score",
-      // },
+      {
+        accessor: "Current_Status",
+        Header: "Status",
+        Cell: (rows) => {
+          const status = rows.row.original.Current_Status;
+          return (
+            <>
+              <div
+                className={`dot-status  ${
+                  status == "pending"
+                    ? "pending-dot"
+                    : status == "error"
+                    ? "error-dot"
+                    : "complete-dot"
+                }`}
+              ></div>
+            </>
+          );
+        },
+      },
       {
         accessor: "action",
         Header: "Action",
       },
-      // {
-      //   accessor: "genai_score",
-      //   Header: "GenAI Score",
-      // },
     ],
+    // columns: [
+    //   {
+    //     accessor: "Doc_UID",
+    //     Header: "Doc ID",
+    //     Cell: (rows, i) => {
+    //       return (
+    //         <>
+    //           <div id={`Doc_uid-${rows.row.id}`} className="">
+    //             {rows.row.original.Doc_UID}
+    //             <UncontrolledTooltip
+    //               placement="top"
+    //               target={`Doc_uid-${rows.row.id}`}
+    //             >
+    //               <div className="text-uppercase">
+    //                 {rows.row.original.Doc_UID}
+    //               </div>
+    //             </UncontrolledTooltip>
+    //           </div>
+    //         </>
+    //       );
+    //     },
+    //   },
+    //   {
+    //     accessor: "Account_Name",
+    //     Header: "Account name",
+    //     Cell: (rows, i) => {
+    //       return (
+    //         <>
+    //           <div id={`accountName-${rows.row.id}`} className="">
+    //             {rows.row.original.Account_Name}
+    //             <UncontrolledTooltip
+    //               placement="top"
+    //               target={`accountName-${rows.row.id}`}
+    //             >
+    //               <div className="text-uppercase">
+    //                 {rows.row.original.Account_Name}
+    //               </div>
+    //             </UncontrolledTooltip>
+    //           </div>
+    //         </>
+    //       );
+    //     },
+    //   },
+    //   {
+    //     accessor: "Firm_ID",
+    //     Header: "Firm ID",
+    //   },
+    //   {
+    //     accessor: "Firm_name",
+    //     Header: "Firm name",
+    //     Cell: (rows) => {
+    //       return (
+    //         <>
+    //           <div id={`Firm_name-${rows.row.id}`} className="">
+    //             {rows.row.original.Firm_name}
+    //             <UncontrolledTooltip
+    //               placement="top"
+    //               target={`Firm_name-${rows.row.id}`}
+    //             >
+    //               <div className="text-uppercase">
+    //                 {rows.row.original.Firm_name}
+    //               </div>
+    //             </UncontrolledTooltip>
+    //           </div>
+    //         </>
+    //       );
+    //     },
+    //   },
+    //   {
+    //     accessor: "Fund",
+    //     Header: "Fund name",
+    //     Cell: (rows) => {
+    //       return (
+    //         <>
+    //           <div id={`Fund-${rows.row.id}`} className="">
+    //             {rows.row.original.Fund}
+    //             <UncontrolledTooltip
+    //               placement="top"
+    //               target={`Fund-${rows.row.id}`}
+    //             >
+    //               <div className="text-uppercase">{rows.row.original.Fund}</div>
+    //             </UncontrolledTooltip>
+    //           </div>
+    //         </>
+    //       );
+    //     },
+    //   },
+    //   {
+    //     accessor: "Document_type",
+    //     Header: "Doc Type",
+    //   },
+    //   {
+    //     accessor: "Filename",
+    //     Header: "File name",
+    //     Cell: (rows, i) => {
+    //       return (
+    //         <>
+    //           <div id={`FileName-${rows.row.id}`} className="">
+    //             {rows.row.original.Filename}
+    //             <UncontrolledTooltip
+    //               placement="top"
+    //               target={`FileName-${rows.row.id}`}
+    //             >
+    //               <div className="text-uppercase">
+    //                 {rows.row.original.Filename}
+    //               </div>
+    //             </UncontrolledTooltip>
+    //           </div>
+    //         </>
+    //       );
+    //     },
+    //   },
+    //   {
+    //     accessor: "Type",
+    //     Header: "File Type",
+    //   },
+
+    //   // {
+    //   //   accessor: "FileURL",
+    //   //   Header: "File URL",
+    //   // },
+    //   // {
+    //   //   accessor: "entity_name",
+    //   //   Header: "Entity Name",
+    //   // },
+
+    //   {
+    //     accessor: "num_pages",
+    //     Header: "# Pages",
+    //   },
+    //   {
+    //     accessor: "Date",
+    //     Header: "Date Time",
+    //     Cell: (rows) => {
+    //       return (
+    //         <>
+    //           <div>{rows.row.original.ReceivedDate}</div>
+    //           <div>{rows.row.original.Completion_Time}</div>
+    //         </>
+    //       );
+    //     },
+    //   },
+    //   {
+    //     accessor: "read_Status",
+    //     Header: "read status",
+    //   },
+    //   {
+    //     accessor: "Current_Status",
+    //     Header: "Status",
+    //     Cell: (rows) => {
+    //       const status = rows.row.original.Current_Status;
+    //       return (
+    //         <>
+    //           <div
+    //             className={`dot-status  ${
+    //               status == "pending"
+    //                 ? "pending-dot"
+    //                 : status == "error"
+    //                 ? "error-dot"
+    //                 : "complete-dot"
+    //             }`}
+    //           ></div>
+    //         </>
+    //       );
+    //     },
+    //   },
+
+    //   // {
+    //   //   accessor: "Conversion Confidence score",
+    //   //   Header: "Conversion Confidence score",
+    //   // },
+    //   {
+    //     accessor: "action",
+    //     Header: "Action",
+    //   },
+    //   // {
+    //   //   accessor: "genai_score",
+    //   //   Header: "GenAI Score",
+    //   // },
+    // ],
     data: [],
     selectedAction: "",
   });
@@ -390,25 +526,25 @@ export default function DocumentsPage() {
                   selectedAction: value,
                 });
                 if (value === "view_doc") {
-                  if (state.statusUpdated == false) {
-                    const updatedData = state.data.map((item) => {
-                      return item.Doc_UID == rows.row.original.Doc_UID
-                        ? {
-                            ...item,
-                            Current_Status:
-                              rows.row.original.Current_Status == "error"
-                                ? "complete"
-                                : rows.row.original.Current_Status,
-                            Completion_Time: new Date(),
-                          }
-                        : item;
-                    });
-                    changeState({
-                      data: [...updatedData],
-                      filename: rows.row.original.Filename,
-                      statusUpdated: true,
-                    });
-                  }
+                  // if (state.statusUpdated == false) {
+                  const updatedData = state.data.map((item) => {
+                    return item.Doc_UID == rows.row.original.Doc_UID
+                      ? {
+                          ...item,
+                          Current_Status:
+                            rows.row.original.Current_Status == "error"
+                              ? "complete"
+                              : rows.row.original.Current_Status,
+                          Completion_Time: new Date(),
+                        }
+                      : item;
+                  });
+                  // changeState({
+                  //   data: [...updatedData],
+                  //   filename: rows.row.original.Filename,
+                  //   statusUpdated: true,
+                  // });
+                  // }
                   changeState({
                     data: [...updatedData],
                     filename: rows.row.original.Filename,
@@ -531,30 +667,30 @@ export default function DocumentsPage() {
       <Container fluid>
         <Card className="">
           <Card.Body as="div">
-            {/* <Nav
+            <Nav
               fill
               variant="tabs"
               className="documents--tabs gap-2"
               defaultActiveKey={state.activeTab}
             >
-              <Nav.Item onClick={() => changeTab("captured-documents")}>
+              <Nav.Item onClick={() => changeTab("existing_configurations")}>
                 <Nav.Link
-                  eventKey="captured-documents"
+                  eventKey="existing_configurations"
                   className="font-14 text-capitalize"
                 >
-                  Captured
+                  Existing configurations
                 </Nav.Link>
               </Nav.Item>
-              <Nav.Item onClick={() => changeTab("ignored-documents")}>
+              <Nav.Item onClick={() => changeTab("new_configurations")}>
                 <Nav.Link
-                  eventKey="ignored-documents"
+                  eventKey="new_configurations"
                   className="font-14 text-capitalize"
                 >
-                  Ignored
+                  New configurations
                 </Nav.Link>
               </Nav.Item>
-            </Nav> */}
-            <div className="text-end">
+            </Nav>
+            <div className="text-end mt-3">
               <ThemeDatePicker
                 name="date range"
                 className=""
@@ -577,23 +713,26 @@ export default function DocumentsPage() {
             </div>
           </Card.Body>
         </Card>
-        <div className="my-3">
-          <ReactButton
-            size="sm"
-            className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
-            onClick={() => {
-              changeState({ addModal: true });
-            }}
-          >
-            <Icon icon="ic:baseline-plus" className="d-block" /> check for new
-            documents
-          </ReactButton>
-          {/* <DateRangePicker
+        {state.activeTab == "new_configurations" && (
+          <div className="my-3">
+            <ReactButton
+              size="sm"
+              className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
+              onClick={() => {
+                changeState({ addModal: true });
+              }}
+            >
+              <Icon icon="ic:baseline-plus" className="d-block" /> check for new
+              documents
+            </ReactButton>
+          </div>
+        )}
+        {/* <DateRangePicker
             ranges={[state.DateRangePicker]}
             onChange={(e) => changeState({ DateRangePicker: e })}
           /> */}
 
-          {/* <ReactButton
+        {/* <ReactButton
                 size="sm"
                 className="d-flex align-items-center gap-2 border-0 font-14 download--btn"
                 onClick={() => {}}
@@ -601,7 +740,6 @@ export default function DocumentsPage() {
                 <Icon icon="material-symbols:download" className="d-block" />{" "}
                 download
               </ReactButton> */}
-        </div>
       </Container>
       {state.viewModal && (
         <ViewDocsModal
@@ -622,10 +760,12 @@ export default function DocumentsPage() {
           isOpen={state.addModal}
           changeState={changeState}
           onClose={(newDocDetail) => {
-            changeState({
-              addModal: false,
-              data: [...newDocDetail, ...state.data],
-            });
+            if (newDocDetail) {
+              changeState({
+                addModal: false,
+                data: [...newDocDetail, ...state.data],
+              });
+            }
           }}
         />
       )}

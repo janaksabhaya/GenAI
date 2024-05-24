@@ -211,6 +211,21 @@ const ViewDocsModal = ({ isOpen, onClose, Filename, data, setState }) => {
                 </ReactButton>
               </div>
             )}
+            {/* {state.isEdit ? (
+              <JSONEditor
+                data={state.jsonUpdateData}
+                collapsible
+                onChange={onJsonChange}
+              />
+            ) : !state.jsonLoading ? (
+              typeof jsonData === "object" ? (
+                <pre>{JSON.stringify(jsonData, null, 2)}</pre>
+              ) : (
+                <pre>{jsonData}</pre>
+              )
+            ) : (
+              "loading..."
+            )} */}
           </Col>
         </Row>
       </div>
