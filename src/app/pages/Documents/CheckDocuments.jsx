@@ -9,13 +9,10 @@ export default function CheckDocumentsModal({ isOpen, onClose }) {
         if (isOpen) {
             api.get(`http://40.87.56.22:8001/check_drop_folder`)
                 .then((res) => {
-                    let _files = [
-                        // '5d9bbfff-ee8b-453a-8475-94c9ae2ce1aa-cummings foundation distribution notice.pdf',
-                        '6f94ec07-8741-45e5-a0a6-d78d012610c7- Midocean distribution notice.pdf',
-                        // '7c92ce61-f0ec-4248-9495-caff007cb051-GS Alats statement.pdf',
-                        // '15f56a25-843e-40de-9555-da5de665aeb7-PPM - Laurion Capital LP.pdf',
-                        // '035c887b-863e-40b6-9d4e-65be74618b74-SEI - RIVERSIDE CAPITAL_K-1S_pdf.pdf',
-                    ].map((file) => {
+                    if (!res || helpers.isEmpty(res.files)) {
+                        return;
+                    }
+                    let _files = res.files.map((file) => {
                         return {
                             name: file,
                             status: 'pending'
