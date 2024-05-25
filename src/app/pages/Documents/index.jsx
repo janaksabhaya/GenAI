@@ -812,7 +812,7 @@ export default function DocumentsPage() {
                 </Nav.Link>
               </Nav.Item>
             </Nav>
-            <div className="d-flex  mt-3 document-filter card">
+            {/* <div className="d-flex  mt-3 document-filter card">
               <div className="card-body">
                 <div className="row align-items-end">
                   <div className="col-8 row gap-x-2">
@@ -900,7 +900,7 @@ export default function DocumentsPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="text-end mt-3">
               <ThemeDatePicker
@@ -1000,9 +1000,9 @@ export default function DocumentsPage() {
           }}
         />
       )}
-      {state.viewJsonModal && (
+      {true && (
         <ViewJsonModal
-          isOpen={state.viewJsonModal}
+          isOpen={true}
           setState={changeState}
           onClose={() => {
             changeState({

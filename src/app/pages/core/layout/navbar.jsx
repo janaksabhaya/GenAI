@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { layoutConfig } from "@/configs";
 import { isEmpty } from "@/services/helper";
+import ReactSelect from "@/components/ui/ReactSelect";
 
 const Navbar = () => {
 	return (
 		<section className="navbar--section">
-			<Container fluid>
+			<Container fluid className="d-flex justify-content-between">
 				<div className="d-flex align-items-center gap-3">
 					{layoutConfig.menus.map((menu, parentIndex) => {
 						return (
@@ -31,9 +32,8 @@ const Navbar = () => {
 															<li key={subMenuIndex}>
 																<Link
 																	to={subMenu.path}
-																	className={`${
-																		subMenu.path == window.location.pathname && "active"
-																	} d-block text-decoration-none text-white-primary font-10`}
+																	className={`${subMenu.path == window.location.pathname && "active"
+																		} d-block text-decoration-none text-white-primary font-10`}
 																>
 																	{subMenu.label}
 																</Link>
@@ -48,6 +48,66 @@ const Navbar = () => {
 							</React.Fragment>
 						);
 					})}
+				</div>
+				<div>
+					<div className="row align-items-end">
+						<div className="d-flex gap-3">
+								<ReactSelect
+									key={'rerender'}
+									options={[]}
+									placeholder="Select Fund Id"
+									// value={state.fundId}
+									// onChange={(e) => changeState({ fundId: e.value })}
+								/>
+								<ReactSelect
+									key={"rerender"}
+									options={[]}
+									placeholder="Select Fund Name"
+									// value={state.fundName}
+									// onChange={(e) => changeState({ fundName: e.value })}
+								/>
+
+								<ReactSelect
+									key={"rerender"}
+									options={[]}
+									placeholder="Select Account Name"
+									// value={state.accountName}
+									// onChange={(e) => changeState({ accountName: e.value })}
+								/>
+
+								<ReactSelect
+									key={"rerender"}
+									options={[]}
+									placeholder="Select Firm Name"
+									// value={state.firmName}
+									// onChange={(e) => changeState({ firmName: e.value })}
+								/>
+						</div>
+						{/* <div className="d-flex align-items-center mt-2 col-4">
+							<ReactButton
+								size="sm"
+								className="border-0 font-14 download--btn me-2"
+								// onClick={getDocumentData}
+							>
+								Filter
+							</ReactButton>
+							<ReactButton
+								className=" border-0 font-14 download--btn me-2"
+								size="sm"
+								onClick={() => {
+									// changeState({
+									// 	fundId: "",
+									// 	fundName: "",
+									// 	accountName: "",
+									// 	firmName: "",
+									// 	resetReactSelect: !state.resetReactSelect,
+									// });
+								}}
+							>
+								Reset
+							</ReactButton>
+						</div> */}
+					</div>
 				</div>
 			</Container>
 		</section>

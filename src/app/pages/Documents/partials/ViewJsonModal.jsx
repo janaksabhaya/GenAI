@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import PageHeader from "@/components/common/PageHeader";
 import ReactButton from "@/components/ui/ReactButton";
+import Chekbox from "@/components/ui/Chekbox";
 import ReactDynamicModal from "@/components/ui/ReactDynamicModal";
 import { Icon } from "@iconify/react";
 import Form from "@rjsf/core";
@@ -27,6 +28,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     jsonLoading: false,
     editLoading: false,
     jsonData: null,
+    show_content: 'table'
   });
 
   const getJsondata = () => {
@@ -166,18 +168,42 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                 })}
             </tbody>
           </Table>
+          <ReactButton
+            size="sm"
+            className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
+            onClick={() => {
+              changeState({ show_content: 'view-all' });
+            }}
+          >
+            View All
+          </ReactButton>
+
           {!state.isEdit && (
             <div className="text-end mb-2">
               <ReactButton
                 size="sm"
                 className=" border-1 border"
                 onClick={() => {
-                  changeState({ isEdit: true });
+                  // changeState({ isEdit: true });
+                  changeState({ show_content: 'edit-json' });
                 }}
                 disabled={!state.jsonData}
               >
                 <Icon icon="mdi:pencil" className="mb-1 fs-6" />
               </ReactButton>
+            </div>
+          )}
+
+          {state.show_content == 'view-all' && (
+            <div className="d-flex  mt-3 document-filter card">
+              <div className="card-body">
+                <div className="checklist-items">
+                  <label htmlFor={'test'} className={`checkbox-wrapper`}>
+                    <input type="checkbox" name="form-check" id={'test'} value={''} onChange={() => {}} />
+                    <span className="label font13 mx-2">Status</span>
+                  </label>
+                </div>
+              </div>
             </div>
           )}
 
