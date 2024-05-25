@@ -18,10 +18,15 @@ import ViewJsonModal from "./partials/ViewJsonModal";
 import ViewPdfModal from "./partials/ViewPdfModal";
 import ReactSelect from "@/components/ui/ReactSelect";
 import CheckDocumentsModal from "./CheckDocuments";
+import { orderBy } from "lodash";
 
 export default function DocumentsPage() {
   const [state, changeState] = useMainState({
     top: 40,
+    page: 0,
+    order_by: '',
+    order: '',
+    totalItems: 10,
     isLoading: false,
     viewModal: false,
     statusUpdated: false,
@@ -42,6 +47,7 @@ export default function DocumentsPage() {
       {
         accessor: "file_name",
         Header: "File name",
+        isAllowSort: true,
         Cell: (rows, i) => {
           return (
             <>
@@ -63,6 +69,7 @@ export default function DocumentsPage() {
       {
         accessor: "doc_type",
         Header: "Doc Type",
+        isAllowSort: true,
       },
       {
         accessor: "num_pages",
@@ -659,6 +666,22 @@ export default function DocumentsPage() {
         };
       }
 
+      if (column.isAllowSort && column.accessor == state.order_by) {
+        
+      }
+
+      column.isSorted = column.isAllowSort && column.accessor == state.order_by;
+      if (column.isAllowSort && column.accessor == state.order_by) {
+        column.sortDirection = state.order;
+        column.order_by = state.order_by;
+        column.order = state.order;
+      } else {
+        column.sortDirection = 'asc';
+        column.order_by = state.order_by;
+        column.order = state.order;
+      }
+
+
       return column;
     });
   }, [
@@ -666,6 +689,8 @@ export default function DocumentsPage() {
     state.selectedAction,
     state.selectedGenAIScore,
     state.data,
+    state.order,
+    state.order_by,
   ]);
 
   const getDocumentData = () => {
@@ -681,11 +706,19 @@ export default function DocumentsPage() {
 
     changeState({ isLoading: true });
     const payload = {
-      fund_id: state.fundId,
-      fund_name: state.fundName,
-      account_name: state.accountName,
-      firm_name: state.firmName,
+      filter: {
+        fund_id: state.fundId,
+        fund_name: state.fundName,
+        account_name: state.accountName,
+        firm_name: state.firmName,
+      },
+      pagination: {
+        "page": state.page,
+        "order": state.order,
+        "order_by": state.order_by
+      }
     };
+
     api
       .post("http://40.87.56.22:8000/documents/filter", payload)
       .then((res) => {
@@ -697,10 +730,9 @@ export default function DocumentsPage() {
       });
   };
 
-  console.log(state.data);
   useEffect(() => {
     getDocumentData();
-  }, [state.resetReactSelect]);
+  }, [state.resetReactSelect, state.page, state.order_by, state.order]);
 
   const onUserFeedback = (value) => {
     Swal.fire({
@@ -757,7 +789,7 @@ export default function DocumentsPage() {
                         key={
                           state.resetReactSelect ? "rerender" : "no-rerender"
                         }
-                        options={[{ label: "Fund Id", value: "Fund Id" }]}
+                        options={[]}
                         placeholder="Select Fund Id"
                         value={state.fundId}
                         onChange={(e) => changeState({ fundId: e.value })}
@@ -771,7 +803,7 @@ export default function DocumentsPage() {
                         key={
                           state.resetReactSelect ? "rerender" : "no-rerender"
                         }
-                        options={[{ label: "Fund Name", value: "Fund Name" }]}
+                        options={[]}
                         placeholder="Select Fund Name"
                         value={state.fundName}
                         onChange={(e) => changeState({ fundName: e.value })}
@@ -786,9 +818,7 @@ export default function DocumentsPage() {
                         key={
                           state.resetReactSelect ? "rerender" : "no-rerender"
                         }
-                        options={[
-                          { label: "Acoount Name", value: "Acoount Name" },
-                        ]}
+                        options={[]}
                         placeholder="Select Acoount Name"
                         value={state.accountName}
                         onChange={(e) => changeState({ accountName: e.value })}
@@ -802,7 +832,7 @@ export default function DocumentsPage() {
                         key={
                           state.resetReactSelect ? "rerender" : "no-rerender"
                         }
-                        options={[{ label: "Firm Name", value: "Firm Name" }]}
+                        options={[]}
                         placeholder="Select Firm Name"
                         value={state.firmName}
                         onChange={(e) => changeState({ firmName: e.value })}
@@ -856,6 +886,17 @@ export default function DocumentsPage() {
                 columns={columns}
                 data={data}
                 isLoading={state.isLoading}
+                activePage={state.page}
+                totalItems={state.totalItems}
+                perPage={30}
+                onPageChange={(_activePage) => {
+                  changeState({
+                    page: _activePage
+                  })
+                }}
+                onChangeSort={(_obj) => {
+                  changeState(_obj)
+                }}
               />
             </div>
           </Card.Body>

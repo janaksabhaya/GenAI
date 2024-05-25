@@ -13,6 +13,7 @@ const ThemeTable = ({
   perPage,
   onPageChange,
   isLoading,
+  onChangeSort
 }) => {
   const {
     getTableProps,
@@ -46,12 +47,20 @@ const ThemeTable = ({
                     <th
                       key={i}
                       className="text-start text-capitalize bg-theme-light-blue font-14 text-white-primary"
+                      onClick={() => {
+                        if (column.isAllowSort) {
+                          onChangeSort({
+                            order: column.sortDirection == 'desc' ? 'asc' : 'desc',
+                            order_by: column.id
+                          })
+                        }
+                      }}
                     >
                       <div className="d-flex align-items-center justify-content-between">
                         {column.render("Header")}
                         <>
                           {column.isSorted ? (
-                            column.isSortedDesc ? (
+                            column.sortDirection == 'asc' ? (
                               <Icon icon="bi:sort-up" className="d-block" />
                             ) : (
                               <Icon icon="bi:sort-down" className="d-block" />
@@ -119,18 +128,18 @@ const ThemeTable = ({
         )}
       </Table>
 
-      {/* <ReactPaginate
-				forcePage={activePage - 1}
+      <ReactPaginate
+				forcePage={activePage}
 				breakLabel="..."
 				nextLabel={<Icon icon="mingcute:right-fill" />}
 				marginPagesDisplayed={1}
 				pageRangeDisplayed={5}
 				onPageChange={(value) =>{ onPageChange(value.selected)}}
-				pageCount={Math.round(totalItems / perPage)}
+				pageCount={Math.round(totalItems / perPage) || 1}
 				previousLabel={<Icon icon="mingcute:left-fill" />}
 				renderOnZeroPageCount={null}
 				className="d-flex custom-paggination align-items-center justify-content-center paggination list-unstyled"
-			/> */}
+			/>
     </div>
   );
 };
