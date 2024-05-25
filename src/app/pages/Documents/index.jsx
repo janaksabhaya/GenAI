@@ -156,35 +156,36 @@ export default function DocumentsPage() {
         Header: "Status",
         Cell: (rows) => {
           const status = rows.row.original.status;
-          return (
-            <>
-              <div id={`status-${rows.row.id}`} className="status-width">
-                <div
-                  className={`dot-status  ${
-                    status == "Received" || status == "Duplicate"
-                      ? "pending-dot"
-                      : status == "Extraction failed" ||
-                        status == "Linking failed" ||
-                        status == "Failed ingested"
-                      ? "error-dot"
-                      : "complete-dot"
-                  }`}
-                ></div>
-                <UncontrolledTooltip
-                  placement="top"
-                  target={`status-${rows.row.id}`}
-                >
-                  <div className="text-uppercase">{status}</div>
-                </UncontrolledTooltip>
-              </div>
-            </>
-          );
+          return status;
+          // return (
+          //   <>
+          //     <div id={`status-${rows.row.id}`} className="status-width">
+          //       <div
+          //         className={`dot-status  ${
+          //           status == "Received" || status == "Duplicate"
+          //             ? "pending-dot"
+          //             : status == "Extraction failed" ||
+          //               status == "Linking failed" ||
+          //               status == "Failed ingested"
+          //             ? "error-dot"
+          //             : "complete-dot"
+          //         }`}
+          //       ></div>
+          //       <UncontrolledTooltip
+          //         placement="top"
+          //         target={`status-${rows.row.id}`}
+          //       >
+          //         <div className="text-uppercase">{status}</div>
+          //       </UncontrolledTooltip>
+          //     </div>
+          //   </>
+          // );
         },
       },
-      {
-        accessor: "confidence",
-        Header: "confidence",
-      },
+      // {
+      //   accessor: "confidence",
+      //   Header: "confidence",
+      // },
       {
         accessor: "action",
         Header: "Action",
@@ -585,7 +586,7 @@ export default function DocumentsPage() {
                     viewPdfModal: true,
                   });
 
-                  // localStorage.setItem("fileName", rows.row.original.file_name);
+                  localStorage.setItem("fileName", rows.row.original.file_name);
                   getPdfUrl(rows.row.original.file_name);
                   // window.open(pageRoutes.documents_json, "_blank");
                 }
@@ -613,10 +614,10 @@ export default function DocumentsPage() {
                   label: "Document re Read",
                   value: "Document_re_Read",
                 },
-                {
-                  label: "Audit log",
-                  value: "Audit_log",
-                },
+                // {
+                //   label: "Audit log",
+                //   value: "Audit_log",
+                // },
                 {
                   label: "Accept / Reject Duplicate",
                   value: "Accept_Reject_Duplicate",
@@ -916,7 +917,6 @@ export default function DocumentsPage() {
           isOpen={state.addModal}
           changeState={changeState}
           onClose={(newDocDetail) => {
-            debugger;
             if (newDocDetail) {
               changeState({
                 addModal: false,

@@ -30,11 +30,11 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
   });
 
   const getJsondata = () => {
-    if (file_name) {
+    if (singleData?.file_name) {
       sessionStorage.removeItem("pdfUrl");
       changeState({ jsonLoading: true });
       api
-        .post(`http://40.87.56.22:8000/json?file_name=${file_name}`)
+        .post(`http://40.87.56.22:8000/json?file_name=${singleData?.file_name}`)
         .then((res) => {
           if (res) {
             changeState({ jsonLoading: false });
@@ -50,7 +50,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
 
   useEffect(() => {
     getJsondata();
-  }, [singleData?.Filename]);
+  }, [singleData?.file_name]);
 
   const saveJson = (data) => {
     api
@@ -128,16 +128,16 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
   const schema = { ...data };
 
   const singleRecord = [
-    { name: "FILE NAME", value: singleData?.Filename },
-    { name: "DOC TYPE", value: singleData?.Document_type },
+    { name: "FILE NAME", value: singleData?.file_name },
+    { name: "DOC TYPE", value: singleData?.doc_type },
     { name: "# PAGES", value: singleData?.num_pages },
-    { name: "FIRM ID", value: singleData?.firm_Id },
+    { name: "FIRM ID", value: singleData?.firm_id },
     { name: "FIRM NAME", value: singleData?.firm_name },
-    { name: "FUND", value: singleData?.Fund },
-    { name: "ACCOUNT NAME", value: singleData?.Account_name },
-    { name: "DATE TIME", value: singleData?.ReceivedDate },
-    { name: "READ STATUS", value: singleData?.Read_status },
-    { name: "STATUS", value: singleData?.Current_Status },
+    { name: "FUND", value: singleData?.fund_name },
+    { name: "ACCOUNT NAME", value: singleData?.account_name },
+    { name: "DATE TIME", value: singleData?.date_time },
+    { name: "READ STATUS", value: '' },
+    { name: "STATUS", value: singleData?.status },
   ];
 
   return (
@@ -150,6 +150,9 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     >
       <div className="docs--json-modal">
         <Container fluid>
+          <h3 className="mb-3">
+            Document Details
+          </h3>
           <Table striped bordered className="json-modal-table">
             <tbody>
               {singleRecord &&
@@ -157,7 +160,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                   return (
                     <tr>
                       <th className="w-25">{item?.name}</th>
-                      <td className="w-75">{item?.value}</td>
+                      <td className="w-75 text text-capitalize">{item?.value}</td>
                     </tr>
                   );
                 })}
@@ -201,7 +204,10 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
               </CardBody>
             </Card>
           ) : !state.jsonLoading ? (
-            <JsonToTable json={state.jsonData} />
+            <>
+              <h3 className="mb-3">Extracted Document Detail</h3>
+              <JsonToTable json={state.jsonData} />
+            </>
           ) : (
             "loading..."
           )}
