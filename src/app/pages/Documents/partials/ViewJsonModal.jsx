@@ -55,12 +55,12 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
   const saveJson = (data) => {
     api
       .post(
-        `http://40.87.56.22:8001/updatejson?filename=${singleData?.Filename.replace(
+        `http://40.87.56.22:8001/updatejson?filename=${singleData?.file_name.replace(
           ".pdf",
           ".json"
         )}`,
         {
-          filename: singleData?.Filename.replace(".pdf", ".json"),
+          filename: singleData?.file_name.replace(".pdf", ".json"),
           json_data: data.formData,
         }
       )
@@ -136,7 +136,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     { name: "FUND", value: singleData?.fund_name },
     { name: "ACCOUNT NAME", value: singleData?.account_name },
     { name: "DATE TIME", value: singleData?.date_time },
-    { name: "READ STATUS", value: '' },
+    { name: "READ STATUS", value: "" },
     { name: "STATUS", value: singleData?.status },
   ];
 
@@ -150,9 +150,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     >
       <div className="docs--json-modal">
         <Container fluid>
-          <h3 className="mb-3">
-            Document Details
-          </h3>
+          <h3 className="mb-3">Document Details</h3>
           <Table striped bordered className="json-modal-table">
             <tbody>
               {singleRecord &&
@@ -160,7 +158,9 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                   return (
                     <tr>
                       <th className="w-25">{item?.name}</th>
-                      <td className="w-75 text text-capitalize">{item?.value}</td>
+                      <td className="w-75 text text-capitalize">
+                        {item?.value}
+                      </td>
                     </tr>
                   );
                 })}

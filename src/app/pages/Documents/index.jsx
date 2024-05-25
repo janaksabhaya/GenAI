@@ -860,30 +860,30 @@ export default function DocumentsPage() {
             </div>
           </Card.Body>
         </Card>
-        {state.activeTab == "new_configurations" && (
-          <div className="my-3 d-flex align-items-center gap-2">
-            <ReactButton
-              size="sm"
-              className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
-              onClick={() => {
-                changeState({ checkDocumentsModal: true });
-              }}
-            >
-              <Icon icon="ic:baseline-plus" className="d-block" /> check for new
-              documents
-            </ReactButton>
+        {/* {state.activeTab == "new_configurations" && ( */}
+        <div className="my-3 d-flex align-items-center gap-2">
+          <ReactButton
+            size="sm"
+            className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
+            onClick={() => {
+              changeState({ checkDocumentsModal: true });
+            }}
+          >
+            <Icon icon="ic:baseline-plus" className="d-block" /> check for new
+            documents
+          </ReactButton>
 
-            <ReactButton
-              size="sm"
-              className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
-              onClick={() => {
-                changeState({ addModal: true });
-              }}
-            >
-              <Icon icon="ic:baseline-plus" className="d-block" /> Add documents
-            </ReactButton>
-          </div>
-        )}
+          <ReactButton
+            size="sm"
+            className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
+            onClick={() => {
+              changeState({ addModal: true });
+            }}
+          >
+            <Icon icon="ic:baseline-plus" className="d-block" /> Add documents
+          </ReactButton>
+        </div>
+        {/* )} */}
         {/* <DateRangePicker
             ranges={[state.DateRangePicker]}
             onChange={(e) => changeState({ DateRangePicker: e })}
