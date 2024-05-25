@@ -30,6 +30,7 @@ const ThemeTable = ({
     // useSortBy,
     useResizeColumns
   );
+
   return (
     <div className="theme--table-wrap">
       <Table
@@ -127,6 +128,7 @@ const ThemeTable = ({
           </tfoot>
         )}
       </Table>
+      
 
       <ReactPaginate
 				forcePage={activePage}
@@ -135,7 +137,7 @@ const ThemeTable = ({
 				marginPagesDisplayed={1}
 				pageRangeDisplayed={5}
 				onPageChange={(value) =>{ onPageChange(value.selected)}}
-				pageCount={Math.round(totalItems / perPage) || 1}
+				pageCount={Math.ceil(totalItems / perPage) || 1}
 				previousLabel={<Icon icon="mingcute:left-fill" />}
 				renderOnZeroPageCount={null}
 				className="d-flex custom-paggination align-items-center justify-content-center paggination list-unstyled"

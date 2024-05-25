@@ -8,7 +8,7 @@ import Dropdowns from "@/components/ui/Dropdowns";
 import Nav from "react-bootstrap/Nav";
 import Swal from "sweetalert2";
 import ReactButton from "@/components/ui/ReactButton";
-import { api } from "@/services";
+import { api, helper } from "@/services";
 import { apiConfig, pageRoutes } from "@/configs";
 import moment from "moment";
 import AddDocumentModal from "./partials/AddDocumentModal";
@@ -27,6 +27,7 @@ export default function DocumentsPage() {
     order_by: '',
     order: '',
     totalItems: 10,
+    page_size: 10,
     isLoading: false,
     viewModal: false,
     statusUpdated: false,
@@ -74,14 +75,17 @@ export default function DocumentsPage() {
       {
         accessor: "num_pages",
         Header: "# Pages",
+        isAllowSort: true,
       },
       {
         accessor: "firm_id",
         Header: "Firm ID",
+        isAllowSort: true,
       },
       {
         accessor: "firm_name",
         Header: "Firm name",
+        isAllowSort: true,
         Cell: (rows) => {
           return (
             <>
@@ -103,6 +107,7 @@ export default function DocumentsPage() {
       {
         accessor: "fund_name",
         Header: "Fund",
+        isAllowSort: true,
         Cell: (rows) => {
           return (
             <>
@@ -124,6 +129,7 @@ export default function DocumentsPage() {
       {
         accessor: "account_name",
         Header: "Account name",
+        isAllowSort: true,
         Cell: (rows, i) => {
           return (
             <>
@@ -144,6 +150,7 @@ export default function DocumentsPage() {
       },
       {
         accessor: "date_time",
+        isAllowSort: true,
         Header: "Date Time",
         Cell: (rows) => {
           return (
@@ -160,6 +167,7 @@ export default function DocumentsPage() {
       // },
       {
         accessor: "status",
+        isAllowSort: true,
         Header: "Status",
         Cell: (rows) => {
           const status = rows.row.original.status;
@@ -671,14 +679,14 @@ export default function DocumentsPage() {
       }
 
       column.isSorted = column.isAllowSort && column.accessor == state.order_by;
+
       if (column.isAllowSort && column.accessor == state.order_by) {
         column.sortDirection = state.order;
         column.order_by = state.order_by;
         column.order = state.order;
       } else {
-        column.sortDirection = 'asc';
-        column.order_by = state.order_by;
-        column.order = state.order;
+        column.sortDirection = column.order || 'asc';
+        column.order_by = column.accessor;
       }
 
 
@@ -711,18 +719,23 @@ export default function DocumentsPage() {
         fund_name: state.fundName,
         account_name: state.accountName,
         firm_name: state.firmName,
+        ...(state.DateRangePicker && state.DateRangePicker.length == 2 && {
+          start_date: moment(state.DateRangePicker[0]).isValid() ? moment(state.DateRangePicker[0]).format('YYYY-MM-DD') : "",
+          end_Date: moment(state.DateRangePicker[1]).isValid() ?  moment(state.DateRangePicker[1]).format('YYYY-MM-DD') : ""
+        })
       },
       pagination: {
         "page": state.page,
         "order": state.order,
-        "order_by": state.order_by
+        "order_by": state.order_by,
+        "page_size": state.page_size
       }
     };
 
     api
       .post("http://40.87.56.22:8000/documents/filter", payload)
       .then((res) => {
-        changeState({ data: res });
+        changeState({ data: res.documents, totalItems: res.total_documents });
         changeState({ isLoading: false });
       })
       .catch((err) => {
@@ -733,6 +746,12 @@ export default function DocumentsPage() {
   useEffect(() => {
     getDocumentData();
   }, [state.resetReactSelect, state.page, state.order_by, state.order]);
+
+  useEffect(() => {
+    if (state.DateRangePicker && state.DateRangePicker.length == 2 && moment(state.DateRangePicker[0]).isValid() && moment(state.DateRangePicker[1]).isValid()) {
+      getDocumentData();
+    }
+  }, [state.DateRangePicker]);
 
   const onUserFeedback = (value) => {
     Swal.fire({
@@ -747,6 +766,22 @@ export default function DocumentsPage() {
       }
     });
   };
+
+
+  const onChangeSort = (_obj) => {
+    let _columns = [...state.columns];
+    _columns = _columns.map((column) => {
+      if (column.accessor == _obj.order_by) {
+        column.order = _obj.order;
+      }
+
+      return column;
+    })
+
+    _obj.columns = _columns;
+
+    changeState(_obj)
+  }
 
   return (
     <div className="documents-page">
@@ -812,14 +847,14 @@ export default function DocumentsPage() {
 
                     <div className="col-3">
                       <label htmlFor="" className="mb-1">
-                        Acoount Name
+                        Account Name
                       </label>
                       <ReactSelect
                         key={
                           state.resetReactSelect ? "rerender" : "no-rerender"
                         }
                         options={[]}
-                        placeholder="Select Acoount Name"
+                        placeholder="Select Account Name"
                         value={state.accountName}
                         onChange={(e) => changeState({ accountName: e.value })}
                       />
@@ -888,15 +923,13 @@ export default function DocumentsPage() {
                 isLoading={state.isLoading}
                 activePage={state.page}
                 totalItems={state.totalItems}
-                perPage={30}
+                perPage={state.page_size}
                 onPageChange={(_activePage) => {
                   changeState({
                     page: _activePage
                   })
                 }}
-                onChangeSort={(_obj) => {
-                  changeState(_obj)
-                }}
+                onChangeSort={onChangeSort}
               />
             </div>
           </Card.Body>
