@@ -29,18 +29,24 @@ const ViewPdfModal = ({ isOpen, setState, onClose, singleData }) => {
 
   const [state, changeState] = useMainState({
     pdfUrl: "",
+    isLoader: false,
   });
 
   useEffect(() => {
-    if (singleData?.Filename) {
+    if (singleData?.file_name) {
+      changeState({ isLoader: true });
+
       api
-        .get(`http://40.87.56.22:8001/files/${singleData?.Filename}`)
+        .get(`http://40.87.56.22:8001/files/${singleData?.file_name}`)
         .then((res) => {
-          changeState({ pdfUrl: res?.file_url });
+          changeState({ pdfUrl: res?.file_url, isLoader: false });
         })
-        .catch((err) => {});
+        .catch((err) => {})
+        .finally(() => {
+          changeState({ isLoader: false });
+        });
     }
-  }, [singleData?.Filename]);
+  }, [singleData?.file_name]);
 
   return (
     <ReactDynamicModal
@@ -52,7 +58,9 @@ const ViewPdfModal = ({ isOpen, setState, onClose, singleData }) => {
     >
       <div className="docs-modal">
         <Row>
-          {state.pdfUrl ? (
+          {state.isLoader ? (
+            "Loading..."
+          ) : state.pdfUrl ? (
             <object
               data={state.pdfUrl}
               type="application/pdf"
