@@ -47,7 +47,7 @@ const AddDocumentModal = ({ isOpen, onClose, changeState }) => {
           if (res.doc_details) {
             const updatedData = {
               ...res.doc_details,
-              Current_Status: status,
+              status: status,
               ReceivedDate: new Date(),
               doc_id: Math.random().toString(36).substring(2),
             };

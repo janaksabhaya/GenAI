@@ -136,7 +136,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     { name: "FUND", value: singleData?.fund_name },
     { name: "ACCOUNT NAME", value: singleData?.account_name },
     { name: "DATE TIME", value: singleData?.date_time },
-    { name: "READ STATUS", value: "" },
+    // { name: "READ STATUS", value: "" },
     { name: "STATUS", value: singleData?.status },
   ];
 

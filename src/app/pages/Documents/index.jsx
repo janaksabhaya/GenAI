@@ -147,10 +147,10 @@ export default function DocumentsPage() {
           );
         },
       },
-      {
-        accessor: "read_Status",
-        Header: "read status",
-      },
+      // {
+      //   accessor: "read_Status",
+      //   Header: "read status",
+      // },
       {
         accessor: "status",
         Header: "Status",
