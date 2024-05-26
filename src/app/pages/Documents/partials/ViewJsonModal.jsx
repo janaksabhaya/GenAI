@@ -33,7 +33,9 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     checklistJsonItems: [],
     documentTypes: [],
     selectedDocumentType: '',
-    selectedPickList: []
+    selectedPickList: [],
+    isEditConfiguration: false,
+    existingConfiguration: [] 
   });
 
   const getJsondata = () => {
@@ -66,14 +68,29 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
 			.catch((err) => {});
 
     api
-			.get("http://40.87.56.22:8000/dropdown/checklist_fields", {
+			.get("http://40.87.56.22:8000/checklist_fields", {
         json_file_name: singleData?.file_name.replace('.pdf', '')
       })
 			.then((res) => {
 				changeState({ checklistJsonItems: res.fields });
 			})
 			.catch((err) => {});
+
+      getConfigurations();
   }, [singleData?.file_name]);
+
+  const getConfigurations = () => {
+    api
+			.get(`http://40.87.56.22:8000/get_configuration/${singleData.doc_type}`)
+			.then((res) => {
+				changeState({ 
+          isEditConfiguration: res.fields.length > 0, 
+          existingConfiguration: res.fields,
+          selectedPickList: res.fields
+        });
+			})
+			.catch((err) => {});
+  }
 
   const saveJson = (data) => {
     api
@@ -171,8 +188,6 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
       _selectedPickList.push(value);
     }
 
-    console.log('selectChecklist', _selectedPickList)
-
     changeState({
       selectedPickList: _selectedPickList
     })
@@ -183,12 +198,32 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
       .post(
         `http://40.87.56.22:8000/add_configuration`,
         {
+          doc_type: singleData.doc_type,
           fields: state.selectedPickList,
         }
       )
       .then((res) => {
         helper.toaster.success("Configuration added successfully!");
         changeState({ show_content: 'table' });
+        getConfigurations();
+        getJsondata();
+      })
+      .catch((err) => { });
+  }
+
+  const editConfiguration = () => {
+    api
+      .post(
+        `http://40.87.56.22:8000/update_configuration`,
+        {
+          doc_type: singleData.doc_type,
+          fields: state.selectedPickList,
+        }
+      )
+      .then((res) => {
+        helper.toaster.success("Configuration updated successfully!");
+        changeState({ show_content: 'table' });
+        getConfigurations();
         getJsondata();
       })
       .catch((err) => { });
@@ -268,8 +303,8 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                       <li class="list-group-item">
                         <label htmlFor={'test'} key={i} className={`checkbox-wrapper`}>
                           <input type="checkbox" name="form-check" id={'test'} value={item} onChange={() => {
-                            selectChecklist()
-                          }} />
+                            selectChecklist(item)
+                          }} checked={state.selectedPickList.includes(item)} />
                           <span className="label font13 mx-2">{item}</span>
                         </label>
                       </li>
@@ -286,7 +321,11 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                       size="sm"
                       className="globel--btn text-white-primary bg-btn-theme border-0 mx-3"
                       onClick={() => {
-                        addNewConfiguration()
+                        if (state.isEditConfiguration) {
+                          editConfiguration()                          
+                        } else {
+                          addNewConfiguration()
+                        }
                       }}
                     >
                       Save
