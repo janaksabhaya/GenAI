@@ -13260,6 +13260,9 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 .navbar--section a:hover {
   color: #6dc1ef;
 }
+.navbar--section .globel--btn:hover {
+  background-color: #5c9fc1;
+}
 
 .search--box input::placeholder {
   font-style: italic;
@@ -13733,8 +13736,24 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   top: 0;
   z-index: 1;
 }
+.check--documents .table-responsive .table thead th:nth-child(2) {
+  width: 10%;
+}
+.check--documents .table-responsive .table thead th:nth-child(3) {
+  width: 10%;
+}
 .check--documents .table-responsive .table tbody tr td {
   padding: 8px;
+}
+.check--documents .add-document-btn {
+  display: flex;
+  place-content: end;
+  margin-right: 20px;
+}
+.check--documents .add-document-btn button {
+  max-width: 200px;
+  margin-right: 30px;
+  margin-bottom: 10px;
 }
 
 .audit-logs--table .icon-dropdowns .dropdown .dropdown-toggle {

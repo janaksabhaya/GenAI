@@ -21,11 +21,12 @@ const Textinput = ({
   children,
   maxLength,
   disabled,
+  isShowLabel = true,
   ...rest
 }) => {
   return (
     <div className={`floating-label-content ${className}`}>
-      {label && (
+      {isShowLabel && (
         <label htmlFor={id}>
           <Icon icon={icon} />
           {label ? label : "Add label"}

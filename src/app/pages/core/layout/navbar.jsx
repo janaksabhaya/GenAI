@@ -10,22 +10,32 @@ import { setFilters } from "@/store/toolkit/documents";
 import useMainState from "@/hooks/useMainState";
 import { useSelector } from "react-redux";
 import { api } from "@/services";
+import ReactButton from "@/components/ui/ReactButton";
 
 const customStyles = {
 	control: base => ({
-	  ...base,
-	  height: 35,
-	  minHeight: 35
+		...base,
+		height: 35,
+		minHeight: 35
 	})
-  };
+};
 
 const Navbar = () => {
+	const documentFilter = useSelector(store => store.documents.documentFilter)
+
 	const [state, changeState] = useMainState({
 		fund_names: [],
 		firm_names: [],
 		account_names: [],
+		...documentFilter
 	});
-	const documentFilter = useSelector(store => store.documents.documentFilter)
+
+	useEffect(() => {
+		changeState({
+			...documentFilter
+		})
+	}, [documentFilter])
+	
 
 	useEffect(() => {
 		api
@@ -33,21 +43,21 @@ const Navbar = () => {
 			.then((res) => {
 				changeState({ fund_names: res.fund_names });
 			})
-			.catch((err) => {});
-			
+			.catch((err) => { });
+
 		api
 			.get("http://40.87.56.22:8000/dropdown/firm_names")
 			.then((res) => {
 				changeState({ firm_names: res.firm_names });
 			})
-			.catch((err) => {});
+			.catch((err) => { });
 
 		api
 			.get("http://40.87.56.22:8000/dropdown/account_names")
 			.then((res) => {
 				changeState({ account_names: res.account_names });
 			})
-			.catch((err) => {});
+			.catch((err) => { });
 	}, [])
 
 	return (
@@ -95,56 +105,85 @@ const Navbar = () => {
 				<div>
 					<div className="row align-items-end">
 						<div className="d-flex gap-3">
-								<ReactSelect
-									key={'rerender'}
-									options={[]}
-									placeholder="Select Fund Id"
-									value={documentFilter.fundId}
-									onChange={(e) => {
-										store.dispatch(setFilters({
-											fundId: e.value
-										}));
-									}}
-									styles={customStyles}
-								/>
-								<ReactSelect
-									key={"rerender"}
-									options={state.fund_names}
-									placeholder="Select Fund Name"
-									value={documentFilter.fundName}
-									onChange={(e) => {
-										store.dispatch(setFilters({
-											fundName: e.value
-										}));
-									}}
-									styles={customStyles}
-								/>
+							<ReactSelect
+								key={'rerender'}
+								options={[]}
+								placeholder="Select Fund Id"
+								value={state.fundId}
+								onChange={(e) => {
+									changeState({
+										fundId: e.value
+									});
+								}}
+								styles={customStyles}
+							/>
+							<ReactSelect
+								key={"rerender"}
+								options={state.fund_names}
+								placeholder="Select Fund Name"
+								value={state.fundName}
+								onChange={(e) => {
+									changeState({
+										fundName: e.value
+									});
+								}}
+								styles={customStyles}
+							/>
 
-								<ReactSelect
-									key={"rerender"}
-									options={state.account_names}
-									placeholder="Select Account Name"
-									value={documentFilter.accountName}
-									onChange={(e) => {
-										store.dispatch(setFilters({
-											accountName: e.value
-										}));
-									}}
-									styles={customStyles}
-								/>
+							<ReactSelect
+								options={state.account_names}
+								placeholder="Select Account Name"
+								value={state.accountName}
+								onChange={(e) => {
+									changeState({
+										accountName: e.value
+									});
+								}}
+								styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+							/>
 
-								<ReactSelect
-									key={"rerender"}
-									options={state.firm_names}
-									placeholder="Select Firm Name"
-									value={documentFilter.firmName}
-									onChange={(e) => {
+							<ReactSelect
+								options={state.firm_names}
+								placeholder="Select Firm Name"
+								value={state.firmName}
+								onChange={(e) => {
+									changeState({
+										firmName: e.value
+									});
+								}}
+								styles={customStyles}
+							/>
+
+							<div className="d-flex align-items-center">
+								<ReactButton
+									size="sm"
+									className="globel--btn text-white-primary bg-btn-theme border-0 mx-2 px-4"
+									onClick={() => {
 										store.dispatch(setFilters({
-											firmName: e.value
-										}));
+											fundId: state.fundId,
+											fundName: state.fundName,
+											accountName: state.accountName,
+											firmName: state.firmName,
+										}))
 									}}
-									styles={customStyles}
-								/>
+								>
+									Filter
+								</ReactButton>
+								<ReactButton
+									className=" globel--btn text-white-primary bg-btn-theme border-0 px-4"
+									size="sm"
+									onClick={() => {
+										store.dispatch(setFilters({
+											fundId: "",
+											fundName: "",
+											accountName: "",
+											firmName: "",
+										}))
+									}}
+								>
+									Reset
+								</ReactButton>
+							</div>
 						</div>
 						{/* <div className="d-flex align-items-center mt-2 col-4">
 							<ReactButton

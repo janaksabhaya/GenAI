@@ -10,6 +10,7 @@ import { Card, CardBody, Container, Table } from "reactstrap";
 import { api, helper } from "@/services";
 import useMainState from "@/hooks/useMainState";
 import { JsonToTable } from "react-json-to-table";
+import ReactSelect from "@/components/ui/ReactSelect";
 
 const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
   const modalStyle = {
@@ -28,7 +29,13 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     jsonLoading: false,
     editLoading: false,
     jsonData: null,
-    show_content: 'table'
+    show_content: 'table',
+    checklistJsonItems: [
+      'file name',
+      'status'
+    ],
+    documentTypes: [],
+    selectedDocumentType: ''
   });
 
   const getJsondata = () => {
@@ -52,6 +59,13 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
 
   useEffect(() => {
     getJsondata();
+
+    api
+			.get("http://40.87.56.22:8000/dropdown/document_types")
+			.then((res) => {
+				changeState({ documentTypes: res.document_types.filter(e => e) });
+			})
+			.catch((err) => {});
   }, [singleData?.file_name]);
 
   const saveJson = (data) => {
@@ -68,10 +82,10 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
       )
       .then((res) => {
         helper.toaster.success("json data updated successfully");
-        changeState({ isEdit: false });
+        changeState({ show_content: 'table' });
         getJsondata();
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const jsonToSchema = (data, parentKey = "") => {
@@ -168,18 +182,18 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                 })}
             </tbody>
           </Table>
-          <ReactButton
-            size="sm"
-            className="d-flex align-items-center gap-2 border-0 font-14 download--btn me-2"
-            onClick={() => {
-              changeState({ show_content: 'view-all' });
-            }}
-          >
-            View All
-          </ReactButton>
 
-          {!state.isEdit && (
-            <div className="text-end mb-2">
+          {state.show_content == 'table' && (
+            <div className="text-end mb-2 gap-4 px-5">
+              <ReactButton
+              size="sm"
+              className="globel--btn text-white-primary bg-btn-theme border-0 mx-3"
+              onClick={() => {
+                changeState({ show_content: 'view-all' });
+              }}
+            >
+              View All
+            </ReactButton>
               <ReactButton
                 size="sm"
                 className=" border-1 border"
@@ -198,16 +212,53 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
             <div className="d-flex  mt-3 document-filter card">
               <div className="card-body">
                 <div className="checklist-items">
-                  <label htmlFor={'test'} className={`checkbox-wrapper`}>
-                    <input type="checkbox" name="form-check" id={'test'} value={''} onChange={() => {}} />
-                    <span className="label font13 mx-2">Status</span>
-                  </label>
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h5 className="mx-1 mb-3">Picklist</h5>
+                    <ReactSelect
+                      options={state.documentTypes}
+                      placeholder="Select Documents type"
+                      value={state.selectedDocumentType}
+                      onChange={(e) => {
+                        
+                      }}
+                    />
+                  </div>
+                  <ul class="list-group">
+                    {state.checklistJsonItems.map((item, i) => (
+                      <li class="list-group-item">
+                        <label htmlFor={'test'} key={i} className={`checkbox-wrapper`}>
+                          <input type="checkbox" name="form-check" id={'test'} value={''} onChange={() => { }} />
+                          <span className="label font13 mx-2">{item}</span>
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-3 d-flex justify-content-center">
+                    <ReactButton
+                      size="sm"
+                      className="globel--btn text-white-primary bg-btn-theme border-0 mx-3"
+                      onClick={() => {
+                        changeState({ show_content: 'table' });
+                      }}
+                    >
+                      Save
+                    </ReactButton>
+                    <ReactButton
+                      size="sm"
+                      className="globel--btn text-white-primary bg-btn-theme border-0"
+                      onClick={() => {
+                        changeState({ show_content: 'table' });
+                      }}
+                    >
+                      Cancel
+                    </ReactButton>
+                  </div>
                 </div>
               </div>
             </div>
           )}
 
-          {state.isEdit ? (
+          {state.show_content == 'edit-json' ? (
             <Card>
               <CardBody>
                 <div className="document--form position-relative">
@@ -220,8 +271,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                     size="sm"
                     className="globel--btn text-white-primary bg-btn-theme border-0 cancel-button"
                     onClick={() => {
-                      changeState({ isEdit: false });
-                      changeState({ jsonUpdateData: state.jsonData });
+                      changeState({ jsonUpdateData: state.jsonData, show_content: 'table' });
                     }}
                   >
                     cancel
@@ -229,13 +279,19 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                 </div>
               </CardBody>
             </Card>
-          ) : !state.jsonLoading ? (
-            <>
-              <h3 className="mb-3">Extracted Document Detail</h3>
-              <JsonToTable json={state.jsonData} />
-            </>
           ) : (
-            "loading..."
+            <>
+              {state.show_content == 'table' && (
+                !state.jsonLoading ? (
+                  <>
+                    <h3 className="mb-3">Extracted Document Detail</h3>
+                    <JsonToTable json={state.jsonData} />
+                  </>
+                ) : (
+                  "loading..."
+                )
+              )}
+            </>
           )}
         </Container>
       </div>

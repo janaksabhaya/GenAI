@@ -19,11 +19,6 @@ const ReactSelect = ({
   isSearchable,
   style = {}
 }) => {
-  let selectedValues = helper.isDefined(options)
-    ? options.find((e) => {
-        return value == e.value;
-      })
-    : null;
 
   if (helper.isDefined(options) && typeof options[0] != "object") {
     options = options.map((_value) => {
@@ -41,6 +36,12 @@ const ReactSelect = ({
     },
     ...options,
   ];
+
+  let selectedValues = helper.isDefined(options)
+  ? options.find((e) => {
+      return value == e.value;
+    })
+  : null;
 
   return (
     <>
@@ -98,7 +99,7 @@ const ReactSelect = ({
           error={error}
           ref={fRef}
           isSearchable={isSearchable}
-          style={style}
+          styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
           theme={(theme) => ({
             ...theme,
             borderRadius: "4px",
