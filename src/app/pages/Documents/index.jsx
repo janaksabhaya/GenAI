@@ -705,7 +705,11 @@ export default function DocumentsPage() {
         changeState({ isLoading: false });
       })
       .catch((err) => {
-        changeState({ isLoading: false });
+        if (err?.response && err?.response?.data && err?.response?.data?.detail == 'No documents found with the given criteria') {
+          changeState({ isLoading: false, data: [] });
+        } else {
+          changeState({ isLoading: false });
+        }
       });
   };
 
