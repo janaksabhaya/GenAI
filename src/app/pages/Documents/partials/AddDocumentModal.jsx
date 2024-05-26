@@ -67,7 +67,7 @@ const AddDocumentModal = ({ isOpen, onClose, changeState }) => {
     Promise.all(uploadPromises)
       .then((results) => {
         if (results) {
-          onClose(results.filter());
+          onClose(results.filter(e => e));
         }
         setIsLoading(false);
       })

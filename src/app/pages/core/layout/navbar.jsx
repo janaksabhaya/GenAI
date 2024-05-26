@@ -27,6 +27,7 @@ const Navbar = () => {
 		fund_names: [],
 		firm_names: [],
 		account_names: [],
+		document_types: [],
 		...documentFilter
 	});
 
@@ -56,6 +57,13 @@ const Navbar = () => {
 			.get("http://40.87.56.22:8000/dropdown/account_names")
 			.then((res) => {
 				changeState({ account_names: res.account_names });
+			})
+			.catch((err) => { });
+
+		api
+			.get("http://40.87.56.22:8000/dropdown/document_types")
+			.then((res) => {
+				changeState({ document_types: res.document_types.filter(e => e) });
 			})
 			.catch((err) => { });
 	}, [])
@@ -107,12 +115,12 @@ const Navbar = () => {
 						<div className="d-flex gap-3">
 							<ReactSelect
 								key={'rerender'}
-								options={[]}
-								placeholder="Select Fund Id"
-								value={state.fundId}
+								options={state.document_types}
+								placeholder="Select Document type"
+								value={state.doc_type}
 								onChange={(e) => {
 									changeState({
-										fundId: e.value
+										doc_type: e.value
 									});
 								}}
 								styles={customStyles}
@@ -160,7 +168,7 @@ const Navbar = () => {
 									className="globel--btn text-white-primary bg-btn-theme border-0 mx-2 px-4"
 									onClick={() => {
 										store.dispatch(setFilters({
-											fundId: state.fundId,
+											doc_type: state.doc_type,
 											fundName: state.fundName,
 											accountName: state.accountName,
 											firmName: state.firmName,
@@ -174,7 +182,7 @@ const Navbar = () => {
 									size="sm"
 									onClick={() => {
 										store.dispatch(setFilters({
-											fundId: "",
+											doc_type: "",
 											fundName: "",
 											accountName: "",
 											firmName: "",
@@ -198,7 +206,7 @@ const Navbar = () => {
 								size="sm"
 								onClick={() => {
 									// changeState({
-									// 	fundId: "",
+									// 	doc_type: "",
 									// 	fundName: "",
 									// 	accountName: "",
 									// 	firmName: "",

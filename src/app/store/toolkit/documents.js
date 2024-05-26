@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	documentFilter: {
-		fundId: "",
+		doc_type: "",
 		fundName: "",
 		accountName: "",
 		firmName: "",
