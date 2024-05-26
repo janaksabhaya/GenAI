@@ -30,27 +30,11 @@ export default function CheckDocumentsModal({ isOpen, onClose, onSave }) {
       api
         .get(`http://40.87.56.22:8001/check_drop_folder`)
         .then((res) => {
-          // if (!res || helper.isEmpty(res.files)) {
-          //   return;
-          // }
+          if (!res || helper.isEmpty(res.files)) {
+            return;
+          }
 
-          let _files = [
-            'a.pdf',
-            'b.pdf',
-            'c.pdf',
-            'd.pdf',
-            'e.pdf',
-            'f.pdf',
-            'g.pdf',
-            'h.pdf',
-            'a.pdf',
-            'a.pdf',
-            'a.pdf',
-            'a.pdf',
-            'a.pdf',
-            'a.pdf',
-            'a.pdf',
-          ].map((file) => {
+          let _files = res.files.map((file) => {
             return {
               name: file,
               status: "pending",
