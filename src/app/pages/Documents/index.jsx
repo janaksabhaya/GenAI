@@ -19,8 +19,11 @@ import ViewPdfModal from "./partials/ViewPdfModal";
 import ReactSelect from "@/components/ui/ReactSelect";
 import CheckDocumentsModal from "./CheckDocuments";
 import { orderBy } from "lodash";
+import { useSelector } from "react-redux";
 
 export default function DocumentsPage() {
+  const documentFilter = useSelector(store => store.documents.documentFilter)
+
   const [state, changeState] = useMainState({
     top: 40,
     page: 0,
@@ -715,10 +718,7 @@ export default function DocumentsPage() {
     changeState({ isLoading: true });
     const payload = {
       filter: {
-        fund_id: state.fundId,
-        fund_name: state.fundName,
-        account_name: state.accountName,
-        firm_name: state.firmName,
+        ...documentFilter,
         ...(state.DateRangePicker && state.DateRangePicker.length == 2 && {
           start_date: moment(state.DateRangePicker[0]).isValid() ? moment(state.DateRangePicker[0]).format('YYYY-MM-DD') : "",
           end_Date: moment(state.DateRangePicker[1]).isValid() ?  moment(state.DateRangePicker[1]).format('YYYY-MM-DD') : ""
@@ -745,7 +745,7 @@ export default function DocumentsPage() {
 
   useEffect(() => {
     getDocumentData();
-  }, [state.resetReactSelect, state.page, state.order_by, state.order]);
+  }, [documentFilter, state.page, state.order_by, state.order]);
 
   useEffect(() => {
     if (state.DateRangePicker && state.DateRangePicker.length == 2 && moment(state.DateRangePicker[0]).isValid() && moment(state.DateRangePicker[1]).isValid()) {
@@ -1000,9 +1000,9 @@ export default function DocumentsPage() {
           }}
         />
       )}
-      {true && (
+      {state.viewJsonModal && (
         <ViewJsonModal
-          isOpen={true}
+          isOpen={state.viewJsonModal}
           setState={changeState}
           onClose={() => {
             changeState({

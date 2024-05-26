@@ -5,10 +5,12 @@ import thunk from "redux-thunk";
 
 // import all toolkit reducers
 import auth from "./toolkit/auth";
+import documentsReducer from "./toolkit/documents";
 
 // here is auth and layout are persist reducer
 const rootReducer = {
 	auth: persistReducer({ key: "auth", storage }, auth),
+	documents: documentsReducer,
 };
 
 const middleware = [

@@ -17,6 +17,7 @@ const ReactSelect = ({
   fRef,
   label,
   isSearchable,
+  style = {}
 }) => {
   let selectedValues = helper.isDefined(options)
     ? options.find((e) => {
@@ -67,6 +68,7 @@ const ReactSelect = ({
           isClearable={isClearable}
           ref={fRef}
           isSearchable={isSearchable}
+          style={style}
           theme={(theme) => ({
             ...theme,
             borderRadius: "4px",
@@ -96,6 +98,7 @@ const ReactSelect = ({
           error={error}
           ref={fRef}
           isSearchable={isSearchable}
+          style={style}
           theme={(theme) => ({
             ...theme,
             borderRadius: "4px",
