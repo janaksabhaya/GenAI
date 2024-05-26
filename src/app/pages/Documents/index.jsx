@@ -1032,6 +1032,13 @@ export default function DocumentsPage() {
             checkDocumentsModal: false,
           });
         }}
+
+        onSave={() => {
+          getDocumentData();
+          changeState({
+            checkDocumentsModal: false,
+          });
+        }}
       />
     </div>
   );

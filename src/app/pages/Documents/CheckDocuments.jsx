@@ -2,118 +2,184 @@ import ReactButton from "@/components/ui/ReactButton";
 import ReactDynamicModal from "@/components/ui/ReactDynamicModal";
 import { api, helper } from "@/services";
 import React, { useEffect, useState } from "react";
+import loading from "@assets/images/loading.gif";
 
-export default function CheckDocumentsModal({ isOpen, onClose }) {
+export default function CheckDocumentsModal({ isOpen, onClose, onSave }) {
   const [files, setFiles] = useState([]);
+  const [isLoader, setIsLoader] = useState(false);
+  const [isProcessLoader, setIsProcessLoader] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
+      setIsLoader(true)
       api
         .get(`http://40.87.56.22:8001/check_drop_folder`)
         .then((res) => {
           if (!res || helper.isEmpty(res.files)) {
             return;
           }
+
           let _files = res.files.map((file) => {
             return {
               name: file,
               status: "pending",
+              isChecked: false
             };
           });
 
           setFiles(_files);
-
-          let promisses = [];
-          _files.forEach((file) => {
-            promisses.push(
-              api.post(`http://40.87.56.22:8000/json?file_name=${file.name}`)
-            );
-
-            promisses.push(
-              api.post(
-                `http://40.87.56.22:8000/doc_details?file_name=${file.name}`
-              )
-            );
-          });
-
-          Promise.allSettled(promisses)
-            .then(() => {
-              let _promisses = [];
-              _files.forEach((file) => {
-                _promisses.push(
-                  api.post(
-                    `http://40.87.56.22:8001/move_to_completed/${file.name}`
-                  )
-                );
-              });
-
-              Promise.allSettled(_promisses)
-                .then((response) => {
-                  console.log("response", response);
-                  response.forEach((resData, i) => {
-                    _files[i].status =
-                      resData.status == "rejected" ? "failed" : "success";
-                  });
-
-                  setFiles([..._files]);
-                })
-                .catch(() => {});
-            })
-            .catch(() => {});
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          setIsLoader(false)
         });
     }
   }, [isOpen]);
 
+  const onProcessFiles = () => {
+    setIsProcessLoader(true);
+
+    let selectedFiles = files.filter(e => e.isChecked);
+    let promisses = [];
+
+    selectedFiles.forEach((file) => {
+      promisses.push(
+        api.post(`http://40.87.56.22:8000/json?file_name=${file.name}`)
+      );
+
+      promisses.push(
+        api.post(
+          `http://40.87.56.22:8000/doc_details?file_name=${file.name}`
+        )
+      );
+    });
+
+    Promise.allSettled(promisses)
+      .then(() => {
+        let _promisses = [];
+        selectedFiles.forEach((file) => {
+          _promisses.push(
+            api.post(
+              `http://40.87.56.22:8001/move_to_completed/${file.name}`
+            )
+          );
+        });
+
+        let _files = [...files]
+
+        Promise.allSettled(_promisses)
+          .then((response) => {
+            response.forEach((resData, i) => {
+              _files = _files.map((file) => {
+                if (file.name == selectedFiles[i].name) {
+                  file.status = resData.status == "rejected" ? "failed" : "success";
+                }
+
+                return file;
+              })
+            });
+
+            setFiles([..._files]);
+          })
+          .catch(() => { });
+      })
+      .catch(() => { })
+      .finally(() => {
+        setIsProcessLoader(false);
+        onSave();
+      });
+  }
+
   return (
+
     <ReactDynamicModal
       title="Check Documents"
       isOpen={isOpen}
       onClose={onClose}
       additionalStyle={{
         content: {
+          top: '40%',
           width: "40%",
         },
       }}
       footerContent={null}
     >
-      <table class="table">
-        <thead>
-          <tr>
-            <th>File name</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {!files || helper.isEmpty(files) ? (
-            <tr>
-              <td colSpan={2} className="text-center border-bottom-0">
-                File Not Found
-              </td>
-            </tr>
-          ) : (
-            files.map((file, i) => (
-              <tr key={i}>
-                <td>{file.name}</td>
-                <td>
-                  <span class={`ani-status ${file.status}`}></span>
-                </td>
+      <div className="check--documents">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>File name</th>
+                <th>Status</th>
+                <th></th>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {isLoader ? (
+                <tr>
+                  <td colSpan={3} className="text-center border-bottom-0">
+                    Loading...
+                  </td>
+                </tr>
+              ) : (
+                <>
+                  {files.map((file, i) => (
+                    <tr key={i}>
+                      <td>{file.name}</td>
+                      <td>
+                        <span class={`ani-status ${file.status}`}></span>
+                      </td>
+                      <td>
+                        <input type="checkbox" value={file.name} checked={file.isChecked} onChange={() => {
+                          setFiles(prev => {
+                            let _files = prev.map((item) => {
+                              if (item.name === file.name) {
+                                item.isChecked = !item.isChecked;
+                              }
+                              return item;
+                            })
+                            return [
+                              ..._files
+                            ]
+                          })
+                        }} />
+                      </td>
+                    </tr>
+                  ))}
 
-      <div className="text-end">
-        <ReactButton
-          size="sm"
-          className="globel--btn text-white-primary bg-btn-theme border-0"
-          onClick={onClose}
-        >
-          Ok
-        </ReactButton>
+                  {helper.isEmpty(files) && (
+                    <tr>
+                      <td colSpan={3} className="text-center border-bottom-0">
+                        File Not Found
+                      </td>
+                    </tr>
+                  )}
+                </>
+              )}
+            </tbody>
+          </table>
+        </div>
+        <div className="text-end mt-3">
+          <ReactButton
+            size="sm"
+            className="globel--btn text-white-primary bg-btn-theme border-0"
+            onClick={onProcessFiles}
+          >
+            {isProcessLoader ? (
+              <img
+                src={loading}
+                height={20}
+                width={20}
+                className="me-2"
+              />
+            ) : (
+              ""
+            )}
+            Ok
+          </ReactButton>
+        </div>
       </div>
     </ReactDynamicModal>
   );

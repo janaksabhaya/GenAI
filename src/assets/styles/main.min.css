@@ -13724,6 +13724,19 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   font-weight: bold;
 }
 
+.check--documents .table-responsive {
+  max-height: 500px;
+  min-height: 100px;
+}
+.check--documents .table-responsive .table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.check--documents .table-responsive .table tbody tr td {
+  padding: 8px;
+}
+
 .audit-logs--table .icon-dropdowns .dropdown .dropdown-toggle {
   outline: none;
 }
