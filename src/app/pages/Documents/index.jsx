@@ -964,8 +964,8 @@ export default function DocumentsPage() {
             if (newDocDetail) {
               changeState({
                 addModal: false,
-                data: [...newDocDetail, ...state.data],
               });
+              getDocumentData();
             }
           }}
         />
