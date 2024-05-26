@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import PageHeader from "@/components/common/PageHeader";
 import ReactButton from "@/components/ui/ReactButton";
 import Chekbox from "@/components/ui/Chekbox";
@@ -164,7 +164,24 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     }
   };
 
-  const data = jsonToSchema(state.jsonData);
+  const _jsonSchema = useMemo(() => {
+    let newJson = {...state.jsonData}
+
+    // state.existingConfiguration.forEach((configuration) => {
+    //   delete newJson[configuration];
+    // })
+
+    Object.keys(newJson)
+      .forEach((configuration) => {
+        if (!state.existingConfiguration.includes(configuration)) {
+          delete newJson[configuration];
+        }
+      })
+
+    return newJson;
+  }, [state.jsonData, state.existingConfiguration])
+
+  const data = jsonToSchema(_jsonSchema);
   const schema = { ...data };
 
   const singleRecord = [
