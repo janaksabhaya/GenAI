@@ -30,12 +30,10 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     editLoading: false,
     jsonData: null,
     show_content: 'table',
-    checklistJsonItems: [
-      'file name',
-      'status'
-    ],
+    checklistJsonItems: [],
     documentTypes: [],
-    selectedDocumentType: ''
+    selectedDocumentType: '',
+    selectedPickList: []
   });
 
   const getJsondata = () => {
@@ -64,6 +62,15 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
 			.get("http://40.87.56.22:8000/dropdown/document_types")
 			.then((res) => {
 				changeState({ documentTypes: res.document_types.filter(e => e) });
+			})
+			.catch((err) => {});
+
+    api
+			.get("http://40.87.56.22:8000/dropdown/checklist_fields", {
+        json_file_name: singleData?.file_name.replace('.pdf', '')
+      })
+			.then((res) => {
+				changeState({ checklistJsonItems: res.fields });
 			})
 			.catch((err) => {});
   }, [singleData?.file_name]);
@@ -156,6 +163,37 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     { name: "STATUS", value: singleData?.status },
   ];
 
+  const selectChecklist = (value) => {
+    let _selectedPickList = [...state.selectedPickList];
+    if (_selectedPickList.includes(value)) {
+      _selectedPickList = _selectedPickList.filter(e => e != value);
+    } else {
+      _selectedPickList.push(value);
+    }
+
+    console.log('selectChecklist', _selectedPickList)
+
+    changeState({
+      selectedPickList: _selectedPickList
+    })
+  }
+
+  const addNewConfiguration = () => {
+    api
+      .post(
+        `http://40.87.56.22:8000/add_configuration`,
+        {
+          fields: state.selectedPickList,
+        }
+      )
+      .then((res) => {
+        helper.toaster.success("Configuration added successfully!");
+        changeState({ show_content: 'table' });
+        getJsondata();
+      })
+      .catch((err) => { });
+  }
+
   return (
     <ReactDynamicModal
       title="View Json"
@@ -214,31 +252,41 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                 <div className="checklist-items">
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <h5 className="mx-1 mb-3">Picklist</h5>
-                    <ReactSelect
+                    {/* <ReactSelect
                       options={state.documentTypes}
                       placeholder="Select Documents type"
                       value={state.selectedDocumentType}
                       onChange={(e) => {
-                        
+                        changeState({
+                          selectedDocumentType: e.value
+                        })
                       }}
-                    />
+                    /> */}
                   </div>
                   <ul class="list-group">
                     {state.checklistJsonItems.map((item, i) => (
                       <li class="list-group-item">
                         <label htmlFor={'test'} key={i} className={`checkbox-wrapper`}>
-                          <input type="checkbox" name="form-check" id={'test'} value={''} onChange={() => { }} />
+                          <input type="checkbox" name="form-check" id={'test'} value={item} onChange={() => {
+                            selectChecklist()
+                          }} />
                           <span className="label font13 mx-2">{item}</span>
                         </label>
                       </li>
                     ))}
+
+                    {state.checklistJsonItems.length == 0 && (
+                      <b className="text-center">
+                        Picklist Not Found
+                      </b>
+                    )}
                   </ul>
                   <div className="mt-3 d-flex justify-content-center">
                     <ReactButton
                       size="sm"
                       className="globel--btn text-white-primary bg-btn-theme border-0 mx-3"
                       onClick={() => {
-                        changeState({ show_content: 'table' });
+                        addNewConfiguration()
                       }}
                     >
                       Save
