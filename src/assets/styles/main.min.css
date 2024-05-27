@@ -13481,13 +13481,13 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   width: 100px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(5) {
-  width: 220px;
+  width: 150px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(6) {
   width: 200px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(7) {
-  width: 200px;
+  width: 150px;
 }
 .documents-page .theme--table-wrap .table-responsive .table thead tr th:nth-child(8) {
   width: 120px;
@@ -13540,6 +13540,26 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 }
 .documents-page .document-filter button {
   width: 100px;
+}
+.documents-page .badge-status {
+  padding: 5px 8px;
+  text-align: center;
+  width: auto;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.documents-page .badge-status.success-status {
+  background: #ebf9f5;
+  color: #54b377;
+}
+.documents-page .badge-status.warning-status {
+  background: #fff7e6;
+  color: #ff9900;
+}
+.documents-page .badge-status.failed-status {
+  background: #ffe2e2;
+  color: #cb4141;
 }
 
 .docs-modal .row {

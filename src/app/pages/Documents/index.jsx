@@ -20,15 +20,14 @@ import ReactSelect from "@/components/ui/ReactSelect";
 import CheckDocumentsModal from "./CheckDocuments";
 import { orderBy } from "lodash";
 import { useSelector } from "react-redux";
-
 export default function DocumentsPage() {
-  const documentFilter = useSelector(store => store.documents.documentFilter)
+  const documentFilter = useSelector((store) => store.documents.documentFilter);
 
   const [state, changeState] = useMainState({
     top: 40,
     page: 0,
-    order_by: '',
-    order: '',
+    order_by: "",
+    order: "",
     totalItems: 10,
     page_size: 10,
     isLoading: false,
@@ -80,11 +79,11 @@ export default function DocumentsPage() {
         Header: "# Pages",
         isAllowSort: true,
       },
-      {
-        accessor: "firm_id",
-        Header: "Firm ID",
-        isAllowSort: true,
-      },
+      // {
+      //   accessor: "firm_id",
+      //   Header: "Firm ID",
+      //   isAllowSort: true,
+      // },
       {
         accessor: "firm_name",
         Header: "Firm name",
@@ -195,6 +194,25 @@ export default function DocumentsPage() {
           //       >
           //         <div className="text-uppercase">{status}</div>
           //       </UncontrolledTooltip>
+          //     </div>
+          //   </>
+          // );
+          // return (
+          //   <>
+          //     <div
+          //       className={`badge-status  ${
+          //         status == "Received" ||
+          //         status == "Duplicate" ||
+          //         status == "processing"
+          //           ? "warning-status"
+          //           : status == "Extraction failed" ||
+          //             status == "Linking failed" ||
+          //             status == "Failed ingested"
+          //           ? "failed-status"
+          //           : "success-status"
+          //       }`}
+          //     >
+          //       {status}
           //     </div>
           //   </>
           // );
@@ -393,23 +411,23 @@ export default function DocumentsPage() {
     selectedAction: "",
     existingConfigurationPayload: {
       page: 0,
-      order_by: '',
-      order: '',
+      order_by: "",
+      order: "",
       totalItems: 10,
       page_size: 10,
     },
     newConfigurationPayload: {
       page: 0,
-      order_by: '',
-      order: '',
+      order_by: "",
+      order: "",
       totalItems: 10,
       page_size: 10,
-    }
+    },
   });
 
   const changeTab = (changedTab) => {
-    if (changedTab == 'existing_configurations') {
-      changeState({ 
+    if (changedTab == "existing_configurations") {
+      changeState({
         activeTab: changedTab,
         newConfigurationPayload: {
           ...state.newConfigurationPayload,
@@ -419,10 +437,10 @@ export default function DocumentsPage() {
           totalItems: state.totalItems,
           page_size: state.page_size,
         },
-        ...state.existingConfigurationPayload
+        ...state.existingConfigurationPayload,
       });
     } else {
-      changeState({ 
+      changeState({
         activeTab: changedTab,
         existingConfigurationPayload: {
           ...state.existingConfigurationPayload,
@@ -432,21 +450,20 @@ export default function DocumentsPage() {
           totalItems: state.totalItems,
           page_size: state.page_size,
         },
-        ...state.newConfigurationPayload
+        ...state.newConfigurationPayload,
       });
     }
   };
 
-  const exportJsonData = (files, type) => {
+  const exportJsonData = (files) => {
     api.post(`http://40.87.56.22:8000/json?file_name=${files}`).then((res) => {
-      const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
-        JSON.stringify(res)
-      )}`;
-      const link = document.createElement("a");
-      link.href = jsonString;
-      link.download = `${files}.json`;
-
-      link.click();
+      // const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+      //   JSON.stringify(res)
+      // )}`;
+      // const link = document.createElement("a");
+      // link.href = jsonString;
+      // link.download = `${files}.json`;
+      // link.click();
     });
   };
 
@@ -499,7 +516,7 @@ export default function DocumentsPage() {
         doc_type: row?.doc_type,
         file_name: row?.file_name,
         file_type: row?.file_type,
-        firm_id: row?.firm_id,
+        // firm_id: row?.firm_id,
         firm_name: row?.firm_name,
         fund_name: row?.fund_name,
         num_pages: row?.num_pages,
@@ -518,6 +535,52 @@ export default function DocumentsPage() {
       .catch((err) => {});
   };
 
+  const dropdownHandleChange = (value, data) => {
+    changeState({
+      selectedAction: value,
+    });
+    if (value === "view_doc") {
+      if (state.statusUpdated == false) {
+        const updatedData = state.data.map((item) => {
+          return item.doc_id == data.doc_id
+            ? {
+                ...item,
+                status: data.status == "error" ? "complete" : data.status,
+                // Completion_Time: new Date(),
+              }
+            : item;
+        });
+        changeState({
+          data: [...updatedData],
+          filename: data.file_name,
+          singleData: data,
+          viewJsonModal: true,
+          viewPdfModal: true,
+          statusUpdated: true,
+        });
+      }
+      changeState({
+        filename: data.file_name,
+        singleData: data,
+        viewJsonModal: true,
+        viewPdfModal: true,
+      });
+
+      // localStorage.setItem("fileName", data.file_name);
+      getPdfUrl(data.file_name);
+      // window.open(pageRoutes.documents_json, "_blank");
+    }
+    if (value === "view_extract_data") {
+      exportJsonData(data.file_name);
+    }
+    if (value === "download") {
+      downloadPdf(data.file_name);
+    }
+    if (value === "Document_re_Read") {
+      // jsonData
+      exportJsonData(data.file_name);
+    }
+  };
   const columns = useMemo(() => {
     let _columns = [...state.columns];
 
@@ -532,49 +595,7 @@ export default function DocumentsPage() {
             <Dropdowns
               active={state.selectedAction}
               onChange={(value) => {
-                changeState({
-                  selectedAction: value,
-                });
-                if (value === "view_doc") {
-                  if (state.statusUpdated == false) {
-                    const updatedData = state.data.map((item) => {
-                      return item.doc_id == rows.row.original.doc_id
-                        ? {
-                            ...item,
-                            status:
-                              rows.row.original.status == "error"
-                                ? "complete"
-                                : rows.row.original.status,
-                            // Completion_Time: new Date(),
-                          }
-                        : item;
-                    });
-                    changeState({
-                      data: [...updatedData],
-                      filename: rows.row.original.file_name,
-                      singleData: rows.row.original,
-                      viewJsonModal: true,
-                      viewPdfModal: true,
-                      statusUpdated: true,
-                    });
-                  }
-                  changeState({
-                    filename: rows.row.original.file_name,
-                    singleData: rows.row.original,
-                    viewJsonModal: true,
-                    viewPdfModal: true,
-                  });
-
-                  localStorage.setItem("fileName", rows.row.original.file_name);
-                  getPdfUrl(rows.row.original.file_name);
-                  // window.open(pageRoutes.documents_json, "_blank");
-                }
-                if (value === "view_extract_data") {
-                  exportJsonData(rows.row.original.file_name);
-                }
-                if (value === "download") {
-                  downloadPdf(rows.row.original.file_name);
-                }
+                dropdownHandleChange(value, rows.row.original);
               }}
               data={[
                 {
@@ -590,7 +611,7 @@ export default function DocumentsPage() {
                   value: "download",
                 },
                 {
-                  label: "Document re Read",
+                  label: "Document Replay",
                   value: "Document_re_Read",
                 },
                 // {
@@ -639,7 +660,6 @@ export default function DocumentsPage() {
       }
 
       if (column.isAllowSort && column.accessor == state.order_by) {
-        
       }
 
       column.isSorted = column.isAllowSort && column.accessor == state.order_by;
@@ -649,10 +669,9 @@ export default function DocumentsPage() {
         column.order_by = state.order_by;
         column.order = state.order;
       } else {
-        column.sortDirection = column.order || 'asc';
+        column.sortDirection = column.order || "asc";
         column.order_by = column.accessor;
       }
-
 
       return column;
     });
@@ -680,22 +699,27 @@ export default function DocumentsPage() {
     const payload = {
       filter: {
         ...documentFilter,
-        ...(state.DateRangePicker && state.DateRangePicker.length == 2 && {
-          start_date: moment(state.DateRangePicker[0]).isValid() ? moment(state.DateRangePicker[0]).format('YYYY-MM-DD') : "",
-          end_Date: moment(state.DateRangePicker[1]).isValid() ?  moment(state.DateRangePicker[1]).format('YYYY-MM-DD') : ""
-        })
+        ...(state.DateRangePicker &&
+          state.DateRangePicker.length == 2 && {
+            start_date: moment(state.DateRangePicker[0]).isValid()
+              ? moment(state.DateRangePicker[0]).format("YYYY-MM-DD")
+              : "",
+            end_Date: moment(state.DateRangePicker[1]).isValid()
+              ? moment(state.DateRangePicker[1]).format("YYYY-MM-DD")
+              : "",
+          }),
       },
       pagination: {
-        "page": state.page,
-        "order": state.order,
-        "order_by": state.order_by,
-        "page_size": state.page_size
-      }
+        page: state.page,
+        order: state.order,
+        order_by: state.order_by,
+        page_size: state.page_size,
+      },
     };
 
-    let url = 'http://40.87.56.22:8000/documents/filter';
-    if (state.activeTab == 'new_configurations') {
-      url = 'http://40.87.56.22:8000/new_documents/filter';
+    let url = "http://40.87.56.22:8000/documents/filter";
+    if (state.activeTab == "new_configurations") {
+      url = "http://40.87.56.22:8000/new_documents/filter";
     }
 
     api
@@ -705,7 +729,12 @@ export default function DocumentsPage() {
         changeState({ isLoading: false });
       })
       .catch((err) => {
-        if (err?.response && err?.response?.data && err?.response?.data?.detail == 'No documents found with the given criteria') {
+        if (
+          err?.response &&
+          err?.response?.data &&
+          err?.response?.data?.detail ==
+            "No documents found with the given criteria"
+        ) {
           changeState({ isLoading: false, data: [] });
         } else {
           changeState({ isLoading: false });
@@ -713,12 +742,42 @@ export default function DocumentsPage() {
       });
   };
 
-  useEffect(() => {
-    getDocumentData();
-  }, [documentFilter, state.page, state.order_by, state.order, state.activeTab]);
+  // useEffect(() => {
+  //   getDocumentData();
+  // }, [
+  //   documentFilter,
+  //   state.page,
+  //   state.order_by,
+  //   state.order,
+  //   state.activeTab,
+  // ]);
 
   useEffect(() => {
-    if (state.DateRangePicker && state.DateRangePicker.length == 2 && moment(state.DateRangePicker[0]).isValid() && moment(state.DateRangePicker[1]).isValid()) {
+    const intervalId = setInterval(() => {
+      getDocumentData();
+    }, 50000);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    getDocumentData();
+  }, [
+    documentFilter,
+    state.page,
+    state.order_by,
+    state.order,
+    state.activeTab,
+  ]);
+
+  useEffect(() => {
+    if (
+      state.DateRangePicker &&
+      state.DateRangePicker.length == 2 &&
+      moment(state.DateRangePicker[0]).isValid() &&
+      moment(state.DateRangePicker[1]).isValid()
+    ) {
       getDocumentData();
     }
   }, [state.DateRangePicker]);
@@ -737,7 +796,6 @@ export default function DocumentsPage() {
     });
   };
 
-
   const onChangeSort = (_obj) => {
     let _columns = [...state.columns];
     _columns = _columns.map((column) => {
@@ -746,12 +804,12 @@ export default function DocumentsPage() {
       }
 
       return column;
-    })
+    });
 
     _obj.columns = _columns;
 
-    changeState(_obj)
-  }
+    changeState(_obj);
+  };
 
   return (
     <div className="documents-page">
@@ -896,8 +954,8 @@ export default function DocumentsPage() {
                 perPage={state.page_size}
                 onPageChange={(_activePage) => {
                   changeState({
-                    page: _activePage
-                  })
+                    page: _activePage,
+                  });
                 }}
                 onChangeSort={onChangeSort}
               />
@@ -956,6 +1014,7 @@ export default function DocumentsPage() {
           Filename={state.Filename}
         />
       )} */}
+
       {state.addModal && (
         <AddDocumentModal
           isOpen={state.addModal}
@@ -970,6 +1029,7 @@ export default function DocumentsPage() {
           }}
         />
       )}
+
       {state.viewJsonModal && (
         <ViewJsonModal
           isOpen={state.viewJsonModal}
@@ -994,7 +1054,6 @@ export default function DocumentsPage() {
           singleData={state.singleData}
         />
       )}
-
       <CheckDocumentsModal
         isOpen={state.checkDocumentsModal}
         onClose={() => {
@@ -1002,7 +1061,6 @@ export default function DocumentsPage() {
             checkDocumentsModal: false,
           });
         }}
-
         onSave={() => {
           getDocumentData();
           changeState({

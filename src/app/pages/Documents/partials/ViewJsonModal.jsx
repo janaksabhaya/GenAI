@@ -29,13 +29,13 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     jsonLoading: false,
     editLoading: false,
     jsonData: null,
-    show_content: 'table',
+    show_content: "table",
     checklistJsonItems: [],
     documentTypes: [],
-    selectedDocumentType: '',
+    selectedDocumentType: "",
     selectedPickList: [],
     isEditConfiguration: false,
-    existingConfiguration: [] 
+    existingConfiguration: [],
   });
 
   const getJsondata = () => {
@@ -61,36 +61,36 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     getJsondata();
 
     api
-			.get("http://40.87.56.22:8000/dropdown/document_types")
-			.then((res) => {
-				changeState({ documentTypes: res.document_types.filter(e => e) });
-			})
-			.catch((err) => {});
+      .get("http://40.87.56.22:8000/dropdown/document_types")
+      .then((res) => {
+        changeState({ documentTypes: res.document_types.filter((e) => e) });
+      })
+      .catch((err) => {});
 
     api
-			.get("http://40.87.56.22:8000/checklist_fields", {
-        json_file_name: singleData?.file_name.replace('.pdf', '')
+      .get("http://40.87.56.22:8000/checklist_fields", {
+        json_file_name: singleData?.file_name.replace(".pdf", ""),
       })
-			.then((res) => {
-				changeState({ checklistJsonItems: res.fields });
-			})
-			.catch((err) => {});
+      .then((res) => {
+        changeState({ checklistJsonItems: res.fields });
+      })
+      .catch((err) => {});
 
-      getConfigurations();
+    getConfigurations();
   }, [singleData?.file_name]);
 
   const getConfigurations = () => {
     api
-			.get(`http://40.87.56.22:8000/get_configuration/${singleData.doc_type}`)
-			.then((res) => {
-				changeState({ 
-          isEditConfiguration: res.fields.length > 0, 
+      .get(`http://40.87.56.22:8000/get_configuration/${singleData.doc_type}`)
+      .then((res) => {
+        changeState({
+          isEditConfiguration: res.fields.length > 0,
           existingConfiguration: res.fields,
-          selectedPickList: res.fields
+          selectedPickList: res.fields,
         });
-			})
-			.catch((err) => {});
-  }
+      })
+      .catch((err) => {});
+  };
 
   const saveJson = (data) => {
     api
@@ -106,10 +106,10 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
       )
       .then((res) => {
         helper.toaster.success("json data updated successfully");
-        changeState({ show_content: 'table' });
+        changeState({ show_content: "table" });
         getJsondata();
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   const jsonToSchema = (data, parentKey = "") => {
@@ -165,21 +165,20 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
   };
 
   const _jsonSchema = useMemo(() => {
-    let newJson = {...state.jsonData}
+    let newJson = { ...state.jsonData };
 
     // state.existingConfiguration.forEach((configuration) => {
     //   delete newJson[configuration];
     // })
 
-    Object.keys(newJson)
-      .forEach((configuration) => {
-        if (!state.existingConfiguration.includes(configuration)) {
-          delete newJson[configuration];
-        }
-      })
+    Object.keys(newJson).forEach((configuration) => {
+      if (!state.existingConfiguration.includes(configuration)) {
+        delete newJson[configuration];
+      }
+    });
 
     return newJson;
-  }, [state.jsonData, state.existingConfiguration])
+  }, [state.jsonData, state.existingConfiguration]);
 
   const data = jsonToSchema(_jsonSchema);
   const schema = { ...data };
@@ -188,7 +187,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     { name: "FILE NAME", value: singleData?.file_name },
     { name: "DOC TYPE", value: singleData?.doc_type },
     { name: "# PAGES", value: singleData?.num_pages },
-    { name: "FIRM ID", value: singleData?.firm_id },
+    // { name: "FIRM ID", value: singleData?.firm_id },
     { name: "FIRM NAME", value: singleData?.firm_name },
     { name: "FUND", value: singleData?.fund_name },
     { name: "ACCOUNT NAME", value: singleData?.account_name },
@@ -200,51 +199,45 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
   const selectChecklist = (value) => {
     let _selectedPickList = [...state.selectedPickList];
     if (_selectedPickList.includes(value)) {
-      _selectedPickList = _selectedPickList.filter(e => e != value);
+      _selectedPickList = _selectedPickList.filter((e) => e != value);
     } else {
       _selectedPickList.push(value);
     }
 
     changeState({
-      selectedPickList: _selectedPickList
-    })
-  }
+      selectedPickList: _selectedPickList,
+    });
+  };
 
   const addNewConfiguration = () => {
     api
-      .post(
-        `http://40.87.56.22:8000/add_configuration`,
-        {
-          doc_type: singleData.doc_type,
-          fields: state.selectedPickList,
-        }
-      )
+      .post(`http://40.87.56.22:8000/add_configuration`, {
+        doc_type: singleData.doc_type,
+        fields: state.selectedPickList,
+      })
       .then((res) => {
         helper.toaster.success("Configuration added successfully!");
-        changeState({ show_content: 'table' });
+        changeState({ show_content: "table" });
         getConfigurations();
         getJsondata();
       })
-      .catch((err) => { });
-  }
+      .catch((err) => {});
+  };
 
   const editConfiguration = () => {
     api
-      .post(
-        `http://40.87.56.22:8000/update_configuration`,
-        {
-          doc_type: singleData.doc_type,
-          fields: state.selectedPickList,
-        }
-      )
+      .post(`http://40.87.56.22:8000/update_configuration`, {
+        doc_type: singleData.doc_type,
+        fields: state.selectedPickList,
+      })
       .then((res) => {
         helper.toaster.success("Configuration updated successfully!");
-        changeState({ show_content: 'table' });
+        changeState({ show_content: "table" });
         getConfigurations();
         getJsondata();
       })
-      .catch((err) => { });
-  }
+      .catch((err) => {});
+  };
 
   return (
     <ReactDynamicModal
@@ -273,23 +266,23 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
             </tbody>
           </Table>
 
-          {state.show_content == 'table' && (
+          {state.show_content == "table" && (
             <div className="text-end mb-2 gap-4 px-5">
               <ReactButton
-              size="sm"
-              className="globel--btn text-white-primary bg-btn-theme border-0 mx-3"
-              onClick={() => {
-                changeState({ show_content: 'view-all' });
-              }}
-            >
-              View All
-            </ReactButton>
+                size="sm"
+                className="globel--btn text-white-primary bg-btn-theme border-0 mx-3"
+                onClick={() => {
+                  changeState({ show_content: "view-all" });
+                }}
+              >
+                View All
+              </ReactButton>
               <ReactButton
                 size="sm"
                 className=" border-1 border"
                 onClick={() => {
                   // changeState({ isEdit: true });
-                  changeState({ show_content: 'edit-json' });
+                  changeState({ show_content: "edit-json" });
                 }}
                 disabled={!state.jsonData}
               >
@@ -298,7 +291,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
             </div>
           )}
 
-          {state.show_content == 'view-all' && (
+          {state.show_content == "view-all" && (
             <div className="d-flex  mt-3 document-filter card">
               <div className="card-body">
                 <div className="checklist-items">
@@ -318,19 +311,28 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                   <ul class="list-group">
                     {state.checklistJsonItems.map((item, i) => (
                       <li class="list-group-item">
-                        <label htmlFor={'test'} key={i} className={`checkbox-wrapper`}>
-                          <input type="checkbox" name="form-check" id={'test'} value={item} onChange={() => {
-                            selectChecklist(item)
-                          }} checked={state.selectedPickList.includes(item)} />
+                        <label
+                          htmlFor={"test"}
+                          key={i}
+                          className={`checkbox-wrapper`}
+                        >
+                          <input
+                            type="checkbox"
+                            name="form-check"
+                            id={"test"}
+                            value={item}
+                            onChange={() => {
+                              selectChecklist(item);
+                            }}
+                            checked={state.selectedPickList.includes(item)}
+                          />
                           <span className="label font13 mx-2">{item}</span>
                         </label>
                       </li>
                     ))}
 
                     {state.checklistJsonItems.length == 0 && (
-                      <b className="text-center">
-                        Picklist Not Found
-                      </b>
+                      <b className="text-center">Picklist Not Found</b>
                     )}
                   </ul>
                   <div className="mt-3 d-flex justify-content-center">
@@ -339,9 +341,9 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                       className="globel--btn text-white-primary bg-btn-theme border-0 mx-3"
                       onClick={() => {
                         if (state.isEditConfiguration) {
-                          editConfiguration()                          
+                          editConfiguration();
                         } else {
-                          addNewConfiguration()
+                          addNewConfiguration();
                         }
                       }}
                     >
@@ -351,7 +353,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                       size="sm"
                       className="globel--btn text-white-primary bg-btn-theme border-0"
                       onClick={() => {
-                        changeState({ show_content: 'table' });
+                        changeState({ show_content: "table" });
                       }}
                     >
                       Cancel
@@ -362,7 +364,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
             </div>
           )}
 
-          {state.show_content == 'edit-json' ? (
+          {state.show_content == "edit-json" ? (
             <Card>
               <CardBody>
                 <div className="document--form position-relative">
@@ -375,7 +377,10 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                     size="sm"
                     className="globel--btn text-white-primary bg-btn-theme border-0 cancel-button"
                     onClick={() => {
-                      changeState({ jsonUpdateData: state.jsonData, show_content: 'table' });
+                      changeState({
+                        jsonUpdateData: state.jsonData,
+                        show_content: "table",
+                      });
                     }}
                   >
                     cancel
@@ -385,16 +390,15 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
             </Card>
           ) : (
             <>
-              {state.show_content == 'table' && (
-                !state.jsonLoading ? (
+              {state.show_content == "table" &&
+                (!state.jsonLoading ? (
                   <>
                     <h3 className="mb-3">Extracted Document Detail</h3>
                     <JsonToTable json={state.jsonData} />
                   </>
                 ) : (
                   "loading..."
-                )
-              )}
+                ))}
             </>
           )}
         </Container>

@@ -92,7 +92,7 @@
                             }
 
                             &:nth-child(5) {
-                                width: 220px;
+                                width: 150px;
                             }
 
                             &:nth-child(6) {
@@ -100,7 +100,7 @@
                             }
 
                             &:nth-child(7) {
-                                width: 200px;
+                                width: 150px;
                             }
 
                             &:nth-child(8) {
@@ -184,6 +184,30 @@
 
         button {
             width: 100px;
+        }
+    }
+
+    .badge-status {
+        padding: 5px 8px;
+        text-align: center;
+        width: auto;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 500;
+
+        &.success-status {
+            background: #ebf9f5;
+            color: #54b377;
+        }
+
+        &.warning-status {
+            background: #fff7e6;
+            color: #ff9900;
+        }
+
+        &.failed-status {
+            background: #ffe2e2;
+            color: #cb4141;
         }
     }
 }
@@ -483,6 +507,7 @@
                     &:nth-child(2) {
                         width: 10%;
                     }
+
                     &:nth-child(3) {
                         width: 10%;
                     }
@@ -498,6 +523,7 @@
             }
         }
     }
+
     .add-document-btn {
         display: flex;
         place-content: end;
