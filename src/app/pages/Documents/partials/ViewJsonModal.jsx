@@ -36,6 +36,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     selectedPickList: [],
     isEditConfiguration: false,
     existingConfiguration: [],
+    isChecklistJsonLoading: false,
   });
 
   const getJsondata = () => {
@@ -58,6 +59,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
   };
 
   useEffect(() => {
+    changeState({ isChecklistJsonLoading: true });
     getJsondata();
 
     api
@@ -72,7 +74,11 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
         json_file_name: singleData?.file_name.replace(".pdf", ""),
       })
       .then((res) => {
-        changeState({ checklistJsonItems: res.fields });
+        changeState({
+          checklistJsonItems: res.fields,
+          selectedPickList: res.fields,
+          isChecklistJsonLoading: false,
+        });
       })
       .catch((err) => {});
 
@@ -83,11 +89,30 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     api
       .get(`http://40.87.56.22:8000/get_configuration/${singleData.doc_type}`)
       .then((res) => {
-        changeState({
+        let _updatedState = {
           isEditConfiguration: res.fields.length > 0,
           existingConfiguration: res.fields,
-          selectedPickList: res.fields,
+          selectedPickList:
+            res.fields.length > 0 ? res.fields : state.checklistJsonItems,
+        };
+
+        changeState({
+          ..._updatedState,
+          // jsonData: response,
         });
+
+        // api
+        //   .post(`http://40.87.56.22:8000/filter_json_fields`, {
+        //     json_file_name: singleData.doc_id,
+        //     fields: res.fields,
+        //   })
+        //   .then((response) => {
+        //     changeState({
+        //       ..._updatedState,
+        //       jsonData: response,
+        //     });
+        //   })
+        //   .catch((err) => {});
       })
       .catch((err) => {});
   };
@@ -105,9 +130,32 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
         }
       )
       .then((res) => {
-        helper.toaster.success("json data updated successfully");
-        changeState({ show_content: "table" });
-        getJsondata();
+        helper.toaster.success("data updated successfully");
+
+        api
+          .post(`http://40.87.56.22:8000/update_configuration`, {
+            doc_type: singleData.doc_type,
+            fields: state.selectedPickList,
+          })
+          .then((res) => {
+            // helper.toaster.success("Configuration updated successfully!");
+            // changeState({ show_content: "table" });
+            // getConfigurations();
+            // getJsondata();
+
+            api
+              .post(
+                `http://40.87.56.22:8000/transfer_document?doc_id=${singleData.doc_id}`
+              )
+              .then((res) => {
+                helper.toaster.success("Configuration updated successfully!");
+                changeState({ show_content: "table" });
+                getConfigurations();
+                getJsondata();
+              })
+              .catch((err) => {});
+          })
+          .catch((err) => {});
       })
       .catch((err) => {});
   };
@@ -180,7 +228,9 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     return newJson;
   }, [state.jsonData, state.existingConfiguration]);
 
-  const data = jsonToSchema(_jsonSchema);
+  console.log("_jsonSchema", _jsonSchema, state.existingConfiguration);
+
+  const data = jsonToSchema({ ..._jsonSchema });
   const schema = { ...data };
 
   const singleRecord = [
@@ -228,7 +278,10 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
     api
       .post(`http://40.87.56.22:8000/update_configuration`, {
         doc_type: singleData.doc_type,
-        fields: state.selectedPickList,
+        add_fields: state.selectedPickList,
+        remove_fields: state.checklistJsonItems.filter(
+          (e) => !state.selectedPickList.includes(e)
+        ),
       })
       .then((res) => {
         helper.toaster.success("Configuration updated successfully!");
@@ -309,30 +362,36 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                     /> */}
                   </div>
                   <ul class="list-group">
-                    {state.checklistJsonItems.map((item, i) => (
-                      <li class="list-group-item">
-                        <label
-                          htmlFor={"test"}
-                          key={i}
-                          className={`checkbox-wrapper`}
-                        >
-                          <input
-                            type="checkbox"
-                            name="form-check"
-                            id={"test"}
-                            value={item}
-                            onChange={() => {
-                              selectChecklist(item);
-                            }}
-                            checked={state.selectedPickList.includes(item)}
-                          />
-                          <span className="label font13 mx-2">{item}</span>
-                        </label>
-                      </li>
-                    ))}
+                    {state.isChecklistJsonLoading ? (
+                      <div>Loading...</div>
+                    ) : (
+                      <div>
+                        {state.checklistJsonItems.length == 0 && (
+                          <b className="text-center">Picklist Not Found</b>
+                        )}
 
-                    {state.checklistJsonItems.length == 0 && (
-                      <b className="text-center">Picklist Not Found</b>
+                        {state.checklistJsonItems.map((item, i) => (
+                          <li class="list-group-item">
+                            <label
+                              htmlFor={"test"}
+                              key={i}
+                              className={`checkbox-wrapper`}
+                            >
+                              <input
+                                type="checkbox"
+                                name="form-check"
+                                id={"test"}
+                                value={item}
+                                onChange={() => {
+                                  selectChecklist(item);
+                                }}
+                                checked={state.selectedPickList.includes(item)}
+                              />
+                              <span className="label font13 mx-2">{item}</span>
+                            </label>
+                          </li>
+                        ))}
+                      </div>
                     )}
                   </ul>
                   <div className="mt-3 d-flex justify-content-center">
@@ -394,7 +453,7 @@ const ViewJsonModal = ({ isOpen, setState, onClose, singleData }) => {
                 (!state.jsonLoading ? (
                   <>
                     <h3 className="mb-3">Extracted Document Detail</h3>
-                    <JsonToTable json={state.jsonData} />
+                    <JsonToTable json={_jsonSchema} />
                   </>
                 ) : (
                   "loading..."

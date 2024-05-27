@@ -25,7 +25,7 @@ export default function DocumentsPage() {
 
   const [state, changeState] = useMainState({
     top: 40,
-    page: 0,
+    page: 1,
     order_by: "",
     order: "",
     totalItems: 10,
@@ -752,14 +752,14 @@ export default function DocumentsPage() {
   //   state.activeTab,
   // ]);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      getDocumentData();
-    }, 50000);
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     getDocumentData();
+  //   }, 50000);
 
-    // Clean up the interval on component unmount
-    return () => clearInterval(intervalId);
-  }, []);
+  //   // Clean up the interval on component unmount
+  //   return () => clearInterval(intervalId);
+  // }, []);
 
   useEffect(() => {
     getDocumentData();
