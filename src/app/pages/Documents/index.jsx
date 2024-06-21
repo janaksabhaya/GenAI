@@ -11,6 +11,7 @@ import ReactButton from "@/components/ui/ReactButton";
 import ThemeDatePicker from "@/components/ui/DatePickerUi";
 import ViewSettingsModal from "./partials/ViewSettingsModal";
 import SelectFilterModal from "./partials/SelectFilterModal";
+import ThemeTablePagination from "@/components/ui/Tables/ThemeTablePagination";
 
 export default function DocumentsPage() {
   const [state, changeState] = useMainState({
@@ -123,6 +124,7 @@ export default function DocumentsPage() {
     settingModal: false,
     ViewSetting: false,
     filterModal: false,
+    loading: false
   });
 
   const onSortedChange = () => {};
@@ -275,35 +277,24 @@ export default function DocumentsPage() {
               </div>
             </div>
 
-            <div className="table--container">
-              <ReactTable
+            <ThemeTablePagination
                 key={state.key}
                 data={state.data}
                 columns={state.columns}
                 page={state.page || 0}
-                pages={handlePages(Math.ceil(state.rowCount / state.pagesize))}
                 pageSize={state.pagesize}
                 className="-striped -highlight grid"
                 onSortedChange={onSortedChange}
-                // NoDataComponent={() => {
-                //   return (
-                //     !state.loading && (
-                //       <div className="rt-noData-custom">No rows found</div>
-                //     )
-                //   );
-                // }}
+                cancelLoader={() => {
+                  changeState({
+                    loading: false
+                  })
+                }}
                 onPageSizeChange={onPageSizeChange}
                 onPageChange={onPageChange}
                 loading={state.loading}
                 manual={true}
               />
-              {state.rowCount && state.rowCount > 0 ? (
-                <div className="grid-total-records">
-                  {state.rowCount &&
-                    `${state.rowCount.toLocaleString()} Total Records`}
-                </div>
-              ) : null}
-            </div>
           </div>
         </div>
       </Container>
