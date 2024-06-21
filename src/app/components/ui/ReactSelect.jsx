@@ -29,10 +29,10 @@ const ReactSelect = ({
   }
 
   options = [
-    {
-      label: placeholder ? placeholder : "Select...",
-      value: "",
-    },
+    // {
+    //   label: placeholder ? placeholder : "Select...",
+    //   value: "",
+    // },
     ...options,
   ];
 
@@ -48,7 +48,6 @@ const ReactSelect = ({
       fontWeight: "bold",
       color: "#252525",
       backgroundColor: "#F2F2F2",
-      height: "20px",
       fontSize: "10px",
       lineHeight: "20px",
       padding: " 0 10px !important",
@@ -99,14 +98,14 @@ const ReactSelect = ({
             isClearable={isClearable}
             ref={fRef}
             isSearchable={isSearchable}
-            style={style}
+            styles={{ ...customStyles, ...style }}
             theme={(theme) => ({
               ...theme,
-              borderRadius: "4px",
+              borderRadius: 4,
               colors: {
                 ...theme.colors,
-                primary25: "#f2f2f2",
-                primary: "#337ab7",
+                primary25: "#EBF5FF",
+                primary: "#EBF5FF",
               },
             })}
           />
@@ -139,14 +138,17 @@ const ReactSelect = ({
             error={error}
             ref={fRef}
             isSearchable={isSearchable}
-            styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+            styles={{
+              ...customStyles,
+              menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+            }}
             theme={(theme) => ({
               ...theme,
-              borderRadius: "4px",
+              borderRadius: 4,
               colors: {
                 ...theme.colors,
-                primary25: "#f2f2f2",
-                primary: "#337ab7",
+                primary25: "#EBF5FF",
+                primary: "#EBF5FF",
               },
             })}
           />

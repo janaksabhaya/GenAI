@@ -27,7 +27,7 @@ const Textinput = ({
   return (
     <div className={`floating-label-content ${className}`}>
       {isShowLabel && (
-        <label htmlFor={id}>
+        <label htmlFor={id} className="text-theme-placeholder font-10">
           <Icon icon={icon} />
           {label ? label : "Add label"}
         </label>

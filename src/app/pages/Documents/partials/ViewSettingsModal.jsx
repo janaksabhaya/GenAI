@@ -1,20 +1,32 @@
 import ReactButton from "@/components/ui/ReactButton";
-import ReactModal from "@/components/ui/ReactModal";
+import ReactDynamicModal from "@/components/ui/ReactModal";
 import React from "react";
 
 const ViewSettingsModal = ({ show, onClose }) => {
+  const modalStyle = {
+    content: {
+      width: "400px",
+    },
+  };
   return (
-    <ReactModal
-      title="Select Grid Feilds"
+    <ReactDynamicModal
+      title="Select Grid Fields"
       show={show}
       className="view--settings--modal"
       onClose={onClose}
+      additionalStyle={modalStyle}
     >
       <div className="d-flex align-items-center justify-content-end">
-        <ReactButton className="global-outline-btn font-10 b-theme-light text-theme-default  br-2 me-2">
+        <ReactButton
+          className="global-outline-btn font-10 b-theme-light text-theme-default  br-2 me-2"
+          onClick={onClose}
+        >
           Cancel
         </ReactButton>
-        <ReactButton className="global-btn font-10 bg-static-black text-theme-color br-2">
+        <ReactButton
+          className="global-btn font-10 bg-static-black text-theme-color br-2"
+          onClick={onClose}
+        >
           Save
         </ReactButton>
       </div>
@@ -106,7 +118,7 @@ const ViewSettingsModal = ({ show, onClose }) => {
           </li>
         </ul>
       </div>
-    </ReactModal>
+    </ReactDynamicModal>
   );
 };
 

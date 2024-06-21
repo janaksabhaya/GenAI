@@ -14,7 +14,6 @@ body {
             background: $themeSecondryDefault;
             color: $themeStaticWhite;
             font-size: $font-10;
-            height: 29px;
 
             .rt-th {
                 border-width: 0px 1px 1px 0px;
@@ -28,7 +27,6 @@ body {
         .rt-tbody {
             .rt-tr-group {
                 .rt-tr {
-                    height: 29px;
                     font-size: $font-10;
                     color: $themeFontColor;
 

@@ -1,10 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import useMainState from "@/hooks/useMainState";
-import ReactTable from "react-table";
-import "react-table/react-table.css";
-import { Container } from "react-bootstrap";
+import { Container, Dropdown, DropdownButton } from "react-bootstrap";
 import IconButton from "@/components/ui/IconButton";
-import Select from "react-select";
 import { Icon } from "@iconify/react";
 import Textinput from "@/components/ui/TextInput";
 import ReactButton from "@/components/ui/ReactButton";
@@ -12,81 +9,244 @@ import ThemeDatePicker from "@/components/ui/DatePickerUi";
 import ViewSettingsModal from "./partials/ViewSettingsModal";
 import SelectFilterModal from "./partials/SelectFilterModal";
 import ThemeTablePagination from "@/components/ui/Tables/ThemeTablePagination";
+import ReactSelect from "@/components/ui/ReactSelect";
+import ViewExtractedData from "./partials/ViewExtractedData";
+import ViewPdf from "./partials/ViewPdf";
 
 export default function DocumentsPage() {
   const [state, changeState] = useMainState({
     rowCount: 0,
     pagesize: 20,
+    viewExtracted: false,
     columns: [
       {
         accessor: "action",
         Header: "",
         Cell: (row) => {
           return (
-            <>
-              <div className="position-relative">
-                <Icon icon="mdi:dots-horizontal" />
-                <div className="position-absolute">
-                  <ul className="list-unstyled mb-0">
-                    <li></li>
-                  </ul>
-                </div>
-              </div>
-            </>
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              <DropdownButton
+                key="end"
+                id={`dropdown-button-drop`}
+                drop="end"
+                className="custom-dropdown table-action"
+                title={<Icon icon="mdi:dots-horizontal" />}
+              >
+                <Dropdown.Item
+                  eventKey="1"
+                  className="font-10 text-color"
+                  onClick={() => {
+                    changeState({ viewExtracted: true });
+                  }}
+                >
+                  View Document
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="2" className="font-10 text-color">
+                  Replay
+                </Dropdown.Item>
+              </DropdownButton>
+            </div>
           );
         },
       },
       {
         accessor: "document_name",
         Header: "Document Name",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.document_name}
+            </div>
+          );
+        },
       },
       {
         accessor: "document_type",
         Header: "Document Type",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.document_type}
+            </div>
+          );
+        },
       },
       {
         accessor: "document_id",
         Header: "Document ID",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.document_id}
+            </div>
+          );
+        },
       },
       {
         accessor: "fund_name",
         Header: "Fund Name",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.fund_name}
+            </div>
+          );
+        },
       },
       {
         accessor: "investor_name",
         Header: "Investor Name",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.investor_name}
+            </div>
+          );
+        },
       },
       {
         accessor: "account_SID",
         Header: "Account SID",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.account_SID}
+            </div>
+          );
+        },
       },
       {
         accessor: "display_name",
         Header: "Account No.",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.display_name}
+            </div>
+          );
+        },
       },
       {
         accessor: "status",
         Header: "Status",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.status}
+            </div>
+          );
+        },
       },
       {
         accessor: "report_date",
         Header: "Report Date",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.report_date}
+            </div>
+          );
+        },
       },
       {
         accessor: "received_date",
         Header: "Received Date",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.received_date}
+            </div>
+          );
+        },
       },
       {
         accessor: "firm_name",
         Header: "Firm Name",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.firm_name}
+            </div>
+          );
+        },
       },
       {
         accessor: "pg",
         Header: "#Pg.",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.pg}
+            </div>
+          );
+        },
       },
       {
         accessor: "document_source",
         Header: "Document Source",
+        Cell: (row) => {
+          return (
+            <div
+              className={`${
+                row.original.status == "Duplicate" ? "duplicate-status" : ""
+              }`}
+            >
+              {row.original.document_source}
+            </div>
+          );
+        },
       },
     ],
     data: [
@@ -124,7 +284,7 @@ export default function DocumentsPage() {
     settingModal: false,
     ViewSetting: false,
     filterModal: false,
-    loading: false
+    loading: false,
   });
 
   const onSortedChange = () => {};
@@ -149,29 +309,6 @@ export default function DocumentsPage() {
       };
     });
   }, [state.data]);
-
-  const customStyles = {
-    groupHeading: (provided) => ({
-      ...provided,
-      fontWeight: "bold",
-      color: "#252525",
-      backgroundColor: "#F2F2F2",
-      height: "20px",
-      fontSize: "10px",
-      lineHeight: "20px",
-      padding: " 0 10px !important",
-      margin: 0,
-    }),
-    option: (provided) => ({
-      ...provided,
-      fontSize: "10px",
-      height: "23px",
-      lineHeight: "23px",
-      color: "#252525",
-      padding: " 0 10px !important",
-      margin: 0,
-    }),
-  };
 
   const options = [
     {
@@ -200,20 +337,7 @@ export default function DocumentsPage() {
               </div>
               <div className="d-flex align-items-center">
                 <div className="document--select">
-                  <Select
-                    options={options}
-                    isClearable
-                    theme={(theme) => ({
-                      ...theme,
-                      borderRadius: 4,
-                      colors: {
-                        ...theme.colors,
-                        primary25: "#EBF5FF",
-                        primary: "#EBF5FF",
-                      },
-                    })}
-                    styles={customStyles}
-                  />
+                  <ReactSelect options={options} isClearable />
                 </div>
                 <div className="ms-2 me-2 pe-1 position-relative">
                   <IconButton
@@ -231,7 +355,10 @@ export default function DocumentsPage() {
                         <li
                           className="font-10"
                           onClick={() => {
-                            changeState({ ViewSetting: true });
+                            changeState({
+                              ViewSetting: true,
+                              settingModal: false,
+                            });
                           }}
                         >
                           View Settings
@@ -278,23 +405,23 @@ export default function DocumentsPage() {
             </div>
 
             <ThemeTablePagination
-                key={state.key}
-                data={state.data}
-                columns={state.columns}
-                page={state.page || 0}
-                pageSize={state.pagesize}
-                className="-striped -highlight grid"
-                onSortedChange={onSortedChange}
-                cancelLoader={() => {
-                  changeState({
-                    loading: false
-                  })
-                }}
-                onPageSizeChange={onPageSizeChange}
-                onPageChange={onPageChange}
-                loading={state.loading}
-                manual={true}
-              />
+              key={state.key}
+              data={state.data}
+              columns={state.columns}
+              page={state.page || 0}
+              pageSize={state.pagesize}
+              className="-striped -highlight grid"
+              onSortedChange={onSortedChange}
+              cancelLoader={() => {
+                changeState({
+                  loading: false,
+                });
+              }}
+              onPageSizeChange={onPageSizeChange}
+              onPageChange={onPageChange}
+              loading={state.loading}
+              manual={true}
+            />
           </div>
         </div>
       </Container>
@@ -309,6 +436,20 @@ export default function DocumentsPage() {
           onClose={() => changeState({ filterModal: false })}
           show={state.filterModal}
         />
+      )}
+
+      {console.log(state.viewExtracted, "fdsfhgfjdh")}
+      {state.viewExtracted && (
+        <>
+          <ViewExtractedData
+            onClose={() => changeState({ viewExtracted: false })}
+            show={state.viewExtracted}
+          />
+          <ViewPdf
+            onClose={() => changeState({ viewExtracted: false })}
+            show={state.viewExtracted}
+          />
+        </>
       )}
     </>
   );

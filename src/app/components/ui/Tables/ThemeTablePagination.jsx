@@ -2,6 +2,7 @@ import React from 'react'
 import ReactTable from 'react-table'
 import ReactButton from '../ReactButton'
 import Loader from '../Loader'
+import "react-table/react-table.css";
 
 export default function ThemeTablePagination({
     onSortedChange, onPageChange, onPageSizeChange, pagesize, cancelLoader, data, columns, rowCount, loading, ...rest

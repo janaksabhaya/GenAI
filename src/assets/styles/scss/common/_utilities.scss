@@ -10,68 +10,110 @@
 .text-color {
 	color: $themeFontColor;
 }
+
 .text-theme-color {
-	color: $themeSeconderyFontColor;
+	color: $themeSeconderyFontColor !important;
 }
+
 .text-theme-default {
-	color: $themeSecondryDefault;
+	color: $themeSecondryDefault !important;
 }
+
 .text-theme-placeholder {
 	color: $inputPlaceholder;
+}
+.text-theme-warning {
+	color: $themeWarning;
+}
+.text-theme-success {
+	color: $themeSuccess;
 }
 
 //  ============> BACKGROUD COLOR'S <============
 .bg-static-black {
 	background-color: $themeBlack;
 }
+
 .bg-theme {
 	background-color: $themeBGcolor;
 }
+
 .bg-theme-light-black {
 	background-color: $themeSecondryDefault;
 }
+
 .bg-primary-light {
 	background-color: $primaryBg;
 }
+.bg-table {
+	background-color: $tableBgColor;
+}
 
-.b-theme{
+.b-theme {
 	border: 1px solid $themeOutline;
 }
-.b-theme-light{
+
+.b-theme-light {
 	border: 1px solid $themeSecondryDefault;
 }
-.br-2{
+
+.br-2 {
 	border-radius: $br-2;
 }
+
 //  ============> FONT-SIZE'S <============
 
 .font-9 {
 	font-size: $font-9;
 }
+
 .font-10 {
 	font-size: $font-10;
 }
+
 .font-12 {
 	font-size: $font-12;
 }
+
 .font-14 {
 	font-size: $font-14 !important;
 }
+
 .font-16 {
 	font-size: $font-16;
 }
+
 .font-18 {
 	font-size: $font-18;
 }
+
 .font-19 {
 	font-size: $font-19;
 }
+
 .font-20 {
 	font-size: $font-20;
 }
+
 .font-24 {
 	font-size: $font-24;
 }
+
 .font-32 {
 	font-size: $font-32;
+}
+
+.theme-box-shadow {
+	box-shadow:$themeBoxShadow;
+}
+
+
+.fw-400{
+	font-weight: $fw-400;
+}
+.fw-500{
+	font-weight: $fw-500;
+}
+.fw-600{
+	font-weight: $fw-600;
 }
