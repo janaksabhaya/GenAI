@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactTable from 'react-table'
 import ReactButton from '../ReactButton'
+import Loader from '../Loader'
 
 export default function ThemeTablePagination({
     onSortedChange, onPageChange, onPageSizeChange, pagesize, cancelLoader, data, columns, rowCount, loading, ...rest
@@ -33,9 +34,7 @@ export default function ThemeTablePagination({
                 loading={loading}
                 manual={true}
                 loadingText={<div className="loader-center-btn">
-                    <div className="loader-1 center">
-                        <span></span>
-                    </div>
+                    <Loader isLoader={loading} />
                     <ReactButton
                         size="sm"
                         className="global-btn font-10 bg-static-black text-theme-color mt-3 br-2"
