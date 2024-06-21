@@ -1,103 +1,71 @@
-// ==========> {{ START:: Modal CSS }} <==========
+.theme--modal {
+	.modal-dialog {
+		.modal-content {
+			border: 0px;
+			border-radius: 0;
 
-.modal--body,
-.modal--footer,
-.help--modal {
-	padding: 12px;
-}
+			.modal-header {
+				padding: 6.5px 11px;
+				border-bottom: 0px;
+				background-color: $themeBlack;
+				border-radius: 0;
 
-.modal--footer {
-	border-top: 1.5px solid $themeDefaultColor;
-}
+				h4 {
+					line-height: 19px;
+					font-weight: 400;
+				}
+			}
 
-.help--modal {
-	h4 {
-		font-weight: 400;
-	}
-
-	button {
-		&:hover {
-			color: $themeWhiteColor;
+			.modal-body {
+				padding: 10px 11px;
+			}
 		}
 	}
 }
 
-.ReactModal__Content {
-	border: none !important;
-}
+.global-outline-btn {
+	width: 88px;
+	height: 20px;
+	padding: 0;
 
-// ==========> {{ END:: Modal CSS }} <==========
-
-// ==========> {{ START:: Button CSS }} <==========
-
-.globel--btn {
-	max-width: 120px;
-	width: 100%;
-
-	// background-color: $themeSeconderyLightColor;
 	&:hover {
-		background-color: $themeSeconderyLightColor;
-		color: $themeWhiteColor;
+		border: 1px solid $themeSecondryDefault;
+		color: $themeSecondryDefault;
 	}
-
-	&:disabled {
-		background-color: $themeLightBlueColor;
-	}
-}
-
-// ==========> {{ END:: Button CSS }} <==========
-
-// ==========> {{ START:: Chart CSS }} <==========
-
-.highcharts-credits,
-.highcharts-title {
-	display: none;
-}
-
-.chart--view-section {
-	padding: 12px;
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	border-radius: 8px;
-
-	.heading--box {
-		padding: 4px 8px;
-		background-color: #f7f8fc;
-
-		button {
-			svg {
-				font-size: $font-18;
-			}
-		}
+	
+	&:disabled{
+		background-color: $primaryBg;
+		color: $disaledFont;
+		border: 1px solid $primaryBg;
 	}
 }
 
-// ==========> {{ END:: Chart CSS }} <==========
+.global-btn {
+	width: 88px;
+	height: 20px;
+	padding: 0;
+	border: 1px solid $themeSecondryDefault;
 
-// ==========> {{ START:: Theme table CSS }} <==========
+	&:hover {
+		border: 1px solid $themeSecondryDefault;
+		background: $themeBlack;
+		color: $themeSeconderyFontColor;
+	}
+	&:active {
+		border: 1px solid $themeSecondryDefault !important;
+		background: $themeBlack !important;
+		color: $themeSeconderyFontColor !important;
+	}
 
-.theme--table-wrap {
-	table {
-		thead {
-			tr {
-				th {
-					padding: 8px 16px;
-
-					svg {
-						width: 18px;
-						height: 18px;
-					}
-				}
-			}
-		}
-
-		tbody {
-			tr {
-				td {
-					padding: 8px 16px;
-				}
-			}
-		}
+	&:disabled{
+		background-color: $primaryBg;
+		color: $disaledFont;
+		border: 1px solid $primaryBg;
 	}
 }
 
-// ==========> {{ END:: Theme table CSS }} <==========
+.theme--checkbox{
+	accent-color: $themeBlack;
+	height: 14px;
+    width: 14px;
+}

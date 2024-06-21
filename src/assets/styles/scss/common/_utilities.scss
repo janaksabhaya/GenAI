@@ -8,47 +8,46 @@
 //  ============> FONT-COLOR'S <============
 
 .text-color {
-	color: $themePrimaryColor;
+	color: $themeFontColor;
 }
 .text-theme-color {
-	color: $themeLightColor;
+	color: $themeSeconderyFontColor;
 }
-.text-static-black {
-	color: $themeStaticBlack;
-}
-.text-white-primary {
-	color: $themeWhiteColor !important;
-}
-.text-parimary-black {
-	color: $themePrimaryBlack;
-}
-.text-secondry-black {
-	color: $themeSecondryBlack;
-}
-.text-secondry-light-color {
-	color: $themeSeconderyLightColor;
-}
-.text-secondry-default {
+.text-theme-default {
 	color: $themeSecondryDefault;
 }
-.text-theme-danger {
-	color: $themeTextDanger;
+.text-theme-placeholder {
+	color: $inputPlaceholder;
 }
+
 //  ============> BACKGROUD COLOR'S <============
-.bg-static-white {
-	background-color: $themeWhiteColor;
+.bg-static-black {
+	background-color: $themeBlack;
 }
-.bg-static-light {
-	background-color: $themeLightColor;
+.bg-theme {
+	background-color: $themeBGcolor;
 }
-.bg-btn-theme {
-	background-color: $themeLightBlueColor;
+.bg-theme-light-black {
+	background-color: $themeSecondryDefault;
 }
-.bg-theme-light-blue{
-	background-color: $themeLightBlueColor !important;
+.bg-primary-light {
+	background-color: $primaryBg;
+}
+
+.b-theme{
+	border: 1px solid $themeOutline;
+}
+.b-theme-light{
+	border: 1px solid $themeSecondryDefault;
+}
+.br-2{
+	border-radius: $br-2;
 }
 //  ============> FONT-SIZE'S <============
 
+.font-9 {
+	font-size: $font-9;
+}
 .font-10 {
 	font-size: $font-10;
 }
@@ -63,6 +62,9 @@
 }
 .font-18 {
 	font-size: $font-18;
+}
+.font-19 {
+	font-size: $font-19;
 }
 .font-20 {
 	font-size: $font-20;

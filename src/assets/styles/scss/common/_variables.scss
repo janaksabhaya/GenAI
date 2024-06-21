@@ -1,28 +1,27 @@
 //  ============> COLOR'S <============
 
-$themeColor: #0c3c60;
-$themeStaticBlack: #000;
-$themeLightColor: #3c6d9a;
-$themeLoginBtnColor: #145585;
-$themeIconColor: #0072bc;
-$themeHoverColor: #10456d;
-$themePrimaryColor: #444444;
-$themePrimaryBlack: #333333;
-$themeSecondryDefault: #999999;
-$themeSecondryBlack: #555;
-$themeWhiteColor: #ffffff;
+$themeBGcolor: #EAEEF1;
+$themeBlack: #202325;
+$themeFontColor: #252525;
+$themeSeconderyFontColor: #E7E8E8;
+$themeSecondryDefault: #6A6C6E;
+$themeStaticWhite: #ffffff;
 $themeDefaultColor: #ccc;
-$themeSeconderyLightColor: #337ab7;
-$themeNavbarHover: #6dc1ef;
-$themeLightBlueColor: #4bc3ff;
-$themeTextDanger: #ff0000;
+$tableOutline: #2023251F;
+$tbodyOutline: #EAEAEA;
+$themeOutline: #D3D3D3;
+$inputPlaceholder: #858585;
+$primaryBg: #F2F2F2;
+$disaledFont: #ADADAD;
 
 //  ============> FONT-SIZE'S <============
+$font-9: 9px;
 $font-10: 10px;
 $font-12: 12px;
 $font-14: 14px;
 $font-16: 16px;
 $font-18: 18px;
+$font-19: 19px;
 $font-20: 20px;
 $font-24: 24px;
 $font-32: 32px;
@@ -31,3 +30,5 @@ $font-32: 32px;
 
 $themeBoxShadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 $themeModalBoxShadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.2);
+
+$br-2: 2px;

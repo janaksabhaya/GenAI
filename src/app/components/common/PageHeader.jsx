@@ -1,48 +1,44 @@
-import React, { useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import CurrencyModal from "@/pages/palette-platform/partials/CurrencyModal";
-import ReactButton from "../ui/ReactButton";
+import React from "react";
+import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { themeConfig } from "@/configs";
 import { Icon } from "@iconify/react";
-import Textinput from "../ui/TextInput";
 
 const PageHeader = ({ title = "" }) => {
-	const [isOpenModal, setIsOpenModal] = useState(false);
-	return (
-		<>
-			<Container fluid>
-				<div className="py-3 mb-3 border-bottom">
-					<Row className="align-items-center">
-						<Col xxl={6}>
-							<h4 className="mb-0 text-capitalize text-parimary-black font-32">{title}</h4>
-							{/* <p className="mb-0 d-flex align-items-center gap-1 mt-2 font-10 text-secondry-default">
-								Aggregated data as of April 30, 2024
-								<Link
-									role="button"
-									className="d-block text-decoration-none text-capitalize text-static-black"
-									onClick={() => {
-										setIsOpenModal(true);
-									}}
-								>
-									displayed in EUR
-								</Link>
-							</p> */}
-						</Col>
-						<Col xxl={6}>
-							{/* <div className="d-flex align-items-center justify-content-end border w-25 ms-auto rounded search--box">
-								<Textinput type="text" placeholder="search this site..." className="w-100" inputClass="border-0 shadow-none font-14" />
-								<ReactButton size="sm">
-									<Icon icon="ic:round-search" className="d-block" />
-								</ReactButton>
-							</div> */}
-						</Col>
-					</Row>
-				</div>
-			</Container>
-
-			<CurrencyModal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} onSave={() => setIsOpenModal(false)} />
-		</>
-	);
+  return (
+    <section className="header--section">
+      <Navbar expand="lg">
+        <Container fluid>
+          <Navbar.Brand
+            as="img"
+            src={themeConfig.images.Logo}
+            className="me-0 logo--img p-0"
+          />
+          <Nav className="w-100">
+            <NavDropdown
+              title="oprations"
+              className="text-capitalize p-0 menu--list text-decoration-none"
+            ></NavDropdown>
+            <NavDropdown
+              title="Smart Query"
+              className="text-capitalize p-0 menu--list text-decoration-none"
+            ></NavDropdown>
+          </Nav>
+          <NavDropdown
+            title={
+              <Icon
+                icon="mingcute:user-4-fill"
+                className="d-block text-white-primary"
+              />
+            }
+            className="account--dropdown"
+          >
+            <NavDropdown.Item href="#!">sign in</NavDropdown.Item>
+          </NavDropdown>
+        </Container>
+      </Navbar>
+      <div className="divider bg-light-black"></div>
+    </section>
+  );
 };
 
 export default PageHeader;

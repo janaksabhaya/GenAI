@@ -286,27 +286,7 @@ const velocityOptions = {
 export default function DashboardPage() {
   return (
     <div className="dashboard-page-content">
-      <PageHeader title="Dashboard" />
-      <Container fluid>
-        <Card className="">
-          <Card.Body as="div">
-            <Row>
-              <Col xxl={6} className="mb-3">
-                <ReactChart options={options} />
-              </Col>
-              <Col xxl={6} className="mb-3">
-                <ReactChart options={velocityOptions} />
-              </Col>
-              <Col xxl={6} className="mb-3">
-                <ReactChart options={barChartOptions} />
-              </Col>
-              <Col xxl={6} className="mb-3">
-                <ReactChart options={verticalBarChartOption} />
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
-      </Container>
+   
     </div>
   );
 }
