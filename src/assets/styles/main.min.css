@@ -13614,6 +13614,7 @@ body {
 .select--filter--modal .custom-select > div:first-of-type {
   min-height: auto !important;
   border-radius: 2px;
+  border-color: #D3D3D3 !important;
 }
 .select--filter--modal .custom-select .css-b62m3t-container,
 .select--filter--modal .custom-select .css-1hb7zxy-IndicatorsContainer {
