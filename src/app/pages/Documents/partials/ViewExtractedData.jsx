@@ -10,7 +10,7 @@ import EditMetric from "./EditMetric";
 import DocumentDetail from "./DocumentDetail";
 import ResolveModal from "./ResolveModal";
 
-const ViewExtractedData = ({ show, onClose, status }) => {
+const ViewExtractedData = ({ show, onClose, onSearchTextOnPdf, status }) => {
   const [state, changeState] = useMainState({
     jsonAction: false,
     isLoading: false,
@@ -21,6 +21,8 @@ const ViewExtractedData = ({ show, onClose, status }) => {
     isResolve: false,
     json: false,
     data: [],
+    tableType: "",
+    selectedRowIndex: "",
   });
 
   const documents = [
@@ -498,17 +500,21 @@ const ViewExtractedData = ({ show, onClose, status }) => {
                         </tr>
                       </thead>
                       <tbody>
-                        {doc.mapData.map((item, idx) => (
+                        {doc.mapData.map((item, index) => (
                           <tr
-                            key={idx}
+                            key={index}
                             className={`${
-                              state.selectFeild == idx && "bg-select-theme"
+                              state.tableType == "mapFields" && state.selectedRowIndex == index && "bg-select-theme"
                             }`}
                           >
                             <td
                               className="font-10 table-body-outline text-color text-center"
                               onClick={() => {
-                                changeState({ selectFeild: idx });
+                                changeState({ 
+                                  tableType: "mapFields",
+                                  selectedRowIndex: index,
+                                 });
+                                onSearchTextOnPdf(item.value)
                               }}
                             >
                               <Icon icon="ph:gps-bold" />
@@ -648,18 +654,23 @@ const ViewExtractedData = ({ show, onClose, status }) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {doc.unverifiedFields.map((field, idx) => (
+                      {doc.unverifiedFields.map((field, index) => (
                         <tr
-                          key={idx}
+                          key={index}
                           className={`${
-                            state.selectFeild == idx && "bg-select-theme"
+                            state.tableType == "unverified" && state.selectedRowIndex == index && "bg-select-theme"
                           }`}
                         >
                           <td
                             className="font-10 table-body-outline text-color text-center"
                             onClick={() => {
-                              changeState({ selectFeild: idx });
+                              changeState({ 
+                                tableType: "unverified",
+                                selectedRowIndex: index,
+                               });
+                              onSearchTextOnPdf(field.value)
                             }}
+                            
                           >
                             <Icon icon="ph:gps-bold" />
                           </td>

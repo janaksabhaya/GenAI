@@ -442,11 +442,13 @@ export default function DocumentsPage() {
         <>
           <ViewExtractedData
             onClose={() => changeState({ viewExtracted: false })}
+            onSearchTextOnPdf={(search) => changeState({ searchInPdfText: search })}
             show={state.viewExtracted}
             status={state.status}
           />
           <ViewPdf
             onClose={() => changeState({ viewExtracted: false })}
+            searchInPdfText={state.searchInPdfText}
             show={state.viewExtracted}
           />
         </>

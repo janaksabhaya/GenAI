@@ -4,7 +4,7 @@ import ReactDynamicModal from "@/components/ui/ReactModal";
 import useMainState from "@/hooks/useMainState";
 import React from "react";
 
-const ViewPdf = ({ show, onClose }) => {
+const ViewPdf = ({ show, onClose, searchInPdfText = "" }) => {
   const modalStyle = {
     overlay: {
       display: "flex",
@@ -41,6 +41,7 @@ const ViewPdf = ({ show, onClose }) => {
       ) : (
         <PDFViewer
           fileUrl={require("../../../data/Documents/Distribution/1545328_Stmt_20231227120925858.pdf")}
+          searchText={searchInPdfText}
         />
       )}
     </ReactDynamicModal>
