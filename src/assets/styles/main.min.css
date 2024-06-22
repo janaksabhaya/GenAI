@@ -12967,6 +12967,10 @@ body {
   line-height: 16px;
   text-align: start;
 }
+.section-page .table--container .rt-tbody {
+  max-height: calc(100vh - 250px);
+  overflow: auto;
+}
 .section-page .table--container .rt-tbody .rt-tr-group .rt-tr {
   font-size: 10px;
   color: #252525;
@@ -13250,6 +13254,10 @@ body {
 
 .bg-theme-success {
   background: rgba(60, 168, 58, 0.2);
+}
+
+.bg-theme-danger {
+  background: rgba(255, 0, 0, 0.1019607843);
 }
 
 .bg-table {
@@ -13609,6 +13617,7 @@ body {
 }
 
 .select--filter--modal .custom-select {
+  font-size: 10px;
   z-index: auto;
 }
 .select--filter--modal .custom-select > div:first-of-type {

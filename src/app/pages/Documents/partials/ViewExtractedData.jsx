@@ -168,6 +168,7 @@ const ViewExtractedData = ({ show, onClose, onSearchTextOnPdf, status }) => {
           default_value: "Portfolio_Valuation_MTD",
           pg: 1,
           score: "100%",
+          isDuplicated: true,
           status: "success",
         },
         {
@@ -252,6 +253,7 @@ const ViewExtractedData = ({ show, onClose, onSearchTextOnPdf, status }) => {
           default_value: "Portfolio_Valuation_MTD",
           pg: 1,
           score: "100%",
+          isDuplicated: true,
           status: "success",
         },
         {
@@ -505,7 +507,7 @@ const ViewExtractedData = ({ show, onClose, onSearchTextOnPdf, status }) => {
                             key={index}
                             className={`${
                               state.tableType == "mapFields" && state.selectedRowIndex == index && "bg-select-theme"
-                            }`}
+                            } ${item.isDuplicated && "bg-theme-danger"}`}
                           >
                             <td
                               className="font-10 table-body-outline text-color text-center"
