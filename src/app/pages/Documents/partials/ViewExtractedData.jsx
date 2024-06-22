@@ -524,7 +524,7 @@ const ViewExtractedData = ({ show, onClose, onSearchTextOnPdf, status }) => {
                             <td className="font-10 table-body-outline text-color">
                               {item.field_name}
                             </td>
-                            <td className="font-10 table-body-outline text-color">
+                            <td className={`font-10 table-body-outline text-color ${item.isDuplicated && "text-danger"}`}>
                               {item.value}
                             </td>
                             <td className="font-10 table-body-outline text-color">
@@ -533,7 +533,7 @@ const ViewExtractedData = ({ show, onClose, onSearchTextOnPdf, status }) => {
                             <td className="font-10 table-body-outline text-color text-center">
                               {item.pg}
                             </td>
-                            <td className="font-10 table-body-outline text-theme-warning text-center">
+                            <td className="font-10 table-body-outline text-center">
                               {item.score}
                             </td>
                             <td className="font-10 table-body-outline status-field text-center">
@@ -576,7 +576,7 @@ const ViewExtractedData = ({ show, onClose, onSearchTextOnPdf, status }) => {
                               <td className="font-10 table-body-outline text-color text-center">
                                 -
                               </td>
-                              <td className="font-10 table-body-outline text-theme-warning text-center">
+                              <td className="font-10 table-body-outline  text-center">
                                 -
                               </td>
                               <td className="font-10 table-body-outline status-field text-center">
@@ -679,13 +679,13 @@ const ViewExtractedData = ({ show, onClose, onSearchTextOnPdf, status }) => {
                           <td className="font-10 table-body-outline text-color">
                             {field.field_name}
                           </td>
-                          <td className="font-10 table-body-outline text-color">
+                          <td className={`font-10 table-body-outline text-color`}>
                             {field.value}
                           </td>
                           <td className="font-10 table-body-outline text-color text-center">
                             {field.pg}
                           </td>
-                          <td className="font-10 table-body-outline text-theme-warning text-center">
+                          <td className="font-10 table-body-outline text-center">
                             {field.score}
                           </td>
                           <td className="font-10 table-body-outline status-field text-center">

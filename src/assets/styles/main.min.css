@@ -13229,7 +13229,7 @@ body {
 }
 
 .text-theme-warning {
-  color: #DA7F3E;
+  color: #DA7F3E !important;
 }
 
 .text-theme-success {
