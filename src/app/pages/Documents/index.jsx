@@ -17,6 +17,7 @@ export default function DocumentsPage() {
   const [state, changeState] = useMainState({
     rowCount: 0,
     pagesize: 20,
+    status:'',
     viewExtracted: false,
     columns: [
       {
@@ -40,7 +41,7 @@ export default function DocumentsPage() {
                   eventKey="1"
                   className="font-10 text-color"
                   onClick={() => {
-                    changeState({ viewExtracted: true });
+                    changeState({ viewExtracted: true , status:row.original.status});
                   }}
                 >
                   View Document
@@ -437,13 +438,12 @@ export default function DocumentsPage() {
           show={state.filterModal}
         />
       )}
-
-      {console.log(state.viewExtracted, "fdsfhgfjdh")}
       {state.viewExtracted && (
         <>
           <ViewExtractedData
             onClose={() => changeState({ viewExtracted: false })}
             show={state.viewExtracted}
+            status={state.status}
           />
           <ViewPdf
             onClose={() => changeState({ viewExtracted: false })}

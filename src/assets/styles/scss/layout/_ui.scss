@@ -74,11 +74,6 @@
 	}
 }
 
-.theme--checkbox {
-	accent-color: $themeBlack;
-	height: 14px;
-	width: 14px;
-}
 
 .custom-dropdown {
 	&.table-action {
@@ -150,5 +145,21 @@
 			box-shadow: none;
 			border-color: $themeOutline;
 		}
+	}
+}
+
+.dynamic--content-wrapper{
+	input{
+		height: 14px;
+		width: 14px;
+		accent-color: $themeBlack;
+	}	
+}
+
+.checkbox-wrapper{
+	input{
+		accent-color: $themeBlack;
+		height: 14px;
+		width: 14px;
 	}
 }

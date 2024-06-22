@@ -1,4 +1,7 @@
+import PDFViewer from "@/components/common/PDFViewer";
+import Loader from "@/components/ui/Loader";
 import ReactDynamicModal from "@/components/ui/ReactModal";
+import useMainState from "@/hooks/useMainState";
 import React from "react";
 
 const ViewPdf = ({ show, onClose }) => {
@@ -19,15 +22,27 @@ const ViewPdf = ({ show, onClose }) => {
       padding: "0",
     },
   };
+
+  const [state, changeState] = useMainState({
+    isLoading: false,
+  });
   return (
     <ReactDynamicModal
       title="View PDF"
       show={show}
-      className=""
+      className="full-screen-modal"
       onClose={onClose}
       additionalStyle={modalStyle}
     >
-      Hello
+      {state.isLoading ? (
+        <div className="d-flex align-items-center justify-content-center loading-height">
+          <Loader isLoader={state.isLoading} />
+        </div>
+      ) : (
+        <PDFViewer
+          fileUrl={require("../../../data/Documents/Distribution/1545328_Stmt_20231227120925858.pdf")}
+        />
+      )}
     </ReactDynamicModal>
   );
 };

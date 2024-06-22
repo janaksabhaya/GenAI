@@ -129,6 +129,10 @@
         .setting-li {
             height: 48px;
             border-bottom: 1px solid $themeOutline;
+
+            &:last-child {
+                border-bottom: none;
+            }
         }
     }
 }
@@ -188,7 +192,7 @@
 .full-screen-modal {
 
     .loading-height {
-        height: calc(100% - 50px);
+        height: calc(100vh - 100px);
     }
 
     .view--modal--header {
@@ -200,6 +204,12 @@
         .divider {
             width: 2px;
             height: 20px;
+        }
+
+        &.duplicate-table {
+            margin-top: 15px;
+            border-top: 1px solid $themeOutline;
+            padding-top: 12px;
         }
     }
 
@@ -266,4 +276,26 @@
         }
     }
 
+}
+
+.select--version--modal {
+    .dynamic--content-wrapper {
+        display: block !important;
+
+        .dynamic--radio-content {
+            height: 48px;
+            border-bottom: 1px solid $themeOutline;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+.document--details {
+    .json--file {
+        height: 500px;
+        overflow: auto;
+    }
 }

@@ -25,7 +25,7 @@ function Radio({ name, value, options, onChange, error, disabled, heading, wrapp
 									disabled={disabled}
 								/>
 								<span className="radio--checkmark d-block"></span>
-								<p className="text-capitalize">{option.label}</p>
+								<p className="text-capitalize mb-0 text-color font-12 ms-2">{option.label}</p>
 							</label>
 						);
 					})}

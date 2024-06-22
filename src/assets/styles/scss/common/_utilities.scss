@@ -22,9 +22,11 @@
 .text-theme-placeholder {
 	color: $inputPlaceholder;
 }
+
 .text-theme-warning {
 	color: $themeWarning;
 }
+
 .text-theme-success {
 	color: $themeSuccess;
 }
@@ -45,8 +47,18 @@
 .bg-primary-light {
 	background-color: $primaryBg;
 }
+
+.bg-theme-success {
+	background: $themeSuccessHighlight;
+}
+
+
 .bg-table {
 	background-color: $tableBgColor;
+}
+
+.bg-select-theme {
+	background-color: $themeSelect;
 }
 
 .b-theme {
@@ -104,16 +116,18 @@
 }
 
 .theme-box-shadow {
-	box-shadow:$themeBoxShadow;
+	box-shadow: $themeBoxShadow;
 }
 
 
-.fw-400{
+.fw-400 {
 	font-weight: $fw-400;
 }
-.fw-500{
+
+.fw-500 {
 	font-weight: $fw-500;
 }
-.fw-600{
+
+.fw-600 {
 	font-weight: $fw-600;
 }
